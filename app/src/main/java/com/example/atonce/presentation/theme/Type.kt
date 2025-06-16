@@ -1,4 +1,4 @@
-package com.example.atonce.ui.theme
+package com.example.atonce.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

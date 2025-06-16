@@ -1,4 +1,4 @@
-package com.example.atonce
+package com.example.atonce.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

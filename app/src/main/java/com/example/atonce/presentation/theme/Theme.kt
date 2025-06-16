@@ -1,6 +1,5 @@
-package com.example.atonce.ui.theme
+package com.example.atonce.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
