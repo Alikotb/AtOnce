@@ -1,6 +1,8 @@
 package com.example.atonce.presentation.store
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -8,9 +10,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,7 +39,10 @@ import com.example.atonce.presentation.component.TapBarBtn
 @Preview(showBackground = true)
 @Composable
 fun StoreScreen(){
+    var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
+    var filterSearch by remember { mutableStateOf("") }
+    Log.d("asd", "StoreScreen: search: $searchText ** filter : $filterSearch")
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -50,11 +60,53 @@ fun StoreScreen(){
             )
             Spacer(Modifier.weight(1f))
         }
-        MySearchBar{
-            searchText=it
+        Row {
+            MySearchBar(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp)
+            ) {
+                searchText = it
+            }
+
+            Spacer(modifier = Modifier.width(4.dp))
+
+            Box {
+                TapBarBtn(
+                    icon = Icons.Filled.FilterList,
+                    onIconClick = {
+                        expanded.value = !expanded.value
+                    }
+                )
+
+                DropdownMenu(
+                    expanded = expanded.value,
+                    onDismissRequest = { expanded.value = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Option 1") },
+                        onClick = {
+                            expanded.value = false
+                            filterSearch = "Option 1"
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Option 2") },
+                        onClick = {
+                            expanded.value = false
+                            filterSearch = "Option 1"
+
+                        }
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(4.dp))
+
         }
         LazyVerticalGrid(
-            modifier = Modifier.padding(top = 16.dp).padding(horizontal = 12.dp),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .padding(horizontal = 12.dp),
             state = rememberLazyGridState(),
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(
@@ -72,6 +124,5 @@ fun StoreScreen(){
         }
 
     }
-
 
 }
