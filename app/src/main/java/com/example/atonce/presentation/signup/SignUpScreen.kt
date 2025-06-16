@@ -123,6 +123,28 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        CustomPasswordField(
+            value = password,
+            onValueChange = { password = it },
+            label = "Password",
+            placeholder = "Enter your password",
+            visible = passwordVisible,
+            onVisibilityChange = { passwordVisible = it }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        CustomPasswordField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it },
+            label = "Confirm Password",
+            placeholder = "Re-enter your password",
+            visible = confirmPasswordVisible,
+            onVisibilityChange = { confirmPasswordVisible = it }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         CustomTextField(
             value = phone,
             onValueChange = { phone = it },
@@ -170,28 +192,6 @@ fun SignUpScreen(
             onValueChange = { invitationCode = it },
             label = "Invitation Code",
             placeholder = "Enter invitation code"
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        CustomPasswordField(
-            value = password,
-            onValueChange = { password = it },
-            label = "Password",
-            placeholder = "Enter your password",
-            visible = passwordVisible,
-            onVisibilityChange = { passwordVisible = it }
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        CustomPasswordField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            label = "Confirm Password",
-            placeholder = "Re-enter your password",
-            visible = confirmPasswordVisible,
-            onVisibilityChange = { confirmPasswordVisible = it }
         )
 
         Spacer(modifier = Modifier.height(32.dp))
