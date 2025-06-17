@@ -3,6 +3,8 @@ package com.example.atonce.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.atonce.presentation.home.HomeScreen
+import com.example.atonce.presentation.login.LoginScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.store.StoreScreen
 import com.example.atonce.presentation.theme.AtOnceTheme
@@ -15,8 +17,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             AtOnceTheme {
                 StoreScreen()
+//                LoginScreen()
                 //SignUpScreen()
-                // HomeScreen()
+//                 HomeScreen()
             }
         }
     }

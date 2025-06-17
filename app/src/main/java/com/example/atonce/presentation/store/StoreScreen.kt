@@ -42,7 +42,6 @@ fun StoreScreen(){
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
-    Log.d("asd", "StoreScreen: search: $searchText ** filter : $filterSearch")
     Column (
         modifier = Modifier
             .fillMaxSize()
