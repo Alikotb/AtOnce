@@ -63,4 +63,12 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     implementation ("androidx.compose.material3:material3:1.1.1")
+
+    //animation
+    implementation ("androidx.compose.animation:animation:1.6.1")
+
+    //navigation
+    val nav_version = "2.8.8"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 }
