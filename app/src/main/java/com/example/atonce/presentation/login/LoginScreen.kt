@@ -124,12 +124,11 @@ fun LoginScreen() {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "Don’t have an account yet ?",
                 fontSize = REGISTERHERE.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 12.dp,end = 8.dp)
+                modifier = Modifier.padding(top = 12.dp, start = 12.dp)
             )
             TextButton(
                 onClick = {}
@@ -139,9 +138,9 @@ fun LoginScreen() {
                     fontSize = REGISTERHERE.sp,
                     color = Color(0xff1A998E),
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(end = 8.dp)
                 )
             }
+
 
         }
 
