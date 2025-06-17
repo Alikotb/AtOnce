@@ -39,6 +39,7 @@ fun OrderScreen(){
             )
             Spacer(Modifier.weight(1f))
         }
+        OrdersChips()
         LazyColumn (
             contentPadding = PaddingValues(
                 start = 8.dp,

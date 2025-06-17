@@ -119,11 +119,12 @@ fun LoginScreen() {
             )
         }
         Spacer(
-            Modifier.height((screenHeight * 0.02).dp)
+            Modifier.height((screenHeight * 0.01).dp)
         )
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
+            Spacer(Modifier.weight(1f))
             Text(
                 text = "Don’t have an account yet ?",
                 fontSize = REGISTERHERE.sp,
