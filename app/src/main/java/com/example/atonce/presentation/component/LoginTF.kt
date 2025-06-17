@@ -63,8 +63,9 @@ fun LoginPasswordTF(txt: String = "Password", msg :String = "***************" ,o
             },
             shape = MaterialTheme.shapes.large,
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF0F0F0),
-                unfocusedContainerColor = Color(0xFFF0F0F0),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
             ),
             trailingIcon = {
                 IconButton(onClick = { passwordHidden = !passwordHidden }) {
@@ -110,8 +111,9 @@ fun LoginTF(txt: String = "Email", msg :String = "ali@gmail.com" ,
             },
             shape = MaterialTheme.shapes.large,
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF0F0F0),
-                unfocusedContainerColor = Color(0xFFF0F0F0),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
             ),
 
             trailingIcon = {

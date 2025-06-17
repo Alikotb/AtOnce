@@ -29,6 +29,10 @@ fun HomeScreen() {
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
         Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
+        Warehouse("Hamada Pharmacy", "Alexandria", 720, 5),
+
+        Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
+        Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
         Warehouse("Hamada Pharmacy", "Alexandria", 720, 5)
     )
 
@@ -42,7 +46,7 @@ fun HomeScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF9F9F9))
-            .padding(top = 16.dp)
+            .padding(vertical = 16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -91,12 +95,13 @@ fun HomeScreen() {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 32.dp)
         ) {
             items(warehouses) { warehouse ->
                 WarehouseCard(warehouse = warehouse)
             }
         }
+        Spacer(Modifier.height(32.dp))
     }
 }
 
