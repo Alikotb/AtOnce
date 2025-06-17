@@ -1,6 +1,8 @@
 package com.example.atonce.presentation.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,11 +51,12 @@ fun MedicineCard(){
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box (
                 modifier = Modifier
-                    .width((screenWidth * 0.33).dp)
+                    .width((screenWidth * 0.4).dp)
                     .height((screenHeight * 0.125).dp)
                     .padding(top = 8.dp)
                     .clip(RoundedCornerShape(16.dp)),
@@ -63,14 +66,14 @@ fun MedicineCard(){
                     painter = painterResource(R.drawable.medicin_card_img),
                     contentDescription = "",
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.FillBounds
                 )
             }
             Row {
                 Text(
                     text = "Panadol Hamada",
                     fontSize = MEDICINE_CARD_MAIN_FONT.sp,
-                    modifier = Modifier.padding(start = 8.dp, top = 8.dp)
+                    modifier = Modifier.padding(start = 12.dp, top = 8.dp)
                 )
                 Spacer(Modifier.weight(1f))
             }
@@ -78,7 +81,7 @@ fun MedicineCard(){
                 Text(
                     text = "Discount : 26%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
-                    modifier = Modifier.padding(start = 8.dp, top = 4.dp),
+                    modifier = Modifier.padding(start = 12.dp),
                     color = Color(0xFF1A998E)
                 )
                 Spacer(Modifier.weight(1f))
@@ -87,7 +90,7 @@ fun MedicineCard(){
                 Text(
                     text = "Price : 21.76 EGP",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
-                    modifier = Modifier.padding(start = 8.dp, top = 4.dp)
+                    modifier = Modifier.padding(start = 12.dp)
                 )
                 Spacer(Modifier.weight(1f))
             }
