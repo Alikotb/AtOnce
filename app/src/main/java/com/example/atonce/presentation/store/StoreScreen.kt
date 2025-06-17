@@ -34,6 +34,7 @@ import com.example.atonce.presentation.comon.FontSizes.TITLE
 import com.example.atonce.presentation.component.MedicineCard
 import com.example.atonce.presentation.component.MySearchBar
 import com.example.atonce.presentation.component.TapBarBtn
+import com.example.atonce.presentation.theme.SemiBoldFont
 
 
 @Preview(showBackground = true)
@@ -55,7 +56,8 @@ fun StoreScreen(){
                 text = "Store Screen",
                 fontSize = TITLE.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding( top = 8.dp, bottom = 24.dp)
+                modifier = Modifier.padding( top = 8.dp, bottom = 24.dp),
+                fontFamily = SemiBoldFont
             )
             Spacer(Modifier.weight(1f))
         }
