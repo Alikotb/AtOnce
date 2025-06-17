@@ -69,16 +69,8 @@ dependencies {
     //animation
     implementation ("androidx.compose.animation:animation:1.6.1")
 
-    //navigation
-    val nav_version = "2.8.8"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-
-
     //serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
-
-
 
     //Scoped API
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.7")
@@ -92,8 +84,7 @@ dependencies {
     val nav_version = "2.8.8"
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation ("com.google.code.gson:gson:2.10.1")
-
-
+    
     val compose_version = "1.0.0"
     implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
 

@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.navifation
+package com.example.atonce.presentation.navigation
 
 import kotlinx.serialization.Serializable
 

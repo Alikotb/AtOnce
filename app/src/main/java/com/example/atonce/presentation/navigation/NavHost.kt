@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.HomeScreen
 import com.example.atonce.presentation.login.LoginScreen
-import com.example.atonce.presentation.navifation.ScreenRoute
+import com.example.atonce.presentation.navigation.ScreenRoute
 import com.example.atonce.presentation.orders.OrderScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
