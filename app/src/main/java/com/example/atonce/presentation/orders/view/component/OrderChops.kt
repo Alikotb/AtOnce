@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.orders
+package com.example.atonce.presentation.orders.view.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll

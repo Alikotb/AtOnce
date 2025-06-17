@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.login
+package com.example.atonce.presentation.login.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

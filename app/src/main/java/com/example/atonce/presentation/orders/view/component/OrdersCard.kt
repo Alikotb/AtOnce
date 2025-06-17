@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.orders
+package com.example.atonce.presentation.orders.view.component
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
