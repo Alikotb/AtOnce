@@ -2,9 +2,11 @@ package com.example.atonce.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -32,3 +34,9 @@ val Typography = Typography(
     )
     */
 )
+
+val BoldFont = FontFamily(Font(R.font.poppins_bold))
+val SemiBoldFont = FontFamily(Font(R.font.poppins_semibold))
+val MediumFont = FontFamily(Font(R.font.poppins_medium))
+val RegularFont = FontFamily(Font(R.font.poppins_regular))
+val ItalicFont = FontFamily(Font(R.font.poppins_italic))

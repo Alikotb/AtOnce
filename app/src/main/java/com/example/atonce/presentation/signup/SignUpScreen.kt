@@ -1,39 +1,28 @@
 package com.example.atonce.presentation.signup
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
+
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-
-// Custom Colors
-val PrimaryColor = Color(0xFF1A998E)
-val BlackColor = Color(0xFF000000)
-val WhiteColor = Color(0xFFFFFFFF)
+import androidx.compose.ui.unit.sp
+import com.example.atonce.presentation.signup.components.CustomDropdownMenu
+import com.example.atonce.presentation.signup.components.CustomPasswordField
+import com.example.atonce.presentation.signup.components.CustomTextField
+import com.example.atonce.presentation.theme.BlackColor
+import com.example.atonce.presentation.theme.PrimaryColor
+import com.example.atonce.presentation.theme.SemiBoldFont
+import com.example.atonce.presentation.theme.WhiteColor
 
 @Composable
 fun SignUpScreen(
@@ -86,8 +75,8 @@ fun SignUpScreen(
 
             Text(
                 "Register New Account",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
+                fontFamily = SemiBoldFont,
+                fontSize = 20.sp,
                 color = BlackColor,
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center
@@ -213,8 +202,8 @@ fun SignUpScreen(
         ) {
             Text(
                 "Register",
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Bold
+                fontFamily = SemiBoldFont,
+                fontSize = 16.sp
             )
         }
 
@@ -222,231 +211,6 @@ fun SignUpScreen(
     }
 }
 
-@Composable
-fun CustomTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    placeholder: String,
-    keyboardType: KeyboardType = KeyboardType.Text,
-    singleLine: Boolean = true
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
 
-    val borderWidth by animateDpAsState(
-        targetValue = if (isFocused) 2.dp else 1.dp,
-        animationSpec = tween(durationMillis = 300)
-    )
-    val borderColor by animateColorAsState(
-        targetValue = if (isFocused) PrimaryColor else Color.LightGray,
-        animationSpec = tween(durationMillis = 300)
-    )
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = BlackColor
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .border(
-                    width = borderWidth,
-                    color = borderColor,
-                    shape = RoundedCornerShape(12.dp)
-                ),
-            placeholder = {
-                Text(
-                    text = placeholder,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
-                )
-            },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = WhiteColor,
-                unfocusedContainerColor = WhiteColor,
-                cursorColor = PrimaryColor,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = BlackColor,
-                unfocusedTextColor = BlackColor
-            ),
-            textStyle = MaterialTheme.typography.bodyMedium,
-            singleLine = singleLine,
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-            interactionSource = interactionSource
-        )
-    }
-}
 
-@Composable
-fun CustomPasswordField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    placeholder: String,
-    visible: Boolean,
-    onVisibilityChange: (Boolean) -> Unit
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
-
-    val borderWidth by animateDpAsState(
-        targetValue = if (isFocused) 2.dp else 1.dp,
-        animationSpec = tween(durationMillis = 300)
-    )
-    val borderColor by animateColorAsState(
-        targetValue = if (isFocused) PrimaryColor else Color.LightGray,
-        animationSpec = tween(durationMillis = 300)
-    )
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = BlackColor
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .border(
-                    width = borderWidth,
-                    color = borderColor,
-                    shape = RoundedCornerShape(12.dp)
-                ),
-            placeholder = {
-                Text(
-                    text = placeholder,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
-                )
-            },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = WhiteColor,
-                unfocusedContainerColor = WhiteColor,
-                cursorColor = PrimaryColor,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = BlackColor,
-                unfocusedTextColor = BlackColor
-            ),
-            textStyle = MaterialTheme.typography.bodyMedium,
-            singleLine = true,
-            visualTransformation = if (visible) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                IconButton(onClick = { onVisibilityChange(!visible) }) {
-                    Icon(
-                        imageVector = if (visible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        contentDescription = if (visible) "Hide password" else "Show password",
-                        tint = BlackColor
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            interactionSource = interactionSource
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomDropdownMenu(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    options: List<String>,
-    expanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
-
-    val borderWidth by animateDpAsState(
-        targetValue = if (isFocused) 2.dp else 1.dp,
-        animationSpec = tween(durationMillis = 300)
-    )
-    val borderColor by animateColorAsState(
-        targetValue = if (isFocused) PrimaryColor else Color.LightGray,
-        animationSpec = tween(durationMillis = 300)
-    )
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = BlackColor
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { onExpandedChange(!expanded) }
-        ) {
-            OutlinedTextField(
-                value = value,
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .border(
-                        width = borderWidth,
-                        color = borderColor,
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .menuAnchor(),
-                readOnly = true,
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-                },
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = WhiteColor,
-                    unfocusedContainerColor = WhiteColor,
-                    cursorColor = PrimaryColor,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedTextColor = BlackColor,
-                    unfocusedTextColor = BlackColor
-                ),
-                textStyle = MaterialTheme.typography.bodyMedium,
-                interactionSource = interactionSource
-            )
-
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { onExpandedChange(false) },
-                modifier = Modifier
-                    .background(WhiteColor)
-                    .border(
-                        width = 1.dp,
-                        color = Color.LightGray,
-                        shape = RoundedCornerShape(12.dp)
-                    )
-            ) {
-                options.forEach { option ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(
-                                text = option,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = BlackColor
-                            )
-                        },
-                        onClick = {
-                            onValueChange(option)
-                            onExpandedChange(false)
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
