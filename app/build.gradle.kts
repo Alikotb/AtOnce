@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+    kotlin("kapt")
 }
 
 android {
@@ -63,4 +65,28 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     implementation ("androidx.compose.material3:material3:1.1.1")
+
+
+    //serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+
+
+    //Scoped API
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose-android:2.8.7")
+
+    // retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+
+    //navigation
+    val nav_version = "2.8.8"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation ("com.google.code.gson:gson:2.10.1")
+
+
+    val compose_version = "1.0.0"
+    implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
+
 }
