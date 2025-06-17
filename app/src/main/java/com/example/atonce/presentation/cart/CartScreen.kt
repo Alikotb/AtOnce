@@ -2,8 +2,10 @@ package com.example.atonce.presentation.cart
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -109,8 +111,8 @@ fun CartScreen() {
         )
 
         LazyColumn(
-            modifier = Modifier
-                .weight(1f)
+            modifier = Modifier.weight(1f),
+            contentPadding = PaddingValues(bottom = 140.dp)
         ) {
             items(cartItems) { item ->
                 AddToCartCard(
@@ -132,6 +134,7 @@ fun CartScreen() {
                 .background(Color.White)
                 .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
                 .padding(horizontal = 16.dp, vertical = 12.dp)
+                .padding(bottom = 56.dp)
         ) {
             OrderInfo(
                 subtotal = subtotal,
