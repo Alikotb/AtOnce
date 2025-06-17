@@ -2,29 +2,24 @@ package com.example.atonce.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
-
-sealed class ScreenRoute {
+@Serializable
+sealed class ScreenRoute(val route: String) {
     @Serializable
-    object SplashScreen : ScreenRoute()
+    object SplashScreen : ScreenRoute("splash")
     @Serializable
-    object HomeScreen : ScreenRoute()
-
+    object HomeScreen : ScreenRoute("home")
     @Serializable
-    object LoginScreen : ScreenRoute()
+    object LoginScreen : ScreenRoute("login")
     @Serializable
-    object SignupScreen : ScreenRoute()
-
+    object SignupScreen : ScreenRoute("signup")
     @Serializable
-    object StoreScreen : ScreenRoute()
+    object StoreScreen : ScreenRoute("store")
     @Serializable
-    object SearchScreen : ScreenRoute()
-
+    object SearchScreen : ScreenRoute("search")
     @Serializable
-    object CartScreen : ScreenRoute()
+    object CartScreen : ScreenRoute("cart")
     @Serializable
-    object OrderScreen : ScreenRoute()
-
+    object OrderScreen : ScreenRoute("order")
     @Serializable
-    object ProfileScreen : ScreenRoute()
-
+    object ProfileScreen : ScreenRoute("profile")
 }

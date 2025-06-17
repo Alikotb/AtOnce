@@ -22,7 +22,7 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.SplashScreen
+        startDestination = ScreenRoute.HomeScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {
