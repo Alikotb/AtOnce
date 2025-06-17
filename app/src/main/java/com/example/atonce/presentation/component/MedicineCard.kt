@@ -24,12 +24,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.MEDICINE_CARD_MAIN_FONT
 import com.example.atonce.presentation.comon.FontSizes.MEDICINE_CARD_MAIN_PRICE
+import com.example.atonce.presentation.theme.MediumFont
+import com.example.atonce.presentation.theme.SemiBoldFont
 
 
 @Preview(showBackground = true)
@@ -82,7 +86,8 @@ fun MedicineCard(){
                     text = "Discount : 26%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
-                    color = Color(0xFF1A998E)
+                    color = Color(0xFF1A998E),
+                    fontFamily = SemiBoldFont
                 )
                 Spacer(Modifier.weight(1f))
             }
@@ -90,7 +95,8 @@ fun MedicineCard(){
                 Text(
                     text = "Price : 21.76 EGP",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
-                    modifier = Modifier.padding(start = 12.dp)
+                    modifier = Modifier.padding(start = 12.dp),
+                    fontFamily = SemiBoldFont
                 )
                 Spacer(Modifier.weight(1f))
             }
