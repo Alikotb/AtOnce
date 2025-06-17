@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.orders
+package com.example.atonce.presentation.orders.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.comon.FontSizes.TITLE
+import com.example.atonce.presentation.orders.view.component.OrdersCard
+import com.example.atonce.presentation.orders.view.component.OrdersChips
 
 
 @Preview(showBackground = true)
@@ -50,7 +52,7 @@ fun OrderScreen(){
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ){
             items(10){
-               OrdersCard()
+                OrdersCard()
 
             }
         }

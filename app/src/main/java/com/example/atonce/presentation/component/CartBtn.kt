@@ -18,10 +18,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.comon.FontSizes.MEDICINE_CARD_MAIN_PRICE
+import com.example.atonce.presentation.theme.Til
 
 
 @Composable
-fun CustomCartBtn(onClick : ()->Unit = {} ,imageVictor: ImageVector = Icons.Filled.ShoppingCart,msg: String = "Add to cart !!"){
+fun CustomCartBtn(onClick : ()->Unit = {} ,imageVictor: ImageVector = Icons.Filled.ShoppingCart,msg: String = "Add to cart !!",color:Color = Til){
     Button(
         onClick = {
             onClick()
@@ -29,7 +30,7 @@ fun CustomCartBtn(onClick : ()->Unit = {} ,imageVictor: ImageVector = Icons.Fill
         modifier = Modifier.padding(horizontal = 8.dp).padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
         colors =ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF1A998E),
+            containerColor = color,
             contentColor = MaterialTheme.colorScheme.surface
         )
     ){
