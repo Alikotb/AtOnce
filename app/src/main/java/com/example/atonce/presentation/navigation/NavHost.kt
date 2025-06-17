@@ -12,6 +12,9 @@ import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.navifation.ScreenRoute
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.search_screen.vies.SearchScreen
+import com.example.atonce.presentation.login.LoginScreen
+import com.example.atonce.presentation.navigation.ScreenRoute
+import com.example.atonce.presentation.orders.OrderScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
@@ -25,7 +28,7 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.SplashScreen
+        startDestination = ScreenRoute.HomeScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {
