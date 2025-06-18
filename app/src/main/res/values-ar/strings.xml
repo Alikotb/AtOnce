@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AtOnce</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="welcome_back_login_now">"   مرحبًا بعودتك \n\nسجل الدخول الآن"</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="don_t_have_an_account_yet">لا تملك حسابًا بعد؟</string>
+    <string name="register_here">سجّل هنا</string>
+    <string name="password">كلمة المرور</string>
+    <string name="discount">الخصم :</string>
+    <string name="price">"السعر : "</string>
+    <string name="egp">" جنيه"</string>
+    <string name="add_to_cart">أضف إلى السلة !!</string>
+    <string name="search_screen">شاشة البحث</string>
+    <string name="all_suppliers">جميع المورّدين</string>
+    <string name="search_for_medecin">ابحث عن دواء</string>
+    <string name="ordered">تم الطلب</string>
+    <string name="preparing">قيد التحضير</string>
+    <string name="delivering">جارٍ التوصيل</string>
+    <string name="delivered">تم التوصيل</string>
+    <string name="canceled">تم الإلغاء</string>
+    <string name="returned">تم الإرجاع</string>
+    <string name="id">"المعرف: "</string>
+    <string name="pm">م</string>
+    <string name="total">"الإجمالي : "</string>
+    <string name="items">" عناصر"</string>
+    <string name="orders_screen">شاشة الطلبات</string>
+</resources>
