@@ -19,10 +19,7 @@ private val DarkColorScheme = darkColorScheme(
     surfaceDim = AllSuppliers,
     background = DarkLightGrayColor,
     onBackground = DarkWhiteColor,
-    onSurfaceVariant = DarkGrayText
-    //ali
-    surfaceDim = AllSuppliers,
-
+    onSurfaceVariant = DarkGrayText,
 )
 
 private val LightColorScheme = lightColorScheme(
