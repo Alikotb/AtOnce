@@ -28,7 +28,7 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.HomeScreen
+        startDestination = ScreenRoute.LoginScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {
@@ -62,11 +62,25 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.LoginScreen> {
             bottomBarState.value = false
-             LoginScreen()
+             LoginScreen(
+                 onRegisterClick = {
+                     navController.navigate(ScreenRoute.SignupScreen)
+                 }
+             )
         }
         composable<ScreenRoute.SignupScreen> {
             bottomBarState.value = false
-            SignUpScreen()
+            SignUpScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onRegisterClick = {
+                    navController.navigate(ScreenRoute.HomeScreen) {
+                        popUpTo(0) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
         composable<ScreenRoute.HomeScreen> {
             bottomBarState.value = true
@@ -103,7 +117,11 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.ProfileScreen> {
             bottomBarState.value = false
-            ProfileScreen()
+            ProfileScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
 
 

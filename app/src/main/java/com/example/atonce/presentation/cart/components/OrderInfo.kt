@@ -31,16 +31,6 @@ fun OrderInfo(
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
-        Text(
-            text = "Order Info",
-            fontFamily = SemiBoldFont,
-            fontSize = 20.sp,
-            color = Color(0xFF666666),
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,

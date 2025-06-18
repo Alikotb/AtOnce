@@ -48,7 +48,9 @@ import com.example.atonce.R
 import com.example.atonce.presentation.theme.WhiteColor
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    onBackClick: () -> Unit = {},
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +70,7 @@ fun ProfileScreen() {
                 tint = Color.Black,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {  }
+                    .clickable { onBackClick() }
             )
 
             Text(

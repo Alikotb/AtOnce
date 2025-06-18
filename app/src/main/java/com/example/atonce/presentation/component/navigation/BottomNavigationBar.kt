@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.atonce.presentation.navigation.ScreenRoute
 import com.example.atonce.presentation.theme.PrimaryColor
 import com.example.atonce.presentation.theme.WhiteColor
 
@@ -45,7 +46,6 @@ fun CustomBottomNavBar(navController: NavHostController) {
 
     Surface(
         modifier = Modifier
-
             .height(80.dp)
             .padding(start = 22.dp, end = 22.dp, top = 16.dp),
         shape = RoundedCornerShape(18.dp),
@@ -67,7 +67,7 @@ fun CustomBottomNavBar(navController: NavHostController) {
                 ) {
                     IconButton(onClick = {
                         navController.navigate(item.route) {
-                            popUpTo(navController.graph.findStartDestination().id) { inclusive = false }
+                            popUpTo(ScreenRoute.HomeScreen) { inclusive = false }
                             launchSingleTop = true
                         }
                     }) {
