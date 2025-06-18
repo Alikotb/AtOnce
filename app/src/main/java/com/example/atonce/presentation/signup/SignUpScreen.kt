@@ -12,10 +12,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.signup.components.CustomDropdownMenu
 import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
@@ -55,7 +57,8 @@ fun SignUpScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(horizontal = 24.dp).padding(vertical =24.dp)
+            .padding(horizontal = 24.dp)
+            .padding(vertical = 24.dp)
             .verticalScroll(rememberScrollState())
     ) {
         Row(
@@ -77,7 +80,7 @@ fun SignUpScreen(
             }
 
             Text(
-                "Register New Account",
+                stringResource(R.string.register_new_account),
                 fontFamily = SemiBoldFont,
                 fontSize = 18.sp,
                 color = colors.onBackground,
@@ -90,8 +93,8 @@ fun SignUpScreen(
         CustomTextField(
             value = username,
             onValueChange = { username = it },
-            label = "Username",
-            placeholder = "Enter your username"
+            label = stringResource(R.string.username),
+            placeholder = stringResource(R.string.enter_your_username)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -99,8 +102,8 @@ fun SignUpScreen(
         CustomTextField(
             value = pharmacyName,
             onValueChange = { pharmacyName = it },
-            label = "Pharmacy Name",
-            placeholder = "Enter pharmacy name"
+            label = stringResource(R.string.pharmacy_name),
+            placeholder = stringResource(R.string.enter_pharmacy_name)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -108,8 +111,8 @@ fun SignUpScreen(
         CustomTextField(
             value = email,
             onValueChange = { email = it },
-            label = "Email",
-            placeholder = "Enter your email",
+            label = stringResource(R.string.email_signup),
+            placeholder = stringResource(R.string.enter_your_email),
             keyboardType = KeyboardType.Email
         )
 
@@ -118,8 +121,8 @@ fun SignUpScreen(
         CustomPasswordField(
             value = password,
             onValueChange = { password = it },
-            label = "Password",
-            placeholder = "Enter your password",
+            label = stringResource(R.string.password_signup),
+            placeholder = stringResource(R.string.enter_your_password),
             visible = passwordVisible,
             onVisibilityChange = { passwordVisible = it }
         )
@@ -129,8 +132,8 @@ fun SignUpScreen(
         CustomPasswordField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = "Confirm Password",
-            placeholder = "Re-enter your password",
+            label = stringResource(R.string.confirm_password),
+            placeholder = stringResource(R.string.re_enter_your_password),
             visible = confirmPasswordVisible,
             onVisibilityChange = { confirmPasswordVisible = it }
         )
@@ -140,8 +143,8 @@ fun SignUpScreen(
         CustomTextField(
             value = phone,
             onValueChange = { phone = it },
-            label = "Phone",
-            placeholder = "Enter phone number",
+            label = stringResource(R.string.phone),
+            placeholder = stringResource(R.string.enter_phone_number),
             keyboardType = KeyboardType.Phone
         )
 
@@ -150,7 +153,7 @@ fun SignUpScreen(
         CustomDropdownMenu(
             value = governorate,
             onValueChange = { governorate = it },
-            label = "Governorate",
+            label = stringResource(R.string.governorate),
             options = governorates,
             expanded = governorateExpanded,
             onExpandedChange = { governorateExpanded = it }
@@ -161,7 +164,7 @@ fun SignUpScreen(
         CustomDropdownMenu(
             value = area,
             onValueChange = { area = it },
-            label = "Area",
+            label = stringResource(R.string.area),
             options = areas,
             expanded = areaExpanded,
             onExpandedChange = { areaExpanded = it }
@@ -172,8 +175,8 @@ fun SignUpScreen(
         CustomTextField(
             value = addressDetails,
             onValueChange = { addressDetails = it },
-            label = "Address Details",
-            placeholder = "Enter full address details",
+            label = stringResource(R.string.address_details),
+            placeholder = stringResource(R.string.enter_full_address_details),
             singleLine = false
         )
 
@@ -182,8 +185,8 @@ fun SignUpScreen(
         CustomTextField(
             value = invitationCode,
             onValueChange = { invitationCode = it },
-            label = "Invitation Code",
-            placeholder = "Enter invitation code"
+            label = stringResource(R.string.invitation_code),
+            placeholder = stringResource(R.string.enter_invitation_code)
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -202,7 +205,7 @@ fun SignUpScreen(
             )
         ) {
             Text(
-                "Register",
+                text = stringResource(R.string.register),
                 fontFamily = SemiBoldFont,
                 fontSize = 16.sp
             )

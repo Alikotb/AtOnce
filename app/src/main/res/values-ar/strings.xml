@@ -37,4 +37,34 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="privacy_policy"><![CDATA[الخصوصية والسياسة]]></string>
     <string name="common_questions">الأسئلة الشائعة</string>
+    <string name="cart">عربة التسوق</string>
+    <string name="cart_discount">الخصم: %1$s%</string>
+    <string name="cost_per_item_egp">سعر القطعة: %1$s جنيه</string>
+    <string name="total_egp">الإجمالي: %1$s جنيه</string>
+    <string name="egp_cart">%1$s جنيه</string>
+    <string name="subtotal">الإجمالي الفرعي</string>
+    <string name="discount_info">الخصم</string>
+    <string name="checkout_egp">إتمام الطلب %1$s جنيه</string>
+    <string name="minimum_to_place_an_order_is_egp">الحد الأدنى لإتمام الطلب هو %1$s جنيه</string>
+    <string name="register_new_account">تسجيل حساب جديد</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="enter_your_username">ادخل اسم المستخدم</string>
+    <string name="pharmacy_name">اسم الصيدلية</string>
+    <string name="enter_pharmacy_name">ادخل اسم الصيدلية</string>
+    <string name="email_signup">البريد الإلكتروني</string>
+    <string name="enter_your_email">ادخل بريدك الإلكتروني</string>
+    <string name="password_signup">كلمة المرور</string>
+    <string name="enter_your_password">ادخل كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="re_enter_your_password">اعد إدخال كلمة المرور</string>
+    <string name="phone">رقم الهاتف</string>
+    <string name="enter_phone_number">ادخل رقم الهاتف</string>
+    <string name="governorate">المحافظة</string>
+    <string name="area">المنطقة</string>
+    <string name="address_details">تفاصيل العنوان</string>
+    <string name="enter_full_address_details">ادخل تفاصيل العنوان بالكامل</string>
+    <string name="invitation_code">كود الدعوة</string>
+    <string name="enter_invitation_code">ادخل كود الدعوة</string>
+    <string name="register">تسجيل</string>
+
 </resources>

@@ -27,8 +27,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.theme.MediumFont
 import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
@@ -79,19 +81,19 @@ fun AddToCartCard(
                     fontSize = 16.sp
                 )
                 Text(
-                    text = "Discount: $discountPercent%",
+                    text = stringResource(R.string.cart_discount, discountPercent),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
                     color = colors.primary
                 )
                 Text(
-                    text = "Cost Per Item: $costPerItem EGP",
+                    text = stringResource(R.string.cost_per_item_egp, costPerItem),
                     fontFamily = RegularFont,
                     fontSize = 14.sp,
                     color = colors.onSurfaceVariant
                 )
                 Text(
-                    text = "Total: $totalCost EGP",
+                    text = stringResource(R.string.total_egp, totalCost),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
                     color = Color.Red

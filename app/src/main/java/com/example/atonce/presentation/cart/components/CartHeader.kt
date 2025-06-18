@@ -15,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.home.CircularIconButton
 import com.example.atonce.presentation.theme.BlackColor
 import com.example.atonce.presentation.theme.SemiBoldFont
@@ -37,7 +39,7 @@ fun CartHeader(
     ) {
         Spacer(modifier = Modifier.width(24.dp))
         Text(
-            text = "Cart",
+            text = stringResource(R.string.cart),
             fontFamily = SemiBoldFont,
             fontSize = 22.sp,
             color = colors.onBackground

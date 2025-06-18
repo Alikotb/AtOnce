@@ -16,8 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
 import com.example.atonce.presentation.theme.WhiteColor
@@ -28,6 +30,7 @@ fun OrderInfo(
     subtotal: Double,
     discount: Double,
     total: Double,
+    minimum: Double = 70.0,
     onCheckout: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
@@ -40,8 +43,8 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("SubTotal", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
-            Text("${"%.2f".format(subtotal)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.subtotal), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(subtotal)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -51,8 +54,8 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Discount", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
-            Text("-${"%.2f".format(discount)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(stringResource(R.string.discount_info), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(discount)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -63,18 +66,13 @@ fun OrderInfo(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("Total", fontFamily = SemiBoldFont, fontSize = 16.sp, color = colors.background)
-            Text(
-                "${"%.2f".format(total)} EGP",
-                fontFamily = SemiBoldFont,
-                fontSize = 16.sp,
-                color = Color(0xFF666666)
-            )
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.surfaceDim)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            "Minimum to place an order is 70 EGP",
+            stringResource(R.string.minimum_to_place_an_order_is_egp, minimum),
             fontFamily = RegularFont,
             fontSize = 14.sp,
             color = Color.Red,
@@ -93,7 +91,7 @@ fun OrderInfo(
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
-                "Checkout ${"%.2f".format(total)} EGP",
+                stringResource(R.string.checkout_egp, "%.2f".format(total)),
                 fontFamily = SemiBoldFont,
                 fontSize = 16.sp,
                 color = WhiteColor
