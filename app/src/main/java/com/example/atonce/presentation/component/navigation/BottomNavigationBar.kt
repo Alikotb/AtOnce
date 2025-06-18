@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.component.navigation
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
