@@ -20,12 +20,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.component.MySearchBar
 import com.example.atonce.presentation.home.component.AdPager
 import com.example.atonce.presentation.home.component.WarehouseCard
+import com.example.atonce.presentation.theme.BlackColor
+import com.example.atonce.presentation.theme.LightGrayColor
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onProfileClick: () -> Unit) {
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
         Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
@@ -46,7 +49,7 @@ fun HomeScreen() {
             .fillMaxSize()
             .background(Color(0xFFF9F9F9))
             .padding(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = 32.dp)
     ) {
         item {
@@ -60,7 +63,7 @@ fun HomeScreen() {
                 CircularIconButton(
                     icon = Icons.Default.Call,
                     onClick = { },
-                    tint = Color(0xFF1A998E)
+                    tint = BlackColor
                 )
 
                 Text(
@@ -72,8 +75,8 @@ fun HomeScreen() {
 
                 CircularIconButton(
                     icon = Icons.Default.Person,
-                    onClick = { },
-                    tint = Color(0xFF1A998E)
+                    onClick = { onProfileClick() },
+                    tint = BlackColor
                 )
             }
         }
@@ -90,6 +93,16 @@ fun HomeScreen() {
         }
 
         item {
+            MySearchBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .shadow(4.dp, RoundedCornerShape(12.dp))
+            )
+
+        }
+
+        item {
             Text(
                 text = "Warehouses Nearby",
                 fontFamily = SemiBoldFont,
@@ -102,6 +115,11 @@ fun HomeScreen() {
         items(warehouses) { warehouse ->
             WarehouseCard(warehouse = warehouse)
         }
+
+        item {
+            Spacer(modifier = Modifier.height(36.dp))
+        }
+
     }
 }
 
@@ -116,7 +134,7 @@ fun CircularIconButton(
         modifier = Modifier
             .size(40.dp)
             .clip(CircleShape)
-            .background(Color.White)
+            .background(LightGrayColor)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {

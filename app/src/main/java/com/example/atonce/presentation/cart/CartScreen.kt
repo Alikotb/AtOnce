@@ -28,7 +28,7 @@ import com.example.atonce.presentation.cart.components.StoreTabs
 
 
 @Composable
-fun CartScreen() {
+fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
     val stores = remember {
         listOf(
             Store(
@@ -100,8 +100,8 @@ fun CartScreen() {
             .padding(vertical = 16.dp)
     ) {
         CartHeader(
-            onCallClick = {  },
-            onProfileClick = {  }
+            onCallClick = { onCallClick() },
+            onProfileClick = { onProfileClick() }
         )
 
         StoreTabs(
