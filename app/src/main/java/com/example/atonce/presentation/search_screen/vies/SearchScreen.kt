@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.search_screen.vies
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,10 +17,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.TITLE
 import com.example.atonce.presentation.component.SearchComponent
 import com.example.atonce.presentation.component.TapBarBtn
@@ -37,18 +38,19 @@ fun SearchScreen(){
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
-    Log.d("ali", "SearchScreen: search: $searchText // filter : $filterSearch")
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Row (modifier = Modifier.fillMaxWidth().padding(start = 8.dp)){
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp)){
             TapBarBtn()
             Spacer(Modifier.weight(0.75f))
             Text(
-                text = "Search Screen",
+                text = stringResource(R.string.search_screen),
                 fontSize = TITLE.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding( top = 16.dp, bottom = 16.dp),

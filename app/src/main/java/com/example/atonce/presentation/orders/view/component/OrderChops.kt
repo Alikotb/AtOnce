@@ -30,8 +30,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.atonce.R
 import com.example.atonce.presentation.theme.Til
 import com.example.atonce.presentation.theme.WhiteColor
 
@@ -40,16 +42,16 @@ import com.example.atonce.presentation.theme.WhiteColor
 @Composable
 fun OrdersChips() {
     val list = listOf<Pair<String, ImageVector>>(
-        Pair("Ordered",Icons.Filled.Loop),
-        Pair("Preparing",Icons.Filled.Upcoming),
-        Pair("Delivering",Icons.Filled.DeliveryDining),
-        Pair("Delivered",Icons.Filled.ShoppingBasket),
-        Pair("Canceled",Icons.Filled.Cancel),
-        Pair("Returned",Icons.Filled.CancelPresentation),
+        Pair(stringResource(R.string.ordered),Icons.Filled.Loop),
+        Pair(stringResource(R.string.preparing),Icons.Filled.Upcoming),
+        Pair(stringResource(R.string.delivering),Icons.Filled.DeliveryDining),
+        Pair(stringResource(R.string.delivered),Icons.Filled.ShoppingBasket),
+        Pair(stringResource(R.string.canceled),Icons.Filled.Cancel),
+        Pair(stringResource(R.string.returned),Icons.Filled.CancelPresentation),
 
         )
-    var selectedOption by remember { mutableStateOf("Ordered") }
-    //var selected by remember { mutableStateOf(false) }
+    val defaultOption = stringResource(R.string.ordered)
+    var selectedOption by remember { mutableStateOf(defaultOption) }
     Row(
         Modifier
             .padding(horizontal = 8.dp)

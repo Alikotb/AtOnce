@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.theme.RegularFont
 
 @Composable
@@ -40,7 +42,7 @@ fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
             searchText=it
         },
         shape = MaterialTheme.shapes.medium,
-        placeholder = {Text("Search for medecin", fontFamily = RegularFont, fontSize = 12.sp)},
+        placeholder = {Text(stringResource(R.string.search_for_medecin), fontFamily = RegularFont, fontSize = 12.sp)},
         leadingIcon ={ Icon(
             imageVector = Icons.Filled.Search,
             contentDescription = ""

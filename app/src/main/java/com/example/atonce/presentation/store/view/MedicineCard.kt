@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -81,7 +82,7 @@ fun MedicineCard(){
             }
             Row {
                 Text(
-                    text = "Discount : 26%",
+                    text = "${stringResource(R.string.discount)} 26%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     color = colors.primary,
@@ -91,7 +92,7 @@ fun MedicineCard(){
             }
             Row {
                 Text(
-                    text = "Price : 21.76 EGP",
+                    text = stringResource(R.string.price)+"21.76"+ stringResource(R.string.egp),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     fontFamily = SemiBoldFont

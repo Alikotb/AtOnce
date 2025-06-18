@@ -18,7 +18,7 @@ private val DarkColorScheme = darkColorScheme(
     //ali
     surface = DarkSearchCard,
     //ali
-    surfaceDim = AllSuppliers
+    surfaceDim = AllSuppliers,
 
 )
 

@@ -14,10 +14,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.TITLE
 import com.example.atonce.presentation.orders.view.component.OrdersCard
 import com.example.atonce.presentation.orders.view.component.OrdersChips
@@ -35,7 +37,7 @@ fun OrderScreen(){
         Row (modifier = Modifier.fillMaxWidth()){
             Spacer(Modifier.weight(1f))
             Text(
-                text = "Orders Screen",
+                text = stringResource(R.string.orders_screen),
                 fontSize = TITLE.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding( top = 8.dp, bottom = 24.dp)

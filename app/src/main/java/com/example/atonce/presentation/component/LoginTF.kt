@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -33,16 +34,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.LOGINTXT
 
 
 @Composable
-fun LoginPasswordTF(txt: String = "Password", msg :String = "***************" ,onValueChange: (String) -> Unit ={}){
+fun LoginPasswordTF(txt: String = stringResource(R.string.password), msg :String = "***************", onValueChange: (String) -> Unit ={}){
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
     Column (
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.Start
     ){
         Text(
@@ -51,7 +55,9 @@ fun LoginPasswordTF(txt: String = "Password", msg :String = "***************" ,o
             modifier = Modifier.padding(bottom = 8.dp)
         )
         TextField(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
             value = text,
             visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None,
             placeholder = { Text(text = msg) },
@@ -83,15 +89,17 @@ fun LoginPasswordTF(txt: String = "Password", msg :String = "***************" ,o
 
 @Preview(showBackground = true)
 @Composable
-fun LoginTF(txt: String = "Email", msg :String = "ali@gmail.com" ,
+fun LoginTF(txt: String = stringResource(R.string.email), msg :String = "ali@gmail.com",
             onValueChange: (String) -> Unit ={}, isIcon : Boolean = false,
-            firstIcon: ImageVector=Icons.Filled.ArrowDropDown,secoundIcon : ImageVector=Icons.Filled.ArrowDropUp,
+            firstIcon: ImageVector=Icons.Filled.ArrowDropDown, secoundIcon : ImageVector=Icons.Filled.ArrowDropUp,
             onIconClick: () -> Unit ={} ){
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var changeIcon by rememberSaveable { mutableStateOf(true) }
 
     Column (
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.Start
     ){
         Text(
@@ -100,7 +108,9 @@ fun LoginTF(txt: String = "Email", msg :String = "ali@gmail.com" ,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         TextField(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
             value = text,
             placeholder = { Text(text = msg) },
             keyboardOptions = KeyboardOptions(

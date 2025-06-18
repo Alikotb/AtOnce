@@ -15,19 +15,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.MEDICINE_CARD_MAIN_PRICE
 import com.example.atonce.presentation.theme.Til
 
 
 @Composable
-fun CustomCartBtn(onClick : ()->Unit = {} ,imageVictor: ImageVector = Icons.Filled.ShoppingCart,msg: String = "Add to cart !!",color:Color = Til){
+fun CustomCartBtn(onClick : ()->Unit = {}, imageVictor: ImageVector = Icons.Filled.ShoppingCart, msg: String = stringResource(
+    R.string.add_to_cart
+), color:Color = Til){
     Button(
         onClick = {
             onClick()
         },
-        modifier = Modifier.padding(horizontal = 8.dp).padding(vertical = 8.dp),
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .padding(vertical = 8.dp),
         shape = RoundedCornerShape(12.dp),
         colors =ButtonDefaults.buttonColors(
             containerColor = color,
