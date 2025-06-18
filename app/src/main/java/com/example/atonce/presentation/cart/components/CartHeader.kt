@@ -2,11 +2,14 @@ package com.example.atonce.presentation.cart.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +26,8 @@ fun CartHeader(
     onCallClick: () -> Unit,
     onProfileClick: () -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,13 +35,13 @@ fun CartHeader(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        CircularIconButton(icon = Icons.Default.Call, onClick = onCallClick, tint = BlackColor)
+        Spacer(modifier = Modifier.width(24.dp))
         Text(
             text = "Cart",
             fontFamily = SemiBoldFont,
             fontSize = 22.sp,
-            color = Color(0xFF333333)
+            color = colors.onBackground
         )
-        CircularIconButton(icon = Icons.Default.Person, onClick = onProfileClick, tint = BlackColor)
+        Spacer(modifier = Modifier.width(24.dp))
     }
 }

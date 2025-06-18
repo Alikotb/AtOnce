@@ -130,11 +130,12 @@ fun CircularIconButton(
     onClick: () -> Unit,
     tint: Color
 ) {
+    val colors = MaterialTheme.colorScheme
     Box(
         modifier = Modifier
             .size(40.dp)
             .clip(CircleShape)
-            .background(LightGrayColor)
+            .background(colors.surface)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {

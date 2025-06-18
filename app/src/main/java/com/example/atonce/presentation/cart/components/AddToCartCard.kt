@@ -18,6 +18,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,6 +44,7 @@ fun AddToCartCard(
     onDecrease: () -> Unit,
     onDelete: () -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
     val totalCost = costPerItem * quantity
 
     Card(
@@ -51,7 +53,7 @@ fun AddToCartCard(
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = colors.surface)
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
@@ -80,13 +82,13 @@ fun AddToCartCard(
                     text = "Discount: $discountPercent%",
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
-                    color = Color(0xFF4CAF50)
+                    color = colors.primary
                 )
                 Text(
                     text = "Cost Per Item: $costPerItem EGP",
                     fontFamily = RegularFont,
                     fontSize = 14.sp,
-                    color = Color.Gray
+                    color = colors.onSurfaceVariant
                 )
                 Text(
                     text = "Total: $totalCost EGP",
@@ -106,7 +108,7 @@ fun AddToCartCard(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))
-                        .border(1.dp, Color(0xFF4CAF50), RoundedCornerShape(16.dp))
+                        .border(1.dp, colors.onSurfaceVariant, RoundedCornerShape(16.dp))
                 ) {
                     IconButton(onClick = onDecrease) {
                         Icon(Icons.Default.Remove, contentDescription = "Decrease")

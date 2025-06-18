@@ -2,6 +2,7 @@ package com.example.atonce.presentation.cart.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -20,11 +21,13 @@ fun StoreTabs(
     selectedIndex: Int,
     onTabSelected: (Int) -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
+
     val tabWidth = (LocalConfiguration.current.screenWidthDp.dp - 32.dp) / 3
 
     ScrollableTabRow(
         selectedTabIndex = selectedIndex,
-        containerColor = Color.White,
+        containerColor = colors.onPrimary,
         edgePadding = 16.dp,
         divider = {},
         modifier = Modifier.fillMaxWidth()

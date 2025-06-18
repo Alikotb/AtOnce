@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
+import com.example.atonce.presentation.theme.WhiteColor
 
 
 @Composable
@@ -28,6 +30,8 @@ fun OrderInfo(
     total: Double,
     onCheckout: () -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
+
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -36,8 +40,8 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("SubTotal", fontFamily = RegularFont, fontSize = 16.sp, color = Color.Gray)
-            Text("${"%.2f".format(subtotal)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = Color.Gray)
+            Text("SubTotal", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text("${"%.2f".format(subtotal)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -47,8 +51,8 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Discount", fontFamily = RegularFont, fontSize = 16.sp, color = Color.Gray)
-            Text("-${"%.2f".format(discount)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = Color.Gray)
+            Text("Discount", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text("-${"%.2f".format(discount)} EGP", fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -58,7 +62,7 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Total", fontFamily = SemiBoldFont, fontSize = 16.sp, color = Color(0xFF666666))
+            Text("Total", fontFamily = SemiBoldFont, fontSize = 16.sp, color = colors.background)
             Text(
                 "${"%.2f".format(total)} EGP",
                 fontFamily = SemiBoldFont,
@@ -84,7 +88,7 @@ fun OrderInfo(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A998E)),
+            colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
             enabled = total >= 70,
             shape = RoundedCornerShape(12.dp)
         ) {
@@ -92,7 +96,7 @@ fun OrderInfo(
                 "Checkout ${"%.2f".format(total)} EGP",
                 fontFamily = SemiBoldFont,
                 fontSize = 16.sp,
-                color = Color.White
+                color = WhiteColor
             )
         }
     }

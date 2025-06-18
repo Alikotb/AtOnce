@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +30,8 @@ import com.example.atonce.presentation.cart.components.StoreTabs
 
 @Composable
 fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
+    val colors = MaterialTheme.colorScheme
+
     val stores = remember {
         listOf(
             Store(
@@ -96,7 +99,7 @@ fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(colors.onPrimary)
             .padding(vertical = 16.dp)
     ) {
         CartHeader(
@@ -131,8 +134,8 @@ fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
                 .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                .background(colors.surface)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
                 .padding(bottom = 56.dp)
         ) {
