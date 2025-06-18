@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">AtOnce</string>
+    <string name="welcome_back_login_now">"     Welcome back \n\n         Login now"</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_yet">Don’t have an account yet ?</string>
+    <string name="register_here">Register here</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="discount">Discount :</string>
+    <string name="price">"Price : "</string>
+    <string name="egp">" EGP"</string>
+    <string name="add_to_cart">Add to cart !!</string>
+    <string name="search_screen">Search Screen</string>
+    <string name="all_suppliers">All Suppliers</string>
+    <string name="search_for_medecin">Search for medecin</string>
+    <string name="ordered">Ordered</string>
+    <string name="preparing">Preparing</string>
+    <string name="delivering">Delivering</string>
+    <string name="delivered">Delivered</string>
+    <string name="canceled">Canceled</string>
+    <string name="returned">Returned</string>
+    <string name="id">"id: "</string>
+    <string name="pm">PM</string>
+    <string name="total">"Total : "</string>
+    <string name="items">" items"</string>
+    <string name="orders_screen">Orders Screen</string>
 </resources>

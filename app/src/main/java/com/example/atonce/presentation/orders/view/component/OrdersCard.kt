@@ -34,9 +34,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.ORDER_DATE_AND_TIME
 import com.example.atonce.presentation.comon.FontSizes.ORDER_PHARMACY_NAME
 import kotlin.collections.listOf
@@ -48,16 +50,16 @@ fun OrdersCard(){
     var expanded by remember { mutableStateOf(false) }
     val colors = MaterialTheme.colorScheme
     val medicineList = listOf(
-        Triple("Panadol Extra 600mg", "3 items", "150 EGP"),
-        Triple("Brufen 400mg", "2 items", "90 EGP"),
-        Triple("Vitamin D3", "1 item", "60 EGP"),
-        Triple("Amoxicillin 500mg", "4 items", "200 EGP")
+        Triple("Panadol Extra 600mg", "3", "150"),
+        Triple("Brufen 400mg", "2", "90"),
+        Triple("Vitamin D3", "1", "60"),
+        Triple("Amoxicillin 500mg", "4", "200")
     )
     Card (
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = {
-                expanded =! expanded
+                expanded = !expanded
             })
         ,
         shape = RoundedCornerShape(16.dp),
@@ -67,7 +69,9 @@ fun OrdersCard(){
         elevation = CardDefaults.cardElevation(  defaultElevation = 4.dp)
     ){
         Column(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
                 .animateContentSize(
                     animationSpec = tween(
                         durationMillis = 300,
@@ -112,7 +116,7 @@ fun OrdersCard(){
                         if (!expanded) {
                             Spacer(Modifier.width(12.dp))
                             Text(
-                                text = "id: #747227",
+                                text = stringResource(R.string.id)+"#747227",
                                 fontSize = ORDER_PHARMACY_NAME.sp,
                                 modifier = Modifier.padding(start = 16.dp)
                             )
@@ -131,7 +135,7 @@ fun OrdersCard(){
                             modifier = Modifier.padding(start = 12.dp)
                         )
                         Text(
-                            text = "25/05/2024 - 18:00 PM",
+                            text = "25/05/2024 - 18:00 "+ stringResource(R.string.pm),
                             fontSize = ORDER_PHARMACY_NAME.sp,
                             modifier = Modifier.padding(start = 8.dp)
                         )
@@ -169,7 +173,7 @@ fun OrdersCard(){
                 Row {
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = "Total : 600 EGP",
+                        text = stringResource(R.string.total) +"600"+stringResource(R.string.egp),
                         fontSize = ORDER_DATE_AND_TIME.sp,
                         modifier = Modifier.padding(end = 16.dp),
                         color = Color.Red

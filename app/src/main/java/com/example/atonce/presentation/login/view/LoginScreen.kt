@@ -28,8 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -66,7 +66,7 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
 
         )
         Text(
-            text = "     Welcome to \nAt Once Pharma",
+            text = stringResource(R.string.welcome_back_login_now),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
@@ -89,7 +89,7 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
                 onClick = {}
             ) {
                 Text(
-                    text = "Forgot Password ?",
+                    text = stringResource(R.string.forgot_password),
                     fontSize = FORGOTPASS.sp,
                     color = colors.primary,
                     fontWeight = FontWeight.Bold,
@@ -114,7 +114,7 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
             )
         ) {
             Text(
-                text = "Login",
+                text = stringResource(R.string.login),
                 fontWeight = FontWeight.Bold,
                 fontSize = LOGINBTN.sp
             )
@@ -127,7 +127,7 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
         ) {
             Spacer(Modifier.weight(1f))
             Text(
-                text = "Don’t have an account yet ?",
+                text = stringResource(R.string.don_t_have_an_account_yet),
                 fontSize = REGISTERHERE.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 12.dp, start = 12.dp)
@@ -136,7 +136,7 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
                 onClick = { onRegisterClick() }
             ) {
                 Text(
-                    text = "Register here",
+                    text = stringResource(R.string.register_here),
                     fontSize = REGISTERHERE.sp,
                     color = colors.primary,
                     fontWeight = FontWeight.Bold,
