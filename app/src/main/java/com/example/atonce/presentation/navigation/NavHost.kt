@@ -7,6 +7,7 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
@@ -17,6 +18,7 @@ import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
+import com.example.atonce.presentation.webview.WebViewScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -120,10 +122,17 @@ fun SetUpNavHost(
             ProfileScreen(
                 onBackClick = {
                     navController.popBackStack()
+                },
+                onWebViewClick = { title, url ->
+                    navController.navigate(ScreenRoute.WebViewScreen(title, url))
                 }
             )
         }
-
-
+        composable<ScreenRoute.WebViewScreen> {
+            bottomBarState.value = false
+            val title =it.toRoute<ScreenRoute.WebViewScreen>().title
+            val url = it.toRoute<ScreenRoute.WebViewScreen>().url
+            WebViewScreen(title = title, url = url)
+        }
     }
 }

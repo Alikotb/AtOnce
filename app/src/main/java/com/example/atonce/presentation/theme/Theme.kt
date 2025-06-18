@@ -11,38 +11,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    //ali
     primary = Til,
+    onPrimary = DarkWhiteColor,
     secondary = PurpleGrey80,
     tertiary = Pink80,
-    //ali
     surface = DarkSearchCard,
-    //ali
-    surfaceDim = AllSuppliers
-
+    surfaceDim = AllSuppliers,
+    background = DarkLightGrayColor,
+    onBackground = DarkWhiteColor,
+    onSurfaceVariant = DarkGrayText
 )
 
 private val LightColorScheme = lightColorScheme(
-    //ali
     primary = DarkTil,
+    onPrimary = WhiteColor,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    //ali
     surface = SearchCard,
-    //ali
-    surfaceDim = DarkAllSuppliers
-
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    surfaceDim = DarkAllSuppliers,
+    background = LightGrayColor,
+    onBackground = BlackColor,
+    onSurfaceVariant = LightGrayText
 )
+
+
+
+
 
 @Composable
 fun AtOnceTheme(

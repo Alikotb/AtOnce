@@ -17,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -44,6 +45,8 @@ fun CustomDropdownMenu(
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
+
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
@@ -52,7 +55,7 @@ fun CustomDropdownMenu(
         animationSpec = tween(durationMillis = 300)
     )
     val borderColor by animateColorAsState(
-        targetValue = if (isFocused) PrimaryColor else Color.LightGray,
+        targetValue = if (isFocused) PrimaryColor else colors.onSurfaceVariant,
         animationSpec = tween(durationMillis = 300)
     )
 
@@ -61,7 +64,7 @@ fun CustomDropdownMenu(
             text = label,
             fontFamily = MediumFont,
             fontSize = 14.sp,
-            color = BlackColor
+            color = colors.onBackground
         )
         Spacer(modifier = Modifier.height(8.dp))
         ExposedDropdownMenuBox(
@@ -85,13 +88,13 @@ fun CustomDropdownMenu(
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 },
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = WhiteColor,
-                    unfocusedContainerColor = WhiteColor,
-                    cursorColor = PrimaryColor,
+                    focusedContainerColor = colors.onPrimary,
+                    unfocusedContainerColor = colors.onPrimary,
+                    cursorColor = colors.primary,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
-                    focusedTextColor = BlackColor,
-                    unfocusedTextColor = BlackColor
+                    focusedTextColor = colors.onBackground,
+                    unfocusedTextColor = colors.onBackground
                 ),
                 textStyle = LocalTextStyle.current.copy(
                     fontFamily = RegularFont,
@@ -107,7 +110,7 @@ fun CustomDropdownMenu(
                     .background(WhiteColor)
                     .border(
                         width = 1.dp,
-                        color = Color.LightGray,
+                        color = colors.onSurfaceVariant,
                         shape = RoundedCornerShape(12.dp)
                     )
             ) {
@@ -118,7 +121,7 @@ fun CustomDropdownMenu(
                                 text = option,
                                 fontFamily = RegularFont,
                                 fontSize = 14.sp,
-                                color = BlackColor
+                                color = colors.onBackground
                             )
                         },
                         onClick = {

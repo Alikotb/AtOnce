@@ -29,6 +29,8 @@ fun SignUpScreen(
     onBackClick: () -> Unit = {},
     onRegisterClick: () -> Unit = {}
 ) {
+    val colors = MaterialTheme.colorScheme
+
     val governorates = listOf("Alexandria", "Cairo", "Giza")
     val areas = listOf("Agami, Alexandria", "Smouha, Alexandria", "Nasr City, Cairo")
 
@@ -52,7 +54,7 @@ fun SignUpScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(WhiteColor)
+            .background(colors.onPrimary)
             .padding(horizontal = 24.dp).padding(vertical =24.dp)
             .verticalScroll(rememberScrollState())
     ) {
@@ -69,7 +71,7 @@ fun SignUpScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = BlackColor,
+                    tint = colors.onBackground,
                     modifier = Modifier.size(24.dp)
                 )
             }
@@ -78,7 +80,7 @@ fun SignUpScreen(
                 "Register New Account",
                 fontFamily = SemiBoldFont,
                 fontSize = 18.sp,
-                color = BlackColor,
+                color = colors.onBackground,
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center
             )

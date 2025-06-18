@@ -50,6 +50,7 @@ import com.example.atonce.presentation.theme.WhiteColor
 @Composable
 fun ProfileScreen(
     onBackClick: () -> Unit = {},
+    onWebViewClick: (title : String, url : String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -147,31 +148,35 @@ fun ProfileScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column {
-                ProfileItem(Icons.AutoMirrored.Filled.Help, "Common Questions")
+                ProfileItem(Icons.AutoMirrored.Filled.Help, "Common Questions") {
+                    onWebViewClick("Common Questions", "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html")
+                }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Security, "Privacy & Policy")
+                ProfileItem(Icons.Default.Security, "Privacy & Policy") {
+                    onWebViewClick("Privacy & Policy", "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1")
+                }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Call, "Contact Us")
+                ProfileItem(Icons.Default.Call, "Contact Us") {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Info, "About Us")
+                ProfileItem(Icons.Default.Info, "About Us") {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Share, "Share App")
+                ProfileItem(Icons.Default.Share, "Share App") {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Logout, "Logout", isLogout = true)
+                ProfileItem(Icons.Default.Logout, "Logout", isLogout = true) {}
             }
         }
     }
 }
 
 @Composable
-fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false) {
+fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onClick: () -> Unit) {
     val textColor = if (isLogout) Color.Red else Color.Black
     val iconColor = if (isLogout) Color.Red else Color(0xFF1A998E)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {  }
+            .clickable { onClick() }
             .padding(horizontal = 16.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -200,3 +205,4 @@ fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false) {
         )
     }
 }
+
