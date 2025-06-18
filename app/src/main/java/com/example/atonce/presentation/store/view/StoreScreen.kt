@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.store.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -39,7 +40,7 @@ fun StoreScreen(){
     var filterSearch by remember { mutableStateOf("") }
     Column (
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(colors.onPrimary)
             .padding(top = 48.dp, bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -54,6 +55,8 @@ fun StoreScreen(){
                 fontFamily = SemiBoldFont
             )
             Spacer(Modifier.weight(1f))
+            Spacer(Modifier.weight(1f))
+
         }
         SearchComponent(expanded=expanded, onSearch = {
             searchText=it

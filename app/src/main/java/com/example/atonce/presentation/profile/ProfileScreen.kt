@@ -20,19 +20,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.Help
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Help
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,21 +38,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.theme.WhiteColor
 
 @Composable
 fun ProfileScreen(
     onBackClick: () -> Unit = {},
     onWebViewClick: (title : String, url : String) -> Unit
 ) {
+    val colors = MaterialTheme.colorScheme
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(WhiteColor)
+            .background(colors.onPrimary)
             .padding(16.dp)
     ) {
         Row(
@@ -68,23 +66,23 @@ fun ProfileScreen(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
-                tint = Color.Black,
+                tint = colors.onBackground,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { onBackClick() }
             )
 
             Text(
-                text = "Profile",
+                text = stringResource(R.string.profile),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = colors.onBackground
             )
 
             Icon(
                 imageVector = Icons.Default.Language,
                 contentDescription = "Language",
-                tint = Color.Black,
+                tint =colors.onBackground,
                 modifier = Modifier
                     .size(24.dp)
                     .clickable { }
@@ -96,7 +94,7 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
+            colors = CardDefaults.cardColors(containerColor = colors.surface),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -119,11 +117,10 @@ fun ProfileScreen(
                         "Hamada Hamada",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color.Black
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "See Account Details",
+                        stringResource(R.string.see_account_details),
                         fontSize = 14.sp,
                         color = Color(0xFF1A998E),
                         fontWeight = FontWeight.Medium,
@@ -134,7 +131,7 @@ fun ProfileScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = "Details",
-                    tint = Color.Black
+                    tint = colors.onBackground
                 )
             }
         }
@@ -144,25 +141,27 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White),
+            colors = CardDefaults.cardColors(containerColor = colors.surface),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column {
-                ProfileItem(Icons.AutoMirrored.Filled.Help, "Common Questions") {
+                ProfileItem(Icons.AutoMirrored.Filled.Help,
+                    stringResource(R.string.common_questions)
+                ) {
                     onWebViewClick("Common Questions", "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html")
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Security, "Privacy & Policy") {
+                ProfileItem(Icons.Default.Security, stringResource(R.string.privacy_policy)) {
                     onWebViewClick("Privacy & Policy", "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1")
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Call, "Contact Us") {}
+                ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Info, "About Us") {}
+                ProfileItem(Icons.Default.Info, stringResource(R.string.about_us)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Share, "Share App") {}
+                ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Logout, "Logout", isLogout = true) {}
+                ProfileItem(Icons.AutoMirrored.Filled.Logout, stringResource(R.string.logout), isLogout = true) {}
             }
         }
     }
@@ -170,7 +169,8 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onClick: () -> Unit) {
-    val textColor = if (isLogout) Color.Red else Color.Black
+   val colors= MaterialTheme.colorScheme
+    val textColor = if (isLogout) Color.Red else colors.onBackground
     val iconColor = if (isLogout) Color.Red else Color(0xFF1A998E)
 
     Row(
@@ -200,7 +200,7 @@ fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onC
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
             contentDescription = null,
-            tint = Color.Gray,
+            tint = colors.onBackground,
             modifier = Modifier.size(20.dp)
         )
     }

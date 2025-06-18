@@ -26,4 +26,15 @@
     <string name="total">"الإجمالي : "</string>
     <string name="items">" عناصر"</string>
     <string name="orders_screen">شاشة الطلبات</string>
+    <string name="home_screen">الشاشة الرئيسية</string>
+    <string name="warehouses_nearby">المخازن القريبة</string>
+    <string name="min">"الحد الأدنى: "</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="see_account_details">عرض تفاصيل الحساب</string>
+    <string name="contact_us">اتصل بنا</string>
+    <string name="about_us">من نحن</string>
+    <string name="share_app">مشاركة التطبيق</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="privacy_policy"><![CDATA[الخصوصية والسياسة]]></string>
+    <string name="common_questions">الأسئلة الشائعة</string>
 </resources>

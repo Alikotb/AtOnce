@@ -43,6 +43,7 @@ fun LoginPasswordTF(txt: String = stringResource(R.string.password), msg :String
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
+    val colors = MaterialTheme.colorScheme
     Column (
         modifier = Modifier
             .fillMaxWidth()
@@ -52,7 +53,8 @@ fun LoginPasswordTF(txt: String = stringResource(R.string.password), msg :String
         Text(
             text = txt,
             fontSize = LOGINTXT.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
+            color = colors.onBackground
         )
         TextField(
             modifier = Modifier
@@ -69,9 +71,13 @@ fun LoginPasswordTF(txt: String = stringResource(R.string.password), msg :String
             },
             shape = MaterialTheme.shapes.large,
             colors = TextFieldDefaults.colors(
+                focusedContainerColor = colors.surface,
+                unfocusedContainerColor = colors.surface,
+                cursorColor = colors.primary,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = colors.onBackground,
+                unfocusedTextColor = colors.onBackground
             ),
             trailingIcon = {
                 IconButton(onClick = { passwordHidden = !passwordHidden }) {
@@ -95,6 +101,7 @@ fun LoginTF(txt: String = stringResource(R.string.email), msg :String = "ali@gma
             onIconClick: () -> Unit ={} ){
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var changeIcon by rememberSaveable { mutableStateOf(true) }
+    val colors = MaterialTheme.colorScheme
 
     Column (
         modifier = Modifier
@@ -105,7 +112,8 @@ fun LoginTF(txt: String = stringResource(R.string.email), msg :String = "ali@gma
         Text(
             text = txt,
             fontSize = LOGINTXT.sp,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 8.dp),
+            color = colors.onBackground
         )
         TextField(
             modifier = Modifier
@@ -121,9 +129,13 @@ fun LoginTF(txt: String = stringResource(R.string.email), msg :String = "ali@gma
             },
             shape = MaterialTheme.shapes.large,
             colors = TextFieldDefaults.colors(
+                focusedContainerColor = colors.surface,
+                unfocusedContainerColor = colors.surface,
+                cursorColor = colors.primary,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent,
+                focusedTextColor = colors.onBackground,
+                unfocusedTextColor = colors.onBackground
             ),
 
             trailingIcon = {

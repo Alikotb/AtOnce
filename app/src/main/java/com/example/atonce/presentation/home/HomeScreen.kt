@@ -17,18 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.component.MySearchBar
 import com.example.atonce.presentation.home.component.AdPager
 import com.example.atonce.presentation.home.component.WarehouseCard
-import com.example.atonce.presentation.theme.BlackColor
-import com.example.atonce.presentation.theme.LightGrayColor
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit) {
+    val colors= MaterialTheme.colorScheme
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
         Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
@@ -47,7 +47,7 @@ fun HomeScreen(onProfileClick: () -> Unit) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF9F9F9))
+            .background(colors.onPrimary)
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = 32.dp)
@@ -63,20 +63,20 @@ fun HomeScreen(onProfileClick: () -> Unit) {
                 CircularIconButton(
                     icon = Icons.Default.Call,
                     onClick = { },
-                    tint = BlackColor
+                    tint = colors.onBackground
                 )
 
                 Text(
-                    text = "Home Screen",
+                    text = stringResource(R.string.home_screen),
                     fontFamily = SemiBoldFont,
                     fontSize = 22.sp,
-                    color = Color(0xFF333333)
+                    color = colors.onBackground
                 )
 
                 CircularIconButton(
                     icon = Icons.Default.Person,
                     onClick = { onProfileClick() },
-                    tint = BlackColor
+                    tint = colors.onBackground
                 )
             }
         }
@@ -104,10 +104,10 @@ fun HomeScreen(onProfileClick: () -> Unit) {
 
         item {
             Text(
-                text = "Warehouses Nearby",
+                text = stringResource(R.string.warehouses_nearby),
                 fontFamily = SemiBoldFont,
                 fontSize = 20.sp,
-                color = Color(0xFF1A998E),
+                color = colors.primary,
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -130,7 +130,7 @@ fun CircularIconButton(
     onClick: () -> Unit,
     tint: Color
 ) {
-    val colors = MaterialTheme.colorScheme
+    val colors= MaterialTheme.colorScheme
     Box(
         modifier = Modifier
             .size(40.dp)

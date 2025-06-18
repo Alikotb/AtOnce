@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,9 +22,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.home.Warehouse
 import com.example.atonce.presentation.theme.MediumFont
 import com.example.atonce.presentation.theme.RegularFont
@@ -31,13 +34,14 @@ import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
 fun WarehouseCard(warehouse: Warehouse) {
+    val colors = MaterialTheme.colorScheme
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp)
-            .shadow(4.dp, RoundedCornerShape(12.dp)),
+            .padding(horizontal = 16.dp, vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(containerColor = colors.surface)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
@@ -67,7 +71,7 @@ fun WarehouseCard(warehouse: Warehouse) {
                     text = warehouse.location,
                     fontFamily = RegularFont,
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = colors.onBackground,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -75,7 +79,7 @@ fun WarehouseCard(warehouse: Warehouse) {
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Min: ${warehouse.minOrder} EGP",
+                    text = stringResource(R.string.min) +warehouse.minOrder+ stringResource(R.string.egp),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
                     color = Color(0xFF1A998E)
@@ -85,7 +89,7 @@ fun WarehouseCard(warehouse: Warehouse) {
                     text = "Delivery Daily",
                     fontFamily = RegularFont,
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color =colors.onBackground
                 )
             }
         }
