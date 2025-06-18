@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 //noinspection UsingMaterialAndMaterial3Libraries
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Store
 import androidx.compose.material3.Card
@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,18 +29,20 @@ import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.comon.FontSizes.PHARMA_NAME
 import com.example.atonce.presentation.component.CustomCartBtn
-import com.example.atonce.presentation.theme.Til
 
 
 @Preview(showBackground = true)
 @Composable
 fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) {
+    val colors = MaterialTheme.colorScheme
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colors.surface
+            containerColor = colors.surface
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -77,7 +78,7 @@ fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) 
                         text = "Discount : 28 %",
                         fontSize = MEDICINE_DISCOUNT.sp,
                         modifier = Modifier.padding(start = 12.dp, top = 4.dp),
-                        color = Til
+                        color = colors.primary
                     )
                     Text(
                         text = "Price : 21.76 EGP",
@@ -90,13 +91,16 @@ fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) 
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                CustomCartBtn(onClick = {
+
+                CustomCartBtn(
+                    color = colors.primary,
+                    onClick = {
                     onCartClick()
                 })
                 CustomCartBtn(
                     msg = "All Suppliers",
                     imageVictor = Icons.Filled.Store,
-                    color = Color(0xff403C3D),
+                    color =colors.surfaceDim,
                     onClick ={
                         onSuppliersClick()
                     }

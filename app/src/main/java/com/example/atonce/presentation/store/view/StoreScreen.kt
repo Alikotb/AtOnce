@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +39,7 @@ import com.example.atonce.presentation.theme.SemiBoldFont
 @Preview(showBackground = true)
 @Composable
 fun StoreScreen(){
+    val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }

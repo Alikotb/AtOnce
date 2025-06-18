@@ -14,12 +14,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -39,6 +39,7 @@ fun MedicineCard(){
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
+    val colors = MaterialTheme.colorScheme
 
     Card(
         modifier = Modifier
@@ -46,7 +47,7 @@ fun MedicineCard(){
 
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xffFBFBFB)
+            containerColor = colors.surface
         ),
         elevation = CardDefaults.cardElevation(  defaultElevation = 4.dp)
     ) {
@@ -83,7 +84,7 @@ fun MedicineCard(){
                     text = "Discount : 26%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
-                    color = Color(0xFF1A998E),
+                    color = colors.primary,
                     fontFamily = SemiBoldFont
                 )
                 Spacer(Modifier.weight(1f))

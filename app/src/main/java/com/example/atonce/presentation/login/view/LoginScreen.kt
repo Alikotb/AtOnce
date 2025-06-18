@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -47,6 +48,7 @@ fun LoginScreen() {
     val screenHeight = configuration.screenHeightDp
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val colors = MaterialTheme.colorScheme
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -90,7 +92,7 @@ fun LoginScreen() {
                 Text(
                     text = "Forgot Password ?",
                     fontSize = FORGOTPASS.sp,
-                    color = Color(0xff1A998E),
+                    color = colors.primary,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(end = 8.dp)
                 )
@@ -108,7 +110,7 @@ fun LoginScreen() {
                 .padding(horizontal = 16.dp)
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF1A998E),
+                containerColor = colors.primary,
                 contentColor = Color.White
             )
         ) {
@@ -137,7 +139,7 @@ fun LoginScreen() {
                 Text(
                     text = "Register here",
                     fontSize = REGISTERHERE.sp,
-                    color = Color(0xff1A998E),
+                    color = colors.primary,
                     fontWeight = FontWeight.Bold,
                 )
             }
