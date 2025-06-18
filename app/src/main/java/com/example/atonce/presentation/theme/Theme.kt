@@ -18,7 +18,7 @@ private val DarkColorScheme = darkColorScheme(
     surface = DarkSearchCard,
     surfaceDim = AllSuppliers,
     background = DarkLightGrayColor,
-    onBackground = DarkWhiteColor,
+    onBackground = WhiteColor,
     onSurfaceVariant = DarkGrayText,
 )
 
