@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.orders.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,9 +30,10 @@ import com.example.atonce.presentation.orders.view.component.OrdersChips
 @Preview(showBackground = true)
 @Composable
 fun OrderScreen(){
+    val colors= MaterialTheme.colorScheme
     Column (
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(colors.onPrimary)
             .padding(top = 48.dp, bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -51,7 +54,7 @@ fun OrderScreen(){
                 start = 8.dp,
                 end = 8.dp,
                 top = 16.dp,
-                bottom = 24.dp
+                bottom = 56.dp
             ),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ){

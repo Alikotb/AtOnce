@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.search_screen.vies
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.comon.FontSizes.TITLE
 import com.example.atonce.presentation.component.SearchComponent
-import com.example.atonce.presentation.component.TapBarBtn
 import com.example.atonce.presentation.search_screen.vies.component.ModelSheet
 import com.example.atonce.presentation.search_screen.vies.component.SearchCard
 import com.example.atonce.presentation.theme.SemiBoldFont
@@ -38,16 +39,16 @@ fun SearchScreen(){
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
+    val colors = MaterialTheme.colorScheme
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize().background(colors.onPrimary)
             .padding(vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row (modifier = Modifier
             .fillMaxWidth()
             .padding(start = 8.dp)){
-            TapBarBtn()
             Spacer(Modifier.weight(0.75f))
             Text(
                 text = stringResource(R.string.search_screen),
