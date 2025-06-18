@@ -26,7 +26,8 @@ import com.example.atonce.presentation.theme.WhiteColor
 
 @Composable
 fun SignUpScreen(
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onRegisterClick: () -> Unit = {}
 ) {
     val governorates = listOf("Alexandria", "Cairo", "Giza")
     val areas = listOf("Agami, Alexandria", "Smouha, Alexandria", "Nasr City, Cairo")
@@ -187,9 +188,7 @@ fun SignUpScreen(
 
         Button(
             onClick = {
-                if (password != confirmPassword) {
-                } else {
-                }
+                onRegisterClick()
             },
             modifier = Modifier
                 .fillMaxWidth()

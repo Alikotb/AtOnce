@@ -40,9 +40,8 @@ import com.example.atonce.presentation.component.LoginPasswordTF
 import com.example.atonce.presentation.component.LoginTF
 
 
-@Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onRegisterClick: ()-> Unit) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -134,7 +133,7 @@ fun LoginScreen() {
                 modifier = Modifier.padding(top = 12.dp, start = 12.dp)
             )
             TextButton(
-                onClick = {}
+                onClick = { onRegisterClick() }
             ) {
                 Text(
                     text = "Register here",

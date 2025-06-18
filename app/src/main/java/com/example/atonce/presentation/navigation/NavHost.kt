@@ -3,6 +3,7 @@ package com.example.anees.ui.navigation
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.search_screen.vies.SearchScreen
 import com.example.atonce.presentation.navigation.ScreenRoute
+import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
@@ -21,6 +23,7 @@ import com.example.atonce.presentation.store.view.StoreScreen
 @Composable
 fun SetUpNavHost(
     navController: NavHostController,
+    bottomBarState: MutableState<Boolean>,
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -58,26 +61,69 @@ fun SetUpNavHost(
             )
         }
         composable<ScreenRoute.LoginScreen> {
-             LoginScreen()
+            bottomBarState.value = false
+             LoginScreen(
+                 onRegisterClick = {
+                     navController.navigate(ScreenRoute.SignupScreen)
+                 }
+             )
         }
         composable<ScreenRoute.SignupScreen> {
-            SignUpScreen()
+            bottomBarState.value = false
+            SignUpScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onRegisterClick = {
+                    navController.navigate(ScreenRoute.HomeScreen) {
+                        popUpTo(0) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
         composable<ScreenRoute.HomeScreen> {
-            HomeScreen()
+            bottomBarState.value = true
+            HomeScreen(
+                onProfileClick = {
+                    navController.navigate(ScreenRoute.ProfileScreen)
+                }
+            )
         }
         composable<ScreenRoute.StoreScreen> {
+            bottomBarState.value = false
             StoreScreen()
         }
         composable<ScreenRoute.CartScreen> {
-            CartScreen()
+            bottomBarState.value = true
+            CartScreen(
+                onProfileClick = {
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoute.ProfileScreen)
+                },
+                onCallClick = {
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoute.LoginScreen)
+                }
+            )
         }
         composable<ScreenRoute.OrderScreen> {
+            bottomBarState.value = true
             OrderScreen()
         }
         composable<ScreenRoute.SearchScreen> {
+            bottomBarState.value = true
             SearchScreen()
         }
+        composable<ScreenRoute.ProfileScreen> {
+            bottomBarState.value = false
+            ProfileScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
 
     }
 }

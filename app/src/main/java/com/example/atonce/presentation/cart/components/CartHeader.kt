@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.home.CircularIconButton
+import com.example.atonce.presentation.theme.BlackColor
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
@@ -29,13 +30,13 @@ fun CartHeader(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        CircularIconButton(icon = Icons.Default.Call, onClick = onCallClick, tint = Color(0xFF1A998E))
+        CircularIconButton(icon = Icons.Default.Call, onClick = onCallClick, tint = BlackColor)
         Text(
             text = "Cart",
             fontFamily = SemiBoldFont,
             fontSize = 22.sp,
             color = Color(0xFF333333)
         )
-        CircularIconButton(icon = Icons.Default.Person, onClick = onProfileClick, tint = Color(0xFF1A998E))
+        CircularIconButton(icon = Icons.Default.Person, onClick = onProfileClick, tint = BlackColor)
     }
 }
