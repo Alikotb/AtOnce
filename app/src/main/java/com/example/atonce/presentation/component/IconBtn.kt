@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 @Composable
 fun TapBarBtn( onIconClick : ()-> Unit={}, icon: ImageVector= Icons.AutoMirrored.Filled.ArrowBack){
     IconButton(onClick = {
-
         onIconClick()
     }) {
         Icon(

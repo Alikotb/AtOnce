@@ -3,8 +3,8 @@ package com.example.atonce.presentation.profile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,51 +43,65 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.component.app_bar_cards.TowIconCard
 
 @Composable
 fun ProfileScreen(
     onBackClick: () -> Unit = {},
-    onWebViewClick: (title : String, url : String) -> Unit
+    onWebViewClick: (title: String, url: String) -> Unit,
+    modifier: PaddingValues
 ) {
     val colors = MaterialTheme.colorScheme
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(16.dp)
+//            .padding(horizontal = 16.dp)
+            .padding(top=modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding())
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back",
-                tint = colors.onBackground,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onBackClick() }
-            )
+        TowIconCard(
+            onStartIcon = Icons.AutoMirrored.Filled.ArrowBack,
+            onEnIcon = Icons.Default.Language,
+            onStartClick = {
+                onBackClick()
+            },
+            onEndClick = {
 
-            Text(
-                text = stringResource(R.string.profile),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = colors.onBackground
-            )
-
-            Icon(
-                imageVector = Icons.Default.Language,
-                contentDescription = "Language",
-                tint =colors.onBackground,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { }
-            )
-        }
+            },
+            headerTxt = stringResource(R.string.profile)
+        )
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(horizontal = 16.dp, vertical = 12.dp),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Icon(
+//                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                contentDescription = "Back",
+//                tint = colors.onBackground,
+//                modifier = Modifier
+//                    .size(24.dp)
+//                    .clickable { onBackClick() }
+//            )
+//
+//            Text(
+//                text = stringResource(R.string.profile),
+//                fontSize = 20.sp,
+//                fontWeight = FontWeight.Bold,
+//                color = colors.onBackground
+//            )
+//
+//            Icon(
+//                imageVector = Icons.Default.Language,
+//                contentDescription = "Language",
+//                tint =colors.onBackground,
+//                modifier = Modifier
+//                    .size(24.dp)
+//                    .clickable { }
+//            )
+//        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -95,8 +109,8 @@ fun ProfileScreen(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = colors.surface),
-            modifier = Modifier.fillMaxWidth()
-        ) {
+            modifier = Modifier.fillMaxWidth().padding(horizontal =16.dp )
+       ) {
             Row(
                 modifier = Modifier
                     .padding(16.dp),
@@ -142,7 +156,7 @@ fun ProfileScreen(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = colors.surface),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal =16.dp )
         ) {
             Column {
                 ProfileItem(Icons.AutoMirrored.Filled.Help,

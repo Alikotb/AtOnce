@@ -65,6 +65,7 @@ fun SetUpNavHost(
         composable<ScreenRoute.LoginScreen> {
             bottomBarState.value = false
              LoginScreen(
+                 modifier =paddingValues,
                  onRegisterClick = {
                      navController.navigate(ScreenRoute.SignupScreen)
                  }
@@ -73,6 +74,7 @@ fun SetUpNavHost(
         composable<ScreenRoute.SignupScreen> {
             bottomBarState.value = false
             SignUpScreen(
+                modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
                 },
@@ -87,6 +89,7 @@ fun SetUpNavHost(
         composable<ScreenRoute.HomeScreen> {
             bottomBarState.value = true
             HomeScreen(
+                modifier =paddingValues,
                 onProfileClick = {
                     navController.navigate(ScreenRoute.ProfileScreen)
                 }
@@ -94,11 +97,12 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
-            StoreScreen()
+            StoreScreen(modifier =paddingValues,)
         }
         composable<ScreenRoute.CartScreen> {
             bottomBarState.value = true
             CartScreen(
+                modifier =paddingValues,
                 onProfileClick = {
                     navController.popBackStack()
                     navController.navigate(ScreenRoute.ProfileScreen)
@@ -111,15 +115,16 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.OrderScreen> {
             bottomBarState.value = true
-            OrderScreen()
+            OrderScreen(modifier =paddingValues)
         }
         composable<ScreenRoute.SearchScreen> {
             bottomBarState.value = true
-            SearchScreen()
+            SearchScreen( modifier =paddingValues,)
         }
         composable<ScreenRoute.ProfileScreen> {
             bottomBarState.value = false
             ProfileScreen(
+                modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
                 },
