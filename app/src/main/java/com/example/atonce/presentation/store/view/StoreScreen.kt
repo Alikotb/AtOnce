@@ -35,6 +35,7 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         OneIconCard(
+
             onClick = { onBackClick() }
         )
         SearchComponent(expanded=expanded, onSearch = {

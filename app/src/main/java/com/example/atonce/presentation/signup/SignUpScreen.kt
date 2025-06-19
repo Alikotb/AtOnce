@@ -70,7 +70,8 @@ fun SignUpScreen(
             headerTxt = stringResource(R.string.register_new_account),
             onClick = {
                 onBackClick()
-            }
+            },
+            titleSize = 14
         )
         CustomTextField(
             value = username,

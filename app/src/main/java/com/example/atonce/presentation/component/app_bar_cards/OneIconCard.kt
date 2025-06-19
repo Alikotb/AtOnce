@@ -31,7 +31,7 @@ import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Preview(showBackground = true)
 @Composable
-fun OneIconCard(onClick : () -> Unit={},headerTxt: String =stringResource(R.string.home_screen),icon: ImageVector=Icons.AutoMirrored.Filled.ArrowBack){
+fun OneIconCard(onClick : () -> Unit={},headerTxt: String =stringResource(R.string.home_screen),icon: ImageVector=Icons.AutoMirrored.Filled.ArrowBack, titleSize : Int = TITLE){
     val config = LocalConfiguration.current
     val screenWidth = config.screenWidthDp
     Row (
@@ -42,7 +42,7 @@ fun OneIconCard(onClick : () -> Unit={},headerTxt: String =stringResource(R.stri
         TapBarBtn(icon = icon, onIconClick = {onClick()})
         Text(
             text = headerTxt,
-            fontSize = TITLE.sp,
+            fontSize = titleSize.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = SemiBoldFont
         )
@@ -54,7 +54,7 @@ fun OneIconCard(onClick : () -> Unit={},headerTxt: String =stringResource(R.stri
 @Preview(showBackground = true)
 @Composable
 fun NoIconCard(headerTxt: String=stringResource(R.string.orders_screen)){
-    Row (modifier = Modifier.fillMaxWidth().padding( top = 8.dp, bottom = 16.dp)){
+    Row (modifier = Modifier.fillMaxWidth().padding( top = 8.dp, bottom = 24.dp)){
         Spacer(Modifier.weight(1f))
         Text(
             text = headerTxt,
@@ -79,7 +79,7 @@ fun TowIconCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp).padding(top = 8.dp, bottom = 16.dp),
+            .padding(horizontal = 16.dp).padding(top = 16.dp, bottom = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

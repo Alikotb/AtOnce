@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -50,15 +52,16 @@ fun CustomBottomNavBar(navController: NavHostController) {
 
     Surface(
         modifier = Modifier
-            .height(80.dp)
             .padding(start = 22.dp, end = 22.dp, top = 16.dp)
-            .padding(WindowInsets.navigationBars.asPaddingValues()),
+            .padding(WindowInsets.navigationBars.asPaddingValues())
+            .wrapContentHeight(),
         shape = RoundedCornerShape(18.dp),
         color = colors.primaryContainer,
         shadowElevation = 8.dp
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight(),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
