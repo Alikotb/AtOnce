@@ -30,7 +30,8 @@ import com.example.atonce.presentation.theme.WhiteColor
 @Composable
 fun SignUpScreen(
     onBackClick: () -> Unit = {},
-    onRegisterClick: () -> Unit = {}
+    onRegisterClick: () -> Unit = {},
+    modifier: PaddingValues
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -53,44 +54,24 @@ fun SignUpScreen(
 
     var governorateExpanded by remember { mutableStateOf(false) }
     var areaExpanded by remember { mutableStateOf(false) }
+//                stringResource(R.string.register_new_account),
+//    Icons.AutoMirrored.Filled.ArrowBack,
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
             .padding(horizontal = 24.dp)
-            .padding(vertical = 24.dp)
+            .padding(top =modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding())
             .verticalScroll(rememberScrollState())
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(
-                onClick = onBackClick,
-                modifier = Modifier.size(48.dp)
-            ) {
-                Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = colors.onBackground,
-                    modifier = Modifier.size(24.dp)
-                )
+        OneIconCard(
+            icon = Icons.AutoMirrored.Filled.ArrowBack,
+            headerTxt = stringResource(R.string.register_new_account),
+            onClick = {
+                onBackClick()
             }
-
-            Text(
-                stringResource(R.string.register_new_account),
-                fontFamily = SemiBoldFont,
-                fontSize = 18.sp,
-                color = colors.onBackground,
-                modifier = Modifier.weight(1f),
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.size(48.dp))
-        }
-
+        )
         CustomTextField(
             value = username,
             onValueChange = { username = it },
@@ -213,7 +194,7 @@ fun SignUpScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(48.dp))
     }
 }
 

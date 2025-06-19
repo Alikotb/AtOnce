@@ -3,6 +3,7 @@ package com.example.atonce.presentation.login.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +43,7 @@ import com.example.atonce.presentation.component.LoginTF
 
 
 @Composable
-fun LoginScreen(onRegisterClick: ()-> Unit) {
+fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -51,11 +52,11 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
     val colors = MaterialTheme.colorScheme
 
     Column(
-        modifier = Modifier.fillMaxSize().background(colors.onPrimary),
+        modifier = Modifier.fillMaxSize().padding(top = modifier.calculateTopPadding()).background(colors.onPrimary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(
-            Modifier.height((screenHeight * 0.085).dp)
+            Modifier.height((screenHeight * 0.06).dp)
         )
         Image(
             painter = painterResource(R.drawable.logo),
@@ -68,9 +69,9 @@ fun LoginScreen(onRegisterClick: ()-> Unit) {
         )
         Text(
             text = stringResource(R.string.welcome_back_login_now),
-            fontSize = 28.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 8.dp, bottom = 32.dp)
+            modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
         )
         LoginTF(onValueChange = {
             email = it
