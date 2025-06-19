@@ -87,6 +87,7 @@ fun AddToCartCard(
                         text = medicationName,
                         fontFamily = SemiBoldFont,
                         fontSize = 16.sp,
+                        color = colors.onSurface,
                         modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = onDelete) {

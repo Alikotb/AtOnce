@@ -22,10 +22,8 @@ import com.example.atonce.presentation.component.SearchComponent
 import com.example.atonce.presentation.component.app_bar_cards.OneIconCard
 
 
-@Preview(showBackground = true)
 @Composable
-fun StoreScreen(modifier: PaddingValues) {
-fun StoreScreen(onBackClick: () -> Unit = {}){
+fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -36,9 +34,9 @@ fun StoreScreen(onBackClick: () -> Unit = {}){
             .padding(top = modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding()),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-            OneIconCard(
-                onClick = {}
-            )
+        OneIconCard(
+            onClick = { onBackClick() }
+        )
         SearchComponent(expanded=expanded, onSearch = {
             searchText=it
         },

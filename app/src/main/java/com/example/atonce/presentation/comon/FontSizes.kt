@@ -6,7 +6,7 @@ object FontSizes {
     const val FORGOTPASS =16
     const val LOGINBTN=18
     const val REGISTERHERE = 14
-    const val TITLE=20
+    const val TITLE=18
     const val MEDICINE_CARD_MAIN_FONT=14
     const val PHARMA_NAME=14
     const val MEDICINE_DISCOUNT=12

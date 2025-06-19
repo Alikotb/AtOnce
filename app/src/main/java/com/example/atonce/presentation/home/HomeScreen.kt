@@ -25,7 +25,7 @@ import com.example.atonce.presentation.home.component.WarehouseCard
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit, modifier: PaddingValues) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: PaddingValues) {
     val colors= MaterialTheme.colorScheme
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),

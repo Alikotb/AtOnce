@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.component.app_bar_cards.OneIconCard
 import com.example.atonce.presentation.signup.components.CustomDropdownMenu
 import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
@@ -54,8 +55,7 @@ fun SignUpScreen(
 
     var governorateExpanded by remember { mutableStateOf(false) }
     var areaExpanded by remember { mutableStateOf(false) }
-//                stringResource(R.string.register_new_account),
-//    Icons.AutoMirrored.Filled.ArrowBack,
+
 
     Column(
         modifier = Modifier

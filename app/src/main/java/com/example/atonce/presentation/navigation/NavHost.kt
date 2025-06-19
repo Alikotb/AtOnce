@@ -100,8 +100,7 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
-            StoreScreen(modifier =paddingValues,)
-            StoreScreen(
+            StoreScreen(modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
                 }
