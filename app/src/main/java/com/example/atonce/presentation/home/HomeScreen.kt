@@ -7,9 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,12 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.component.MySearchBar
+import com.example.atonce.presentation.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.home.component.AdPager
 import com.example.atonce.presentation.home.component.WarehouseCard
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit) {
+fun HomeScreen(onProfileClick: () -> Unit, modifier: PaddingValues) {
     val colors= MaterialTheme.colorScheme
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
@@ -48,37 +46,19 @@ fun HomeScreen(onProfileClick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(top = 16.dp),
+            .padding(top = modifier.calculateTopPadding()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = 32.dp)
     ) {
         item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                CircularIconButton(
-                    icon = Icons.Default.Call,
-                    onClick = { },
-                    tint = colors.onBackground
-                )
-
-                Text(
-                    text = stringResource(R.string.home_screen),
-                    fontFamily = SemiBoldFont,
-                    fontSize = 22.sp,
-                    color = colors.onBackground
-                )
-
-                CircularIconButton(
-                    icon = Icons.Default.Person,
-                    onClick = { onProfileClick() },
-                    tint = colors.onBackground
-                )
-            }
+            TowIconCard(
+                onEndClick={
+                    onProfileClick()
+                },
+                onStartClick = {
+                },
+                headerTxt = stringResource(R.string.home_screen)
+            )
         }
 
         item {

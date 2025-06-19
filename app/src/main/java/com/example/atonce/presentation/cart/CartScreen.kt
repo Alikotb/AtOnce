@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,18 +17,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
 import com.example.atonce.presentation.cart.components.AddToCartCard
-import com.example.atonce.presentation.cart.components.CartHeader
 import com.example.atonce.presentation.cart.components.OrderInfo
 import com.example.atonce.presentation.cart.components.StoreTabs
-
+import com.example.atonce.presentation.component.app_bar_cards.NoIconCard
 
 
 @Composable
-fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
+fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit, modifier: PaddingValues) {
     val colors = MaterialTheme.colorScheme
 
     val stores = remember {
@@ -100,12 +98,11 @@ fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(top = 16.dp)
+            .padding(top = modifier.calculateTopPadding())
     ) {
-        CartHeader(
-            onCallClick = { onCallClick() },
-            onProfileClick = { onProfileClick() }
-        )
+      NoIconCard(
+          headerTxt = stringResource(R.string.cart),
+      )
 
         StoreTabs(
             stores = stores,
