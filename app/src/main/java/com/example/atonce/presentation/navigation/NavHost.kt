@@ -30,7 +30,7 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.CartScreen
+        startDestination = ScreenRoute.LoginScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {
@@ -132,7 +132,9 @@ fun SetUpNavHost(
             bottomBarState.value = false
             val title =it.toRoute<ScreenRoute.WebViewScreen>().title
             val url = it.toRoute<ScreenRoute.WebViewScreen>().url
-            WebViewScreen(title = title, url = url)
+            WebViewScreen(title = title, url = url, onBackClick = {
+                navController.popBackStack()
+            })
         }
     }
 }
