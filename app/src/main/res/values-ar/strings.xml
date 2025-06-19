@@ -38,7 +38,7 @@
     <string name="privacy_policy"><![CDATA[الخصوصية والسياسة]]></string>
     <string name="common_questions">الأسئلة الشائعة</string>
     <string name="cart">عربة التسوق</string>
-    <string name="cart_discount">الخصم: %1$s%</string>
+    <string name="cart_discount">الخصم: %1$s%%</string>
     <string name="cost_per_item_egp">سعر القطعة: %1$s جنيه</string>
     <string name="total_egp">الإجمالي: %1$s جنيه</string>
     <string name="egp_cart">%1$s جنيه</string>

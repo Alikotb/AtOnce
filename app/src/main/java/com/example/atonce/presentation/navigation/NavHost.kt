@@ -30,7 +30,7 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.LoginScreen
+        startDestination = ScreenRoute.CartScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {

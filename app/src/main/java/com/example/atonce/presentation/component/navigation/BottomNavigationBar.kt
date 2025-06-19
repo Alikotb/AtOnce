@@ -9,14 +9,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,6 +38,7 @@ import com.example.atonce.presentation.theme.WhiteColor
 
 @Composable
 fun CustomBottomNavBar(navController: NavHostController) {
+    val colors = MaterialTheme.colorScheme
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination?.route
 
     val items = listOf(
@@ -46,9 +51,10 @@ fun CustomBottomNavBar(navController: NavHostController) {
     Surface(
         modifier = Modifier
             .height(80.dp)
-            .padding(start = 22.dp, end = 22.dp, top = 16.dp),
+            .padding(start = 22.dp, end = 22.dp, top = 16.dp)
+            .padding(WindowInsets.navigationBars.asPaddingValues()),
         shape = RoundedCornerShape(18.dp),
-        color = Color(0xFF25252D),
+        color = colors.primaryContainer,
         shadowElevation = 8.dp
     ) {
         Row(
@@ -73,7 +79,7 @@ fun CustomBottomNavBar(navController: NavHostController) {
                         Icon(
                             painter = painterResource(id = item.iconRes),
                             contentDescription = item.route.toString(),
-                            tint = if (isSelected) PrimaryColor else WhiteColor,
+                            tint = if (isSelected) colors.primary else colors.onBackground,
                             modifier = Modifier.size(30.dp)
                         )
                     }
@@ -90,7 +96,7 @@ fun CustomBottomNavBar(navController: NavHostController) {
                             modifier = Modifier
                                 .width(26.dp)
                                 .height(3.dp)
-                                .background(PrimaryColor, RoundedCornerShape(50))
+                                .background(colors.primary, RoundedCornerShape(50))
                         )
                     }
                 }

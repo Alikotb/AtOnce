@@ -48,7 +48,7 @@ fun HomeScreen(onProfileClick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(vertical = 16.dp),
+            .padding(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = 32.dp)
     ) {

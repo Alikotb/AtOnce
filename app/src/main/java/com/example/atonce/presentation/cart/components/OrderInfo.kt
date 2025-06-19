@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.theme.DarkLightGrayColor
 import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
 import com.example.atonce.presentation.theme.WhiteColor
@@ -36,40 +37,36 @@ fun OrderInfo(
     val colors = MaterialTheme.colorScheme
 
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = stringResource(R.string.subtotal), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
-            Text(text = stringResource(R.string.egp_cart, "%.2f".format(subtotal)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.subtotal), fontFamily = RegularFont, fontSize = 12.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(subtotal)), fontFamily = RegularFont, fontSize = 12.sp, color = colors.onSurfaceVariant)
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(stringResource(R.string.discount_info), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
-            Text(text = stringResource(R.string.egp_cart, "%.2f".format(discount)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.onSurfaceVariant)
+            Text(stringResource(R.string.discount_info), fontFamily = RegularFont, fontSize = 12.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(discount)), fontFamily = RegularFont, fontSize = 12.sp, color = colors.onSurfaceVariant)
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Total", fontFamily = SemiBoldFont, fontSize = 16.sp, color = colors.background)
-            Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 16.sp, color = colors.surfaceDim)
+            Text("Total", fontFamily = SemiBoldFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             stringResource(R.string.minimum_to_place_an_order_is_egp, minimum),

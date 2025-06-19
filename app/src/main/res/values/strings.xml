@@ -13,7 +13,7 @@
     <string name="add_to_cart">Add to cart !!</string>
     <string name="search_screen">Search Screen</string>
     <string name="all_suppliers">All Suppliers</string>
-    <string name="search_for_medecin">Search for medecin</string>
+    <string name="search_for_medecin">Search for medecine</string>
     <string name="ordered">Ordered</string>
     <string name="preparing">Preparing</string>
     <string name="delivering">Delivering</string>
@@ -37,7 +37,7 @@
     <string name="privacy_policy"><![CDATA[Privacy & Policy]]></string>
     <string name="common_questions">Common Questions</string>
     <string name="cart">Cart</string>
-    <string name="cart_discount">Discount: %1$s%</string>
+    <string name="cart_discount">Discount: %1$s%%</string>
     <string name="cost_per_item_egp">Cost Per Item: %1$s EGP</string>
     <string name="total_egp">Total: %1$s EGP</string>
     <string name="egp_cart">%1$s EGP</string>

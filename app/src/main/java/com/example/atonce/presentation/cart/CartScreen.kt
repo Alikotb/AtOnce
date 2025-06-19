@@ -100,7 +100,7 @@ fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(vertical = 16.dp)
+            .padding(top = 16.dp)
     ) {
         CartHeader(
             onCallClick = { onCallClick() },

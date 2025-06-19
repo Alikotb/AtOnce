@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.theme.MediumFont
+import com.example.atonce.presentation.theme.RedColor
 import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
 
@@ -96,7 +97,7 @@ fun AddToCartCard(
                     text = stringResource(R.string.total_egp, totalCost),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
-                    color = Color.Red
+                    color = RedColor
                 )
             }
 
@@ -104,13 +105,13 @@ fun AddToCartCard(
 
             Column(horizontalAlignment = Alignment.End) {
                 IconButton(onClick = onDelete) {
-                    Icon(Icons.Default.Delete, contentDescription = "Delete", tint = Color.Red)
+                    Icon(painterResource(id = R.drawable.trash), contentDescription = "Delete", tint = RedColor)
                 }
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .clip(RoundedCornerShape(16.dp))
-                        .border(1.dp, colors.onSurfaceVariant, RoundedCornerShape(16.dp))
+                        .border(1.dp, colors.primary, RoundedCornerShape(16.dp))
                 ) {
                     IconButton(onClick = onDecrease) {
                         Icon(Icons.Default.Remove, contentDescription = "Decrease")

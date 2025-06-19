@@ -34,3 +34,8 @@ val DarkLightGrayColor = Color(0xFF2C2C2C)
 val LightGrayText = Color(0xFF888888)
 val DarkGrayText = Color(0xFFCCCCCC)
 
+val DarkbottomNavColor  = Color(0xFF25252D)
+val LightbottomNavColor  = Color(0xFFFFFFFF)
+
+val RedColor = Color(0xFFEE4D4D)
+

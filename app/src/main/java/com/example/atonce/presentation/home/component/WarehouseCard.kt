@@ -44,7 +44,7 @@ fun WarehouseCard(warehouse: Warehouse) {
         colors = CardDefaults.cardColors(containerColor = colors.surface)
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -56,7 +56,7 @@ fun WarehouseCard(warehouse: Warehouse) {
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
