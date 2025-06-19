@@ -17,14 +17,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+
 import androidx.compose.ui.res.stringResource
+
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
 import com.example.atonce.presentation.cart.components.AddToCartCard
 import com.example.atonce.presentation.cart.components.OrderInfo
 import com.example.atonce.presentation.cart.components.StoreTabs
 import com.example.atonce.presentation.component.app_bar_cards.NoIconCard
-
 
 @Composable
 fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit, modifier: PaddingValues) {

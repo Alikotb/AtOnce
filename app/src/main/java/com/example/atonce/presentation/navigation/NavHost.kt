@@ -137,7 +137,9 @@ fun SetUpNavHost(
             bottomBarState.value = false
             val title =it.toRoute<ScreenRoute.WebViewScreen>().title
             val url = it.toRoute<ScreenRoute.WebViewScreen>().url
-            WebViewScreen(title = title, url = url)
+            WebViewScreen(title = title, url = url, onBackClick = {
+                navController.popBackStack()
+            })
         }
     }
 }
