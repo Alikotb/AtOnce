@@ -116,13 +116,14 @@ fun ProfileScreen(
                     Text(
                         "Hamada Hamada",
                         fontSize = 18.sp,
+                        color = colors.onBackground,
                         fontWeight = FontWeight.SemiBold,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         stringResource(R.string.see_account_details),
                         fontSize = 14.sp,
-                        color = Color(0xFF1A998E),
+                        color = colors.primary,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.clickable {  }
                     )
@@ -145,14 +146,14 @@ fun ProfileScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column {
-                ProfileItem(Icons.AutoMirrored.Filled.Help,
-                    stringResource(R.string.common_questions)
-                ) {
-                    onWebViewClick("Common Questions", "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html")
+                var title = stringResource(R.string.common_questions)
+                ProfileItem(Icons.AutoMirrored.Filled.Help, title) {
+                    onWebViewClick(title, "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html")
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Security, stringResource(R.string.privacy_policy)) {
-                    onWebViewClick("Privacy & Policy", "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1")
+                title = stringResource(R.string.privacy_policy)
+                ProfileItem(Icons.Default.Security, title) {
+                    onWebViewClick(title, "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1")
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {}

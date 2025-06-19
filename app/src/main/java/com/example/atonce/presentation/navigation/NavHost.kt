@@ -89,12 +89,19 @@ fun SetUpNavHost(
             HomeScreen(
                 onProfileClick = {
                     navController.navigate(ScreenRoute.ProfileScreen)
+                },
+                onNavToStore = {
+                    navController.navigate(ScreenRoute.StoreScreen)
                 }
             )
         }
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
-            StoreScreen()
+            StoreScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
         composable<ScreenRoute.CartScreen> {
             bottomBarState.value = true

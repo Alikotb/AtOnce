@@ -21,6 +21,7 @@ import com.example.atonce.R
 import com.example.atonce.presentation.signup.components.CustomDropdownMenu
 import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
+import com.example.atonce.presentation.signup.components.CustomTextFieldWithIcon
 import com.example.atonce.presentation.theme.BlackColor
 import com.example.atonce.presentation.theme.PrimaryColor
 import com.example.atonce.presentation.theme.SemiBoldFont
@@ -182,11 +183,12 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        CustomTextField(
+        CustomTextFieldWithIcon(
             value = invitationCode,
             onValueChange = { invitationCode = it },
             label = stringResource(R.string.invitation_code),
-            placeholder = stringResource(R.string.enter_invitation_code)
+            placeholder = stringResource(R.string.enter_invitation_code),
+            onIconClick = {},
         )
 
         Spacer(modifier = Modifier.height(32.dp))

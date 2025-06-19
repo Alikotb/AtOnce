@@ -27,7 +27,7 @@ import com.example.atonce.presentation.home.component.WarehouseCard
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit) {
+fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: ()->Unit) {
     val colors= MaterialTheme.colorScheme
     val warehouses = listOf(
         Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
@@ -113,7 +113,7 @@ fun HomeScreen(onProfileClick: () -> Unit) {
         }
 
         items(warehouses) { warehouse ->
-            WarehouseCard(warehouse = warehouse)
+            WarehouseCard(warehouse = warehouse) { onNavToStore() }
         }
 
         item {

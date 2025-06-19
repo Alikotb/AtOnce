@@ -1,6 +1,7 @@
 package com.example.atonce.presentation.home.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,12 +34,13 @@ import com.example.atonce.presentation.theme.RegularFont
 import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Composable
-fun WarehouseCard(warehouse: Warehouse) {
+fun WarehouseCard(warehouse: Warehouse, onClick: () -> Unit) {
     val colors = MaterialTheme.colorScheme
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp),
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         colors = CardDefaults.cardColors(containerColor = colors.surface)

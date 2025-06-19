@@ -62,7 +62,7 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Total", fontFamily = SemiBoldFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
+            Text(stringResource(id = R.string.total), fontFamily = SemiBoldFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
             Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
         }
 

@@ -33,7 +33,7 @@ import com.example.atonce.presentation.theme.SemiBoldFont
 
 @Preview(showBackground = true)
 @Composable
-fun StoreScreen(){
+fun StoreScreen(onBackClick: () -> Unit = {}){
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
