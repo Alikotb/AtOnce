@@ -1,6 +1,5 @@
 package com.example.atonce.presentation
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,18 +14,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
 import com.example.anees.ui.navigation.SetUpNavHost
-import com.example.atonce.presentation.component.navigation.CustomBottomNavBar
-import com.example.atonce.presentation.theme.AtOnceTheme
-import com.example.atonce.presentation.theme.DarkWhiteColor
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
+import com.example.atonce.presentation.common.theme.AtOnceTheme
+import com.example.atonce.presentation.common.theme.DarkWhiteColor
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 
 class MainActivity : ComponentActivity() {

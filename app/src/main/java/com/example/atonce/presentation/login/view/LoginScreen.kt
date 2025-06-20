@@ -35,11 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.FORGOTPASS
-import com.example.atonce.presentation.comon.FontSizes.LOGINBTN
-import com.example.atonce.presentation.comon.FontSizes.REGISTERHERE
-import com.example.atonce.presentation.component.LoginPasswordTF
-import com.example.atonce.presentation.component.LoginTF
+import com.example.atonce.presentation.common.FontSizes.FORGOTPASS
+import com.example.atonce.presentation.common.FontSizes.LOGINBTN
+import com.example.atonce.presentation.common.FontSizes.REGISTERHERE
+import com.example.atonce.presentation.common.component.LoginPasswordTF
+import com.example.atonce.presentation.common.component.LoginTF
 
 
 @Composable

@@ -18,8 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.atonce.presentation.component.SearchComponent
-import com.example.atonce.presentation.component.app_bar_cards.OneIconCard
+import com.example.atonce.presentation.common.component.SearchComponent
+import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
 
 
 @Composable

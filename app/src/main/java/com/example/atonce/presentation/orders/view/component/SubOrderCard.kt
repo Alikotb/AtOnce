@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.SUB_ORDER_PRICE
-import com.example.atonce.presentation.comon.FontSizes.SUB_ORDER_TITLE
+import com.example.atonce.presentation.common.FontSizes.SUB_ORDER_PRICE
+import com.example.atonce.presentation.common.FontSizes.SUB_ORDER_TITLE
 
 
 @Preview(showBackground = true)

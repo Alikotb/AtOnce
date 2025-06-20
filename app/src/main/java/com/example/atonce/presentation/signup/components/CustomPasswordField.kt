@@ -33,11 +33,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.presentation.theme.BlackColor
-import com.example.atonce.presentation.theme.MediumFont
-import com.example.atonce.presentation.theme.PrimaryColor
-import com.example.atonce.presentation.theme.RegularFont
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.MediumFont
+import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.RegularFont
 
 @Composable
 fun CustomPasswordField(

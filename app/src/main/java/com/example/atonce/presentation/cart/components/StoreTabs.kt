@@ -8,12 +8,11 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.cart.Store
-import com.example.atonce.presentation.theme.MediumFont
+import com.example.atonce.presentation.common.theme.MediumFont
 
 @Composable
 fun StoreTabs(

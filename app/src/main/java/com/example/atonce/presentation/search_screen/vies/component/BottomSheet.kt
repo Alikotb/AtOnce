@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.MEDICINE_BTN_SHEET_NAME
+import com.example.atonce.presentation.common.FontSizes.MEDICINE_BTN_SHEET_NAME
 
 
 @ExperimentalMaterial3Api

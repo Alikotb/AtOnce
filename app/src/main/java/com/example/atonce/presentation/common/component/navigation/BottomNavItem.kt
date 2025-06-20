@@ -1,7 +1,7 @@
-package com.example.atonce.presentation.component.navigation
+package com.example.atonce.presentation.common.component.navigation
 
 import com.example.atonce.R
-import com.example.atonce.presentation.navigation.ScreenRoute
+import com.example.atonce.presentation.common.navigation.ScreenRoute
 
 sealed class BottomNavItem(
     val route: ScreenRoute,

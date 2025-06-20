@@ -25,7 +25,7 @@ import com.example.atonce.R
 import com.example.atonce.presentation.cart.components.AddToCartCard
 import com.example.atonce.presentation.cart.components.OrderInfo
 import com.example.atonce.presentation.cart.components.StoreTabs
-import com.example.atonce.presentation.component.app_bar_cards.NoIconCard
+import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 
 @Composable
 fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit, modifier: PaddingValues) {

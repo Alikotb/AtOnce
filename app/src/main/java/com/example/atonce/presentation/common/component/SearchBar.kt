@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.component
+package com.example.atonce.presentation.common.component
 
 
 import androidx.compose.foundation.layout.Box
@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.theme.RegularFont
+import com.example.atonce.presentation.common.theme.RegularFont
 
 @Composable
 fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){

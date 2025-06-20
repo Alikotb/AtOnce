@@ -28,9 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.MEDICINE_DISCOUNT
-import com.example.atonce.presentation.comon.FontSizes.PHARMA_NAME
-import com.example.atonce.presentation.component.CustomCartBtn
+import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
+import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
+import com.example.atonce.presentation.common.component.CustomCartBtn
 
 
 @Preview(showBackground = true)

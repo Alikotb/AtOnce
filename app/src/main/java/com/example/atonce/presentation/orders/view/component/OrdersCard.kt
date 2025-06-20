@@ -39,8 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.ORDER_DATE_AND_TIME
-import com.example.atonce.presentation.comon.FontSizes.ORDER_PHARMACY_NAME
+import com.example.atonce.presentation.common.FontSizes.ORDER_DATE_AND_TIME
+import com.example.atonce.presentation.common.FontSizes.ORDER_PHARMACY_NAME
 import kotlin.collections.listOf
 
 

@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.component
+package com.example.atonce.presentation.common.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -19,14 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.MEDICINE_CARD_MAIN_PRICE
-import com.example.atonce.presentation.theme.Til
+import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_PRICE
+import com.example.atonce.presentation.common.theme.Til
 
 
 @Composable
 fun CustomCartBtn(onClick : ()->Unit = {}, imageVictor: ImageVector = Icons.Filled.ShoppingCart, msg: String = stringResource(
     R.string.add_to_cart
-), color:Color = Til){
+), color:Color = Til
+){
     Button(
         onClick = {
             onClick()

@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.component.app_bar_cards
+package com.example.atonce.presentation.common.component.app_bar_cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -22,11 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.TITLE
-import com.example.atonce.presentation.component.TapBarBtn
+import com.example.atonce.presentation.common.FontSizes.TITLE
+import com.example.atonce.presentation.common.component.TapBarBtn
 import com.example.atonce.presentation.home.CircularIconButton
-import com.example.atonce.presentation.theme.BoldFont
-import com.example.atonce.presentation.theme.SemiBoldFont
+import com.example.atonce.presentation.common.theme.BoldFont
+import com.example.atonce.presentation.common.theme.SemiBoldFont
 
 
 @Preview(showBackground = true)

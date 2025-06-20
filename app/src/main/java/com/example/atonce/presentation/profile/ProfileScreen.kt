@@ -43,7 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 
 @Composable
 fun ProfileScreen(

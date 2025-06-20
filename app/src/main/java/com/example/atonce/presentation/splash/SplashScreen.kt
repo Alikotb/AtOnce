@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 @Preview(showBackground = true)
 @Composable

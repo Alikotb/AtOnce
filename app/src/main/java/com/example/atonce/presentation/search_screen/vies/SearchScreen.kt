@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
-import com.example.atonce.presentation.component.SearchComponent
-import com.example.atonce.presentation.component.app_bar_cards.NoIconCard
+import com.example.atonce.presentation.common.component.SearchComponent
+import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import com.example.atonce.presentation.search_screen.vies.component.ModelSheet
 import com.example.atonce.presentation.search_screen.vies.component.SearchCard
 

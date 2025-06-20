@@ -24,8 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.atonce.presentation.theme.BlackColor
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.BlackColor
+import com.example.atonce.presentation.common.theme.WhiteColor
+import com.example.atonce.presentation.webview.components.WebViewContainer
+import com.example.atonce.presentation.webview.components.WebViewLoadingOverlay
 
 @Composable
 fun WebViewScreen(
@@ -33,68 +35,55 @@ fun WebViewScreen(
     url: String,
     onBackClick: () -> Unit
 ) {
-    val colors = MaterialTheme.colorScheme
     var isLoading by remember { mutableStateOf(true) }
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(WhiteColor)
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "Back",
-                tint = BlackColor,
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { onBackClick() }
-            )
-
-            Text(
-                text = title,
-                color = BlackColor,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-
-            Spacer(modifier = Modifier.width(24.dp))
-        }
+        WebViewTopBar(title = title, onBackClick = onBackClick)
 
         Box(modifier = Modifier.fillMaxSize()) {
-
-            AndroidView(
-                factory = {
-                    WebView(it).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        )
-                        setBackgroundColor(colors.onPrimary.toArgb())
-                        webViewClient = object : WebViewClient() {
-                            override fun onPageFinished(view: WebView?, url: String?) {
-                                isLoading = false
-                            }
-                        }
-                        loadUrl(url)
-                    }
-                },
-                modifier = Modifier.fillMaxSize()
-            )
+            WebViewContainer(url = url, isLoadingState = { isLoading = it })
 
             if (isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
+                WebViewLoadingOverlay()
             }
         }
     }
 }
+
+@Composable
+fun WebViewTopBar(
+    title: String,
+    onBackClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(WhiteColor)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = "Back",
+            tint = BlackColor,
+            modifier = Modifier
+                .size(24.dp)
+                .clickable { onBackClick() }
+        )
+
+        Text(
+            text = title,
+            color = BlackColor,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+
+        Spacer(modifier = Modifier.width(24.dp))
+    }
+}
+
+
+
 
 

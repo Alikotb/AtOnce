@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.component
+package com.example.atonce.presentation.common.component
 
 
 import androidx.compose.foundation.border
@@ -38,9 +38,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.comon.FontSizes.LOGINTXT
-import com.example.atonce.presentation.theme.MediumFont
-import com.example.atonce.presentation.theme.RegularFont
+import com.example.atonce.presentation.common.FontSizes.LOGINTXT
+import com.example.atonce.presentation.common.theme.MediumFont
+import com.example.atonce.presentation.common.theme.RegularFont
 
 
 @Composable

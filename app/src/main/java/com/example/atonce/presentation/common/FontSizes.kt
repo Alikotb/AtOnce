@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.comon
+package com.example.atonce.presentation.common
 
 object FontSizes {
 

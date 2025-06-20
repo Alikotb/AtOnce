@@ -18,11 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.component.MySearchBar
-import com.example.atonce.presentation.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.common.component.MySearchBar
+import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.home.component.AdPager
 import com.example.atonce.presentation.home.component.WarehouseCard
-import com.example.atonce.presentation.theme.SemiBoldFont
+import com.example.atonce.presentation.common.theme.SemiBoldFont
 
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: PaddingValues) {

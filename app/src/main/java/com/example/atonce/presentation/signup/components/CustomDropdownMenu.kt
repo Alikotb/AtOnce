@@ -29,11 +29,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.presentation.theme.BlackColor
-import com.example.atonce.presentation.theme.MediumFont
-import com.example.atonce.presentation.theme.PrimaryColor
-import com.example.atonce.presentation.theme.RegularFont
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.MediumFont
+import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.RegularFont
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

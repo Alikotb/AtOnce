@@ -10,23 +10,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.component.app_bar_cards.OneIconCard
+import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
 import com.example.atonce.presentation.signup.components.CustomDropdownMenu
 import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
 import com.example.atonce.presentation.signup.components.CustomTextFieldWithIcon
-import com.example.atonce.presentation.theme.BlackColor
-import com.example.atonce.presentation.theme.PrimaryColor
-import com.example.atonce.presentation.theme.SemiBoldFont
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 @Composable
 fun SignUpScreen(

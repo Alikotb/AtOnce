@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.component
+package com.example.atonce.presentation.common.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack

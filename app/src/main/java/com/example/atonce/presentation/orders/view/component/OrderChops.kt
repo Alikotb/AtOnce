@@ -34,8 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
-import com.example.atonce.presentation.theme.Til
-import com.example.atonce.presentation.theme.WhiteColor
+import com.example.atonce.presentation.common.theme.Til
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 
 @Preview(showBackground = true)
@@ -95,7 +95,7 @@ fun OrdersChips() {
                     selectedLabelColor = Color.White,
 
                 ),
-                border = BorderStroke(1.dp,Til)
+                border = BorderStroke(1.dp, Til)
             )
             Spacer(Modifier.padding(horizontal = 4.dp))
         }
