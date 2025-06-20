@@ -33,7 +33,7 @@ import com.example.atonce.presentation.theme.RegularFont
 @Composable
 fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
     var searchText by remember { mutableStateOf("") }
-
+    val colors = MaterialTheme.colorScheme
     TextField(
         modifier = modifier,
         value = searchText,
@@ -48,9 +48,13 @@ fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
             contentDescription = ""
         )},
         colors = TextFieldDefaults.colors(
+            focusedContainerColor = colors.surface,
+            unfocusedContainerColor = colors.surface,
+            cursorColor = colors.primary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent,
+            focusedTextColor = colors.onBackground,
+            unfocusedTextColor = colors.onBackground
 
         )
 

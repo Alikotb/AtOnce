@@ -52,6 +52,7 @@ fun CustomBottomNavBar(navController: NavHostController) {
 
     Surface(
         modifier = Modifier
+//            .height(80.dp)
             .padding(start = 22.dp, end = 22.dp, top = 16.dp)
             .padding(WindowInsets.navigationBars.asPaddingValues())
             .wrapContentHeight(),
