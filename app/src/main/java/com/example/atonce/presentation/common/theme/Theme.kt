@@ -1,6 +1,5 @@
-package com.example.atonce.ui.theme
+package com.example.atonce.presentation.common.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,26 +11,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = Til,
+    onPrimary = DarkWhiteColor,
     secondary = PurpleGrey80,
-    tertiary = Pink80
+    tertiary = Pink80,
+    surface = DarkSearchCard,
+    surfaceDim = AllSuppliers,
+    background = DarkLightGrayColor,
+    onBackground = WhiteColor,
+    onSurfaceVariant = DarkGrayText,
+    primaryContainer = DarkbottomNavColor
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = DarkTil,
+    onPrimary = WhiteColor,
     secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    tertiary = Pink40,
+    surface = SearchCard,
+    surfaceDim = DarkAllSuppliers,
+    background = LightGrayColor,
+    onBackground = BlackColor,
+    onSurfaceVariant = LightGrayText,
+    primaryContainer = LightbottomNavColor
 )
+
+
+
+
 
 @Composable
 fun AtOnceTheme(
