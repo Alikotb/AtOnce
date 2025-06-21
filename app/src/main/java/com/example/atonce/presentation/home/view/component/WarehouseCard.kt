@@ -48,14 +48,14 @@ fun WarehouseCard(warehouse: WarehouseUiModel, onClick: () -> Unit) {
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = warehouse.imageRes),
-                contentDescription = "Pharmacy",
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(12.dp)),
-                contentScale = ContentScale.Crop
-            )
+//            Image(
+//                painter = painterResource(id = warehouse.imageRes),
+//                contentDescription = "Pharmacy",
+//                modifier = Modifier
+//                    .size(80.dp)
+//                    .clip(RoundedCornerShape(12.dp)),
+//                contentScale = ContentScale.Crop
+//            )
 
             Spacer(modifier = Modifier.width(12.dp))
 

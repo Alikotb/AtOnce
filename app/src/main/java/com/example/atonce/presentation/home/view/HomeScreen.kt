@@ -97,9 +97,9 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
             )
         }
 
-        items(warehouses) { warehouse ->
-            WarehouseCard(warehouse = warehouse) { onNavToStore() }
-        }
+//        items(warehouses) { warehouse ->
+//            WarehouseCard(warehouse = warehouse) { onNavToStore() }
+//        }
 
         item {
             Spacer(modifier = Modifier.height(36.dp))
