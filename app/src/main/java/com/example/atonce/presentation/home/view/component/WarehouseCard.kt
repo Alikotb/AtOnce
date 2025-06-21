@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.atonce.R
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.RegularFont
@@ -48,14 +49,14 @@ fun WarehouseCard(warehouse: WarehouseUiModel, onClick: () -> Unit) {
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-//            Image(
-//                painter = painterResource(id = warehouse.imageRes),
-//                contentDescription = "Pharmacy",
-//                modifier = Modifier
-//                    .size(80.dp)
-//                    .clip(RoundedCornerShape(12.dp)),
-//                contentScale = ContentScale.Crop
-//            )
+            AsyncImage(
+                model = warehouse.imageUrl,
+                contentDescription = "Pharmacy",
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop
+            )
 
             Spacer(modifier = Modifier.width(12.dp))
 

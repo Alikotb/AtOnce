@@ -9,5 +9,13 @@ data class WarehouseDto(
     val governate: String,
     val minmumPrice: Double,
     val imageUrl : String?,
-    val deliveryRate : String,
+    val deliveryRate : String?,
+)
+
+data class WarehousesResponse(
+    val items: List<WarehouseDto>,
+    val pageNumber: Int,
+    val pageSize: Int,
+    val totalCount: Int,
+    val totalPages: Int
 )

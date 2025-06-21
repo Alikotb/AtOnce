@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
+import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.MySearchBar
+import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
-import com.example.atonce.presentation.home.model.WarehouseUiModel
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -44,10 +46,17 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
     val listState = rememberLazyListState()
 
     LaunchedEffect(listState){
-
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+            .collect { lastVisible ->
+                val totalItems = listState.layoutInfo.totalItemsCount
+                if (lastVisible == totalItems - 1) {
+                    viewModel.getWarehousesByArea(areaId = 3)
+                }
+            }
     }
 
     LazyColumn(
+        state = listState,
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
@@ -97,12 +106,23 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
             )
         }
 
-//        items(warehouses) { warehouse ->
-//            WarehouseCard(warehouse = warehouse) { onNavToStore() }
-//        }
+        when (val state = uiState.value) {
+            is Response.Loading -> {
+                item { ProgressIndicator() }
+            }
+            is Response.Success -> {
+                val warehouses = state.data
+                items(warehouses) { warehouse ->
+                    WarehouseCard(warehouse = warehouse) { onNavToStore() }
+                }
+            }
+            is Response.Error -> {
+
+            }
+        }
 
         item {
-            Spacer(modifier = Modifier.height(36.dp))
+            Spacer(modifier = Modifier.height(150.dp))
         }
 
     }

@@ -88,6 +88,10 @@ dependencies {
     val compose_version = "1.0.0"
     implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
 
+    //coil
+    implementation ("io.coil-kt:coil-compose:2.6.0")
+
+    //koin
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
