@@ -46,6 +46,9 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 
+    LaunchedEffect(Unit) {
+        viewModel.getWarehousesByArea(3)
+    }
     LaunchedEffect(listState){
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->

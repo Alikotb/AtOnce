@@ -1,6 +1,5 @@
 package com.example.atonce.data.remote.service
 
-import com.example.atonce.data.remote.dto.WarehouseDto
 import com.example.atonce.data.remote.dto.WarehousesResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
