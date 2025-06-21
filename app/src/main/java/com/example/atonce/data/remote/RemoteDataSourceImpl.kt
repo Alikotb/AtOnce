@@ -1,6 +1,5 @@
 package com.example.atonce.data.remote
 
-import android.util.Log
 import com.example.atonce.data.remote.dto.WarehouseDto
 import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
 import com.example.atonce.data.remote.service.WarehouseApiService
@@ -16,7 +15,6 @@ class RemoteDataSourceImpl(
         pageSize: Int,
         search: String
     ): Flow<List<WarehouseDto>> {
-        Log.d("TAG", "getAllWarehousesByArea: ${apiService.getAllWarehousesByArea(areaId, page, pageSize, search).i}")
         return flowOf(apiService.getAllWarehousesByArea(areaId, page, pageSize, search).items)
     }
     override  suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int): Flow<WarehouseMedicinesDto>{
@@ -24,3 +22,5 @@ class RemoteDataSourceImpl(
     }
 
 }
+
+

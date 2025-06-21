@@ -73,7 +73,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = "Panadol Hamada",
+                    text = obj.englishMedicineName,
                     fontSize = MEDICINE_CARD_MAIN_FONT.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp)
                 )
@@ -81,7 +81,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = "${stringResource(R.string.discount)} 26%",
+                    text = "${stringResource(R.string.discount)} "+obj.medicineDiscount+"%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     color = colors.primary,
@@ -91,7 +91,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = stringResource(R.string.price)+"21.76"+ stringResource(R.string.egp),
+                    text = stringResource(R.string.price)+obj.medicineFinalPrice+ stringResource(R.string.egp),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     fontFamily = SemiBoldFont

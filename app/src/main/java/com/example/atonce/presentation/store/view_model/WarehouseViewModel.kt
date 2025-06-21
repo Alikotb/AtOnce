@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId) : ViewModel() {
+class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId) :
+    ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<WarehouseMedicines>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
 
@@ -23,25 +24,32 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
     private var isLastPage = false
     private var isLoading = false
 
-     fun getAllMedicinesByStoreId(warehouseId: Int){
-        if (isLoading||isLastPage) return
+    fun getAllMedicinesByStoreId(warehouseId: Int) {
+
+        if (isLoading || isLastPage) return
         isLoading = true
-        viewModelScope.launch (Dispatchers.IO) {
-            getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageNum = currentPage, pageSize = pageSize)
+        viewModelScope.launch(Dispatchers.IO) {
+            getAllMedicinesByWarehousesId(
+                warehouseId = warehouseId,
+                pageNum = currentPage,
+                pageSize = pageSize
+            )
                 .catch {
                     _uiState.value = Response.Error("")
                     isLoading = false
-                }.collect { result : WarehouseMedicinesDto  ->
-                    val items =result.items.map { it.toEntity() }
+                }.collect { result: WarehouseMedicinesDto ->
 
+                    Log.d("PaginationTest", "Requesting page $currentPage")
+                    Log.d("PaginationTest", "Received items: ${result.items.map { it.medicineId }}")
+                    val items = result.items.map { it.toEntity() }
                     val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
                     val newList = currentItems + items
-
                     _uiState.value = Response.Success(newList)
-                    Log.d("TAG", "getWarehousesByArea: $newList")
-
-                    if (items.size < pageSize) isLastPage = true
-                    else currentPage++
+                    if (items.size < pageSize) {
+                        isLastPage = true
+                    } else {
+                        currentPage++
+                    }
 
                     isLoading = false
 
@@ -49,9 +57,11 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
         }
 
     }
+
     fun resetPagination() {
         currentPage = 1
         isLastPage = false
         _uiState.value = Response.Loading
     }
 }
+

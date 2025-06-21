@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.store.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,23 +40,27 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
     var filterSearch by remember { mutableStateOf("") }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val listState = rememberLazyListState()
+    val gState = rememberLazyGridState()
 
-
-    LaunchedEffect(listState){
-        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+    LaunchedEffect(gState){
+        snapshotFlow { gState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
-                val totalItems = listState.layoutInfo.totalItemsCount
+                val totalItems = gState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
                     viewModel.getAllMedicinesByStoreId(warehouseId = 2)
                 }
             }
     }
 
+
     Column (
         modifier = Modifier
-            .fillMaxSize().background(colors.onPrimary)
-            .padding(top = modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding()),
+            .fillMaxSize()
+            .background(colors.onPrimary)
+            .padding(
+                top = modifier.calculateTopPadding(),
+                bottom = modifier.calculateBottomPadding()
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         OneIconCard(
@@ -76,7 +80,7 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
             modifier = Modifier
                 .padding(top = 16.dp)
                 .padding(horizontal = 12.dp),
-            state = rememberLazyGridState(),
+            state = gState,
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(
                 top = 12.dp,
@@ -89,10 +93,12 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
         ) {
             when(uiState){
                 is Response.Loading ->{
+                    Log.d("asd", "StoreScreen: loading")
                     items(5) { ShimmerWarehouseCard() }
                 }
                 is Response.Success->{
                     val list =  (uiState as Response.Success<List<WarehouseMedicines>>).data
+                    Log.d("asd", "StoreScreen: ${list.first().medicineFinalPrice}")
                     items (list){
                         MedicineCard(obj = it)
                     }
