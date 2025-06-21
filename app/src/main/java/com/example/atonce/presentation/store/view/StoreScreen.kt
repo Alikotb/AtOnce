@@ -8,26 +8,50 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
+import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
+import com.example.atonce.presentation.store.model.WarehouseMedicines
+import com.example.atonce.presentation.store.view_model.WarehouseViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
+fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel : WarehouseViewModel = koinViewModel()){
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
+
+
+    LaunchedEffect(listState){
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+            .collect { lastVisible ->
+                val totalItems = listState.layoutInfo.totalItemsCount
+                if (lastVisible == totalItems - 1) {
+                    viewModel.getAllMedicinesByStoreId(warehouseId = 2)
+                }
+            }
+    }
 
     Column (
         modifier = Modifier
@@ -47,6 +71,7 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
             }
 
         )
+
         LazyVerticalGrid(
             modifier = Modifier
                 .padding(top = 16.dp)
@@ -62,9 +87,21 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
             horizontalArrangement = Arrangement.spacedBy(16.dp),
 
         ) {
-            items(10){
-                MedicineCard()
+            when(uiState){
+                is Response.Loading ->{
+                    items(5) { ShimmerWarehouseCard() }
+                }
+                is Response.Success->{
+                    val list =  (uiState as Response.Success<List<WarehouseMedicines>>).data
+                    items (list){
+                        MedicineCard(obj = it)
+                    }
+                }
+                is Response.Error->{
+
+                }
             }
+
         }
 
     }

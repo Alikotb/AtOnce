@@ -16,7 +16,7 @@ class RemoteDataSourceImpl(
         pageSize: Int,
         search: String
     ): Flow<List<WarehouseDto>> {
-        Log.d("TAG", "getAllWarehousesByArea: ${apiService.getAllWarehousesByArea(areaId, page, pageSize, search).items}")
+        Log.d("TAG", "getAllWarehousesByArea: ${apiService.getAllWarehousesByArea(areaId, page, pageSize, search).i}")
         return flowOf(apiService.getAllWarehousesByArea(areaId, page, pageSize, search).items)
     }
     override  suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int): Flow<WarehouseMedicinesDto>{

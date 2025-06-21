@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val networkModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("http://predeploypharmaatonceafteredit.somee.com/")
+            .baseUrl("http://www.pharmaatoncepredeploy.somee.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

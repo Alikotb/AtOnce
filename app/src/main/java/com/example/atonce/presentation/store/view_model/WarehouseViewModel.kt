@@ -1,10 +1,11 @@
 package com.example.atonce.presentation.store.view_model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.mappers.toEntity
+import com.example.atonce.data.remote.Response
 import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
-import com.example.atonce.domain.entity.Response
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +38,7 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
                     val newList = currentItems + items
 
                     _uiState.value = Response.Success(newList)
+                    Log.d("TAG", "getWarehousesByArea: $newList")
 
                     if (items.size < pageSize) isLastPage = true
                     else currentPage++

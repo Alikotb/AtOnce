@@ -3,14 +3,15 @@ package com.example.atonce.data.mappers
 import com.example.atonce.data.remote.dto.WarehouseMedicinesDto.WarehouseMedicinesItemDto
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 
-fun WarehouseMedicinesItemDto.toEntity(): WarehouseMedicines{
+fun WarehouseMedicinesItemDto.toEntity(): WarehouseMedicines {
     return WarehouseMedicines(
-        medicineImage = "",
-        medicineName = medicineName,
-        medicineDiscount = discount,
-        medicineQuantity = quantity,
-        medicinePrice = 10.00,
-        medicineFinalPrice = 20.00,
-
+        arabicMedicineName = arabicMedicineName,
+        type = drug,
+        englishMedicineName =englishMedicineName,
+        medicineImage = medicineUrl,
+        medicineDiscount =discount,
+        medicinePrice =price,
+        medicineFinalPrice=finalprice,
+        medicineQuantity =quantity
     )
 }
