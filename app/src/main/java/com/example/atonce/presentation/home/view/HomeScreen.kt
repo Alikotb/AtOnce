@@ -29,6 +29,7 @@ import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCar
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -108,7 +109,7 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
 
         when (val state = uiState.value) {
             is Response.Loading -> {
-                item { ProgressIndicator() }
+                items(5) { ShimmerWarehouseCard() }
             }
             is Response.Success -> {
                 val warehouses = state.data

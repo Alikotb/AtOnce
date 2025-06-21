@@ -1,6 +1,5 @@
 package com.example.atonce.domain.entity
 
-import androidx.compose.ui.graphics.vector.ImageVector
 
 data class Warehouse(
     val id: Int,
@@ -11,3 +10,4 @@ data class Warehouse(
     val imageUrl : String,
     val deliveryRate : String,
 )
+
