@@ -1,19 +1,20 @@
-package com.example.atonce.presentation.home.viewmodel
+package com.example.atonce.presentation.store.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.data.mappers.toEntity
+import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
 import com.example.atonce.domain.entity.Response
-import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
-import com.example.atonce.presentation.home.model.WarehouseUiModel
-import com.example.atonce.presentation.home.model.toUiModel
+import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
+import com.example.atonce.presentation.store.model.WarehouseMedicines
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAreaUseCase) : ViewModel() {
-    private val _uiState = MutableStateFlow<Response<List<WarehouseUiModel>>>(Response.Loading)
+class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId) : ViewModel() {
+    private val _uiState = MutableStateFlow<Response<List<WarehouseMedicines>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
 
     private var currentPage = 1
@@ -21,18 +22,16 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
     private var isLastPage = false
     private var isLoading = false
 
-     fun getWarehousesByArea(areaId: Int, search: String = "") {
-        if (isLoading || isLastPage) return
+     fun getAllMedicinesByStoreId(warehouseId: Int){
+        if (isLoading||isLastPage) return
         isLoading = true
-
-        viewModelScope.launch(Dispatchers.IO) {
-            getWarehousesByAreaUseCase(areaId, currentPage, pageSize, search)
+        viewModelScope.launch (Dispatchers.IO) {
+            getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageNum = currentPage, pageSize = pageSize)
                 .catch {
                     _uiState.value = Response.Error("")
                     isLoading = false
-                }
-                .collect { list ->
-                    val items = list.map { it.toUiModel() }
+                }.collect { result : WarehouseMedicinesDto  ->
+                    val items =result.items.map { it.toEntity() }
 
                     val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
                     val newList = currentItems + items
@@ -43,10 +42,11 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
                     else currentPage++
 
                     isLoading = false
-            }
-        }
-    }
 
+                }
+        }
+
+    }
     fun resetPagination() {
         currentPage = 1
         isLastPage = false

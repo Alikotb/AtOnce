@@ -28,6 +28,7 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {}){
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
+
     Column (
         modifier = Modifier
             .fillMaxSize().background(colors.onPrimary)
