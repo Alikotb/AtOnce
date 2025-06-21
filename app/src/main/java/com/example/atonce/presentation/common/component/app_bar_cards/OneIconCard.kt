@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.common.FontSizes.TITLE
 import com.example.atonce.presentation.common.component.TapBarBtn
-import com.example.atonce.presentation.home.CircularIconButton
+import com.example.atonce.presentation.home.view.CircularIconButton
 import com.example.atonce.presentation.common.theme.BoldFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 

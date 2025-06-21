@@ -1,14 +1,16 @@
-package com.example.atonce.presentation.home
+package com.example.atonce.presentation.home.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,30 +19,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
-import com.example.atonce.presentation.home.component.AdPager
-import com.example.atonce.presentation.home.component.WarehouseCard
+import com.example.atonce.presentation.home.view.component.AdPager
+import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.home.model.WarehouseUiModel
+import com.example.atonce.presentation.home.viewmodel.HomeViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: PaddingValues) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
-    val warehouses = listOf(
-        Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
-        Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
-        Warehouse("Hamada Pharmacy", "Alexandria", 720, 5),
-        Warehouse("Hamada Pharmacy", "Zefta, Gharbia", 700, 4),
-        Warehouse("Hamada Pharmacy", "Cairo Downtown", 650, 3),
-        Warehouse("Hamada Pharmacy", "Alexandria", 720, 5)
-    )
 
     val ads = listOf(
         R.drawable.ads,
         R.drawable.ads1,
         R.drawable.ads2
     )
+
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState){
+
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -127,13 +132,3 @@ fun CircularIconButton(
         )
     }
 }
-
-
-
-data class Warehouse(
-    val name: String,
-    val location: String,
-    val minOrder: Int,
-    val rating: Int,
-    val imageRes: Int = R.drawable.pharmacy
-)

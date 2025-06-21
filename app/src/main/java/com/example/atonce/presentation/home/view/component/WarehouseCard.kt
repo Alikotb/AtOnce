@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.home.component
+package com.example.atonce.presentation.home.view.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -27,13 +27,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
-import com.example.atonce.presentation.home.Warehouse
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.home.model.WarehouseUiModel
 
 @Composable
-fun WarehouseCard(warehouse: Warehouse, onClick: () -> Unit) {
+fun WarehouseCard(warehouse: WarehouseUiModel, onClick: () -> Unit) {
     val colors = MaterialTheme.colorScheme
     Card(
         modifier = Modifier
