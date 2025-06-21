@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.store.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +32,10 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel : WarehouseViewModel = koinViewModel()){
+fun StoreScreen(
+    modifier: PaddingValues, onBackClick: () -> Unit = {},
+    viewModel: WarehouseViewModel = koinViewModel()
+) {
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -41,8 +43,15 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
+    LaunchedEffect(searchText) {
+        if (searchText.isNotBlank()) {
+            viewModel.searchInMedicines(searchText)
+        } else {
+            viewModel.clearSearch()
+        }
+    }
 
-    LaunchedEffect(gState){
+    LaunchedEffect(gState) {
         snapshotFlow { gState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
                 val totalItems = gState.layoutInfo.totalItemsCount
@@ -53,7 +62,7 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
     }
 
 
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
@@ -62,16 +71,17 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
                 bottom = modifier.calculateBottomPadding()
             ),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         OneIconCard(
 
             onClick = { onBackClick() }
         )
-        SearchComponent(expanded=expanded, onSearch = {
-            searchText=it
-        },
+        SearchComponent(
+            expanded = expanded, onSearch = {
+                searchText = it
+            },
             onFilterClick = {
-                filterSearch=it
+                filterSearch = it
             }
 
         )
@@ -90,20 +100,21 @@ fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel :
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
 
-        ) {
-            when(uiState){
-                is Response.Loading ->{
-                    Log.d("asd", "StoreScreen: loading")
-                    items(5) { ShimmerWarehouseCard() }
+            ) {
+            when (uiState) {
+                is Response.Loading -> {
+                    items(8) { ShimmerWarehouseCard() }
                 }
-                is Response.Success->{
-                    val list =  (uiState as Response.Success<List<WarehouseMedicines>>).data
-                    Log.d("asd", "StoreScreen: ${list.first().medicineFinalPrice}")
-                    items (list){
+
+                is Response.Success -> {
+                    val list = (uiState as Response.Success<List<WarehouseMedicines>>).data
+//                    Log.d("asd", "StoreScreen: ${list.first().medicineFinalPrice}")
+                    items(list) {
                         MedicineCard(obj = it)
                     }
                 }
-                is Response.Error->{
+
+                is Response.Error -> {
 
                 }
             }
