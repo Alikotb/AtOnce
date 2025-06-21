@@ -4,6 +4,9 @@ import android.app.Application
 import com.example.atonce.di.apiModule
 import com.example.atonce.di.networkModule
 import com.example.atonce.di.remoteModule
+import com.example.atonce.di.repositoryModule
+import com.example.atonce.di.useCaseModule
+import com.example.atonce.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
@@ -18,7 +21,10 @@ class App : Application() {
         val modules = listOf(
             apiModule,
             networkModule,
-            remoteModule
+            remoteModule,
+            repositoryModule,
+            useCaseModule,
+            viewModelModule
         )
         startKoin {
             androidContext(this@App)

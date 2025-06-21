@@ -24,10 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.theme.BlackColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.webview.components.WebViewContainer
-import com.example.atonce.presentation.webview.components.WebViewLoadingOverlay
 
 @Composable
 fun WebViewScreen(
@@ -44,7 +44,7 @@ fun WebViewScreen(
             WebViewContainer(url = url, isLoadingState = { isLoading = it })
 
             if (isLoading) {
-                WebViewLoadingOverlay()
+                ProgressIndicator()
             }
         }
     }

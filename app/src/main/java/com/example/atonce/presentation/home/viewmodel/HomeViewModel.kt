@@ -1,8 +1,9 @@
 package com.example.atonce.presentation.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.atonce.domain.entity.Response
+import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
 import com.example.atonce.presentation.home.model.WarehouseUiModel
 import com.example.atonce.presentation.home.model.toUiModel
@@ -27,9 +28,10 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
 
         viewModelScope.launch(Dispatchers.IO) {
             getWarehousesByAreaUseCase(areaId, currentPage, pageSize, search)
-                .catch {
+                .catch { e ->
                     _uiState.value = Response.Error("")
                     isLoading = false
+                    Log.d("TAG", "getWarehousesByArea: ${e.message}")
                 }
                 .collect { list ->
                     val items = list.map { it.toUiModel() }
@@ -38,6 +40,7 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
                     val newList = currentItems + items
 
                     _uiState.value = Response.Success(newList)
+                    Log.d("TAG", "getWarehousesByArea: $newList")
 
                     if (items.size < pageSize) isLastPage = true
                     else currentPage++
@@ -45,11 +48,5 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
                     isLoading = false
             }
         }
-    }
-
-    fun resetPagination() {
-        currentPage = 1
-        isLastPage = false
-        _uiState.value = Response.Loading
     }
 }
