@@ -1,6 +1,5 @@
 package com.example.atonce.data.remote.dto
 
-import androidx.compose.ui.graphics.vector.ImageVector
 
 data class WarehouseDto(
     val id: Int,

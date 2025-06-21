@@ -88,7 +88,10 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
             Spacer(modifier = Modifier.weight(1f))
 
             TextButton(
-                onClick = {}
+                onClick = {
+
+
+                }
             ) {
                 Text(
                     text = stringResource(R.string.forgot_password),
