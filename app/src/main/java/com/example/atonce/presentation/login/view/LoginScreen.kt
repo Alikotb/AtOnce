@@ -16,9 +16,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,10 +43,12 @@ import com.example.atonce.presentation.common.FontSizes.LOGINBTN
 import com.example.atonce.presentation.common.FontSizes.REGISTERHERE
 import com.example.atonce.presentation.common.component.LoginPasswordTF
 import com.example.atonce.presentation.common.component.LoginTF
+import com.example.atonce.presentation.login.viewmodel.LoginViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
+fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarHostState: SnackbarHostState, modifier: PaddingValues, viewModel: LoginViewModel = koinViewModel()) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -51,13 +56,29 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
     var password by remember { mutableStateOf("") }
     val colors = MaterialTheme.colorScheme
 
+    LaunchedEffect(Unit) {
+        viewModel.loginSuccess.collect {
+            onLoginClick()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+
     Column(
-        modifier = Modifier.fillMaxSize().padding(top = modifier.calculateTopPadding()).background(colors.onPrimary),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = modifier.calculateTopPadding())
+            .background(colors.onPrimary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(
             Modifier.height((screenHeight * 0.06).dp)
         )
+
         Image(
             painter = painterResource(R.drawable.logo),
             modifier = Modifier
@@ -66,7 +87,8 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
             contentScale = ContentScale.Fit,
             contentDescription = "App Logo",
 
-        )
+            )
+
         Text(
             text = stringResource(R.string.welcome_back_login_now),
             fontSize = 22.sp,
@@ -90,7 +112,6 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
             TextButton(
                 onClick = {
 
-
                 }
             ) {
                 Text(
@@ -108,7 +129,9 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
         )
         Button(
             shape = RoundedCornerShape(12.dp),
-            onClick = {},
+            onClick = {
+                viewModel.login(email, password)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -147,11 +170,7 @@ fun LoginScreen(onRegisterClick: () -> Unit, modifier: PaddingValues) {
                     fontWeight = FontWeight.Bold,
                 )
             }
-
-
         }
-
-
     }
 
 }

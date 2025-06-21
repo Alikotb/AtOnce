@@ -10,7 +10,7 @@ fun LoginResponseDto.toEntity() : LoginResult {
         token = token,
         message = message,
         success = success,
-        pharmacy = pharmacy.toEntity()
+        pharmacy = pharmacy?.toEntity()
     )
 }
 

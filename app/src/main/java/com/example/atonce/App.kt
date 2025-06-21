@@ -2,6 +2,7 @@ package com.example.atonce
 
 import android.app.Application
 import com.example.atonce.di.apiModule
+import com.example.atonce.di.localModule
 import com.example.atonce.di.networkModule
 import com.example.atonce.di.remoteModule
 import com.example.atonce.di.repositoryModule
@@ -22,6 +23,7 @@ class App : Application() {
             apiModule,
             networkModule,
             remoteModule,
+            localModule,
             repositoryModule,
             useCaseModule,
             viewModelModule

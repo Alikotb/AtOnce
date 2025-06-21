@@ -12,7 +12,7 @@ val repositoryModule = module {
     }
 
     single<AuthRepository> {
-        AuthRepositoryImpl(get())
+        AuthRepositoryImpl(get(), get())
     }
 
 }

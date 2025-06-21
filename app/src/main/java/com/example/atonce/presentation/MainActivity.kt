@@ -18,8 +18,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -34,6 +37,7 @@ import com.example.atonce.presentation.common.theme.WhiteColor
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
     lateinit var bottomBarState: MutableState<Boolean>
+    lateinit var snackbarHostState: SnackbarHostState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +55,9 @@ class MainActivity : ComponentActivity() {
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
                 bottomBarState = rememberSaveable { (mutableStateOf(false)) }
+                snackbarHostState = remember { SnackbarHostState() }
                 Scaffold(
+                    snackbarHost = { SnackbarHost(hostState = snackbarHostState, modifier = Modifier.padding(bottom = 50.dp)) },
                     bottomBar = {
                         Box(
                             modifier = Modifier
@@ -68,6 +74,7 @@ class MainActivity : ComponentActivity() {
                     SetUpNavHost(
                         navController = navController,
                         bottomBarState = bottomBarState,
+                        snackbarState = snackbarHostState,
                         paddingValues = innerPadding
                     )
                 }

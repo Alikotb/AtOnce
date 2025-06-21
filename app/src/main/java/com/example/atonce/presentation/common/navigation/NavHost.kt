@@ -2,6 +2,7 @@ package com.example.anees.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
@@ -26,6 +27,7 @@ import com.example.atonce.presentation.webview.WebViewScreen
 fun SetUpNavHost(
     navController: NavHostController,
     bottomBarState: MutableState<Boolean>,
+    snackbarState: SnackbarHostState,
     paddingValues: PaddingValues
 ) {
     NavHost(
@@ -66,8 +68,15 @@ fun SetUpNavHost(
             bottomBarState.value = false
              LoginScreen(
                  modifier =paddingValues,
+                 snackbarHostState = snackbarState,
                  onRegisterClick = {
                      navController.navigate(ScreenRoute.SignupScreen)
+                 },
+                 onLoginClick = {
+                     navController.navigate(ScreenRoute.HomeScreen) {
+                         popUpTo(0) { inclusive = true }
+                         launchSingleTop = true
+                     }
                  }
              )
         }
