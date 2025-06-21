@@ -24,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -32,11 +31,11 @@ import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_FONT
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_PRICE
 import com.example.atonce.presentation.common.component.CustomCartBtn
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.store.model.WarehouseMedicines
 
 
-@Preview(showBackground = true)
 @Composable
-fun MedicineCard(){
+fun MedicineCard(obj: WarehouseMedicines){
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -74,7 +73,7 @@ fun MedicineCard(){
             }
             Row {
                 Text(
-                    text = "Panadol Hamada",
+                    text = obj.englishMedicineName,
                     fontSize = MEDICINE_CARD_MAIN_FONT.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp)
                 )
@@ -82,7 +81,7 @@ fun MedicineCard(){
             }
             Row {
                 Text(
-                    text = "${stringResource(R.string.discount)} 26%",
+                    text = "${stringResource(R.string.discount)} "+obj.medicineDiscount+"%",
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     color = colors.primary,
@@ -92,7 +91,7 @@ fun MedicineCard(){
             }
             Row {
                 Text(
-                    text = stringResource(R.string.price)+"21.76"+ stringResource(R.string.egp),
+                    text = stringResource(R.string.price)+obj.medicineFinalPrice+ stringResource(R.string.egp),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     fontFamily = SemiBoldFont

@@ -22,7 +22,7 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
     private var isLastPage = false
     private var isLoading = false
 
-    suspend fun getWarehousesByArea(areaId: Int, search: String = "") {
+     fun getWarehousesByArea(areaId: Int, search: String = "") {
         if (isLoading || isLastPage) return
         isLoading = true
 
