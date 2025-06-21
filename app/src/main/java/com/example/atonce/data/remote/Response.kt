@@ -1,4 +1,4 @@
-package com.example.atonce.domain.entity
+package com.example.atonce.data.remote
 
 sealed class Response<out T> {
     data object Loading : Response<Nothing>()
