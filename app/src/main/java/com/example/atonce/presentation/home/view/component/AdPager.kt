@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.home.component
+package com.example.atonce.presentation.home.view.component
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
