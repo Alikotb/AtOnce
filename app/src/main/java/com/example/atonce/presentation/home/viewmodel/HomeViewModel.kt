@@ -49,10 +49,4 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
             }
         }
     }
-
-    fun resetPagination() {
-        currentPage = 1
-        isLastPage = false
-        _uiState.value = Response.Loading
-    }
 }

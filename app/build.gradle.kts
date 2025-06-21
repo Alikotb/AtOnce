@@ -91,6 +91,10 @@ dependencies {
     //coil
     implementation ("io.coil-kt:coil-compose:2.6.0")
 
+    //shimmer effect
+    implementation ("com.google.accompanist:accompanist-placeholder-material3:0.34.0")
+
+
     //koin
     val koin_android_version = "4.0.2"
     implementation("io.insert-koin:koin-android:$koin_android_version")
