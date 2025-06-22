@@ -104,4 +104,9 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
     implementation("io.insert-koin:koin-androidx-compose-navigation:$koin_android_version")
 
+    //zxing QRCode
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
+
+
 }

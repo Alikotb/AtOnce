@@ -2,6 +2,7 @@ package com.example.atonce.data.repository
 
 import com.example.atonce.data.local.sharedpreference.SharedPreferences
 import com.example.atonce.data.mappers.toEntity
+import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.LoginRequestDto
 import com.example.atonce.data.remote.service.AuthApiService
 import com.example.atonce.domain.entity.LoginResult
@@ -43,5 +44,13 @@ class AuthRepositoryImpl(
             sharedPreferences.fetchData("areaId", 0),
             sharedPreferences.fetchData("phoneNumber", ""),
         )
+    }
+
+    override suspend fun getAllGovernorates(): Flow<List<AreaDto>> {
+        return  flowOf(service.getAllGovernorates())
+    }
+
+    override suspend fun getAreasByGovernorateId(governorateId: Int): Flow<List<AreaDto>> {
+        return flowOf(service.getAreasByGovernorateId(governorateId))
     }
 }

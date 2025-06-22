@@ -84,6 +84,7 @@ fun SetUpNavHost(
                 onBackClick = {
                     navController.popBackStack()
                 },
+                snackbarHostState = snackbarState,
                 onRegisterClick = {
                     navController.navigate(ScreenRoute.HomeScreen) {
                         popUpTo(0) { inclusive = true }
