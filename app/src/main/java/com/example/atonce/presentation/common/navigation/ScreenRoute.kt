@@ -23,5 +23,7 @@ sealed class ScreenRoute(val route: String) {
     @Serializable
     object ProfileScreen : ScreenRoute("profile")
     @Serializable
+    object ProfileDetailsScreen : ScreenRoute("profileDetails")
+    @Serializable
     data class WebViewScreen(val title : String, val url : String) : ScreenRoute("webview")
 }

@@ -15,6 +15,7 @@ import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.search.view.SearchScreen
 import com.example.atonce.presentation.common.navigation.ScreenRoute
+import com.example.atonce.presentation.profile.ProfileDetails
 import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
@@ -137,6 +138,12 @@ fun SetUpNavHost(
             bottomBarState.value = true
             SearchScreen( modifier =paddingValues,)
         }
+        composable<ScreenRoute.ProfileDetailsScreen> {
+            bottomBarState.value = false
+            ProfileDetails( modifier =paddingValues){
+                navController.popBackStack()
+            }
+        }
         composable<ScreenRoute.ProfileScreen> {
             bottomBarState.value = false
             ProfileScreen(
@@ -146,6 +153,9 @@ fun SetUpNavHost(
                 },
                 onWebViewClick = { title, url ->
                     navController.navigate(ScreenRoute.WebViewScreen(title, url))
+                },
+                onDetailsClick = {
+                    navController.navigate(ScreenRoute.ProfileDetailsScreen)
                 }
             )
         }

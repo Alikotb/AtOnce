@@ -49,14 +49,14 @@ import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCar
 fun ProfileScreen(
     onBackClick: () -> Unit = {},
     onWebViewClick: (title: String, url: String) -> Unit,
-    modifier: PaddingValues
+    modifier: PaddingValues,
+    onDetailsClick :()-> Unit={}
 ) {
     val colors = MaterialTheme.colorScheme
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-//            .padding(horizontal = 16.dp)
             .padding(top=modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding())
     ) {
         TowIconCard(
@@ -66,42 +66,9 @@ fun ProfileScreen(
                 onBackClick()
             },
             onEndClick = {
-
             },
             headerTxt = stringResource(R.string.profile)
         )
-//        Row(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = 16.dp, vertical = 12.dp),
-//            verticalAlignment = Alignment.CenterVertically,
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Icon(
-//                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-//                contentDescription = "Back",
-//                tint = colors.onBackground,
-//                modifier = Modifier
-//                    .size(24.dp)
-//                    .clickable { onBackClick() }
-//            )
-//
-//            Text(
-//                text = stringResource(R.string.profile),
-//                fontSize = 20.sp,
-//                fontWeight = FontWeight.Bold,
-//                color = colors.onBackground
-//            )
-//
-//            Icon(
-//                imageVector = Icons.Default.Language,
-//                contentDescription = "Language",
-//                tint =colors.onBackground,
-//                modifier = Modifier
-//                    .size(24.dp)
-//                    .clickable { }
-//            )
-//        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -109,7 +76,11 @@ fun ProfileScreen(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = colors.surface),
-            modifier = Modifier.fillMaxWidth().padding(horizontal =16.dp )
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal =16.dp )
+                .clickable(onClick = {
+                    onDetailsClick()
+                })
        ) {
             Row(
                 modifier = Modifier
