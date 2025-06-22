@@ -2,7 +2,7 @@ package com.example.atonce.data.repository
 
 import com.example.atonce.data.local.sharedpreference.SharedPreferences
 import com.example.atonce.data.mappers.toEntity
-import com.example.atonce.data.remote.dto.LoginRequestDto
+import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import com.example.atonce.data.remote.service.AuthApiService
 import com.example.atonce.domain.entity.LoginResult
 import com.example.atonce.domain.entity.Pharmacy

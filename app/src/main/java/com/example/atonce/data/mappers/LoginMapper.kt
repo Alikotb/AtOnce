@@ -1,7 +1,7 @@
 package com.example.atonce.data.mappers
 
-import com.example.atonce.data.remote.dto.LoginResponseDto
-import com.example.atonce.data.remote.dto.PharmacyDto
+import com.example.atonce.data.remote.dto.authentication.LoginResponseDto
+import com.example.atonce.data.remote.dto.authentication.PharmacyDto
 import com.example.atonce.domain.entity.LoginResult
 import com.example.atonce.domain.entity.Pharmacy
 

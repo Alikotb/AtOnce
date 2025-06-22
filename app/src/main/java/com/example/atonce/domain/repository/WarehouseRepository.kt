@@ -1,6 +1,6 @@
 package com.example.atonce.domain.repository
 
-import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.domain.entity.Warehouse
 import kotlinx.coroutines.flow.Flow
 

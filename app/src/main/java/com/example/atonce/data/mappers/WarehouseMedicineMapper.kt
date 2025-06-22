@@ -1,6 +1,6 @@
 package com.example.atonce.data.mappers
 
-import com.example.atonce.data.remote.dto.WarehouseMedicinesDto.WarehouseMedicinesItemDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto.WarehouseMedicinesItemDto
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 
 fun WarehouseMedicinesItemDto.toEntity(): WarehouseMedicines {

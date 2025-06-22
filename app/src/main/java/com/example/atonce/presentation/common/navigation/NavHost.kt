@@ -13,7 +13,7 @@ import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
-import com.example.atonce.presentation.search_screen.vies.SearchScreen
+import com.example.atonce.presentation.search.view.SearchScreen
 import com.example.atonce.presentation.common.navigation.ScreenRoute
 import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen

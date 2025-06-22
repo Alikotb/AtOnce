@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.search_screen.vies.component
+package com.example.atonce.presentation.search.view.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -26,17 +26,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
 import com.example.atonce.presentation.common.component.CustomCartBtn
 
 
-@Preview(showBackground = true)
 @Composable
-fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) {
+fun SearchCard(medicine: Medicine, onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) {
     val colors = MaterialTheme.colorScheme
-
 
     Card(
         modifier = Modifier
@@ -57,8 +57,8 @@ fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) 
                         .weight(1f)
                         .padding(start = 4.dp, top = 4.dp)
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.pharmacy),
+                    AsyncImage(
+                        model = medicine.imageUrl,
                         contentDescription = "Medicine name",
                         modifier = Modifier
                             .size(64.dp)
@@ -70,19 +70,19 @@ fun SearchCard(onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) 
                     modifier = Modifier.weight(4f)
                 ) {
                     Text(
-                        text = "UM Pharma UM Pharma UM Pharma ",
+                        text = medicine.medicineName,
                         fontSize = PHARMA_NAME.sp,
                         modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text ="${stringResource(R.string.discount)} 28 %",
+                        text ="${stringResource(R.string.discount)} ${medicine.maximumDiscount} %",
                         fontSize = MEDICINE_DISCOUNT.sp,
                         modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                         color = colors.primary
                     )
                     Text(
-                        text = stringResource(R.string.price)+"21.76"+ stringResource(R.string.egp),
+                        text = stringResource(R.string.price)+"${medicine.price}"+ stringResource(R.string.egp),
                         fontSize = MEDICINE_DISCOUNT.sp,
                         modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                     )

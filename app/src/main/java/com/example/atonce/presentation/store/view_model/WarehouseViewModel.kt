@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.Response
-import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
 import com.example.atonce.domain.usecase.SearchInWareHouseUseCase
 import com.example.atonce.presentation.store.model.WarehouseMedicines
