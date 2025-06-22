@@ -8,7 +8,7 @@ fun Pharmacy.toEntity(): PharmacyEntity {
         token = token?:"",
         id = id?:-1,
         userName = userName?:"",
-        pharmacyName = phoneNumber?:"",
+        pharmacyName = name?:"",
         email = email?:"",
         address = address?:"",
         governorate = governate?:"",

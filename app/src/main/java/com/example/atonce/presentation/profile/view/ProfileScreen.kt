@@ -154,7 +154,7 @@ fun ProfileScreen(
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.AutoMirrored.Filled.Logout, stringResource(R.string.logout), isLogout = true) {
                     viewmodel.logOut()
-                    onLogoutClicK
+                    onLogoutClicK()
                 }
             }
         }

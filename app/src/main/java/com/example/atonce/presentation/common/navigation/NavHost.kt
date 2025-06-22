@@ -156,6 +156,10 @@ fun SetUpNavHost(
                 },
                 onDetailsClick = {
                     navController.navigate(ScreenRoute.ProfileDetailsScreen)
+                },
+                onLogoutClicK = {
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoute.LoginScreen)
                 }
             )
         }
