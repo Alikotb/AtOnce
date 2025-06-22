@@ -54,7 +54,12 @@ fun SearchScreen(modifier: PaddingValues) {
 
         LazyColumn(modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 16.dp, bottom = 32.dp)) {
+            .padding(top = 16.dp, bottom = 32.dp)
+        ,
+            contentPadding = PaddingValues(
+                bottom = 84.dp
+            )
+        ) {
             items(10) {
                 SearchCard(onSuppliersClick = {
                     showBottomSheet = true
@@ -62,6 +67,7 @@ fun SearchScreen(modifier: PaddingValues) {
                 Spacer(Modifier.height(8.dp))
             }
         }
+
     }
 
 

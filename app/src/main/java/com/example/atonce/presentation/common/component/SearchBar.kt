@@ -1,11 +1,14 @@
 package com.example.atonce.presentation.common.component
 
-
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Search
@@ -34,8 +37,16 @@ import com.example.atonce.presentation.common.theme.RegularFont
 fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
     var searchText by remember { mutableStateOf("") }
     val colors = MaterialTheme.colorScheme
+
+
     TextField(
-        modifier = modifier,
+        modifier = modifier
+            .height(50.dp)
+            .border(
+                width = 1.dp,
+                color =colors.onSurfaceVariant,
+                shape = RoundedCornerShape(12.dp)
+            ),
         value = searchText,
         onValueChange = {
             onValueChange(it)
@@ -48,8 +59,8 @@ fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
             contentDescription = ""
         )},
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = colors.surface,
-            unfocusedContainerColor = colors.surface,
+            focusedContainerColor = colors.onPrimary,
+            unfocusedContainerColor = colors.onPrimary,
             cursorColor = colors.primary,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
