@@ -91,14 +91,12 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        // Set nav bar color + behavior
         systemUiController.setNavigationBarColor(
             color = Color.Transparent,
             darkIcons = !darkTheme,
             navigationBarContrastEnforced = false
         )
 
-        // Hide nav bar and status bar if you want immersive
         systemUiController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         systemUiController.isNavigationBarVisible = false
         systemUiController.isStatusBarVisible = true

@@ -27,12 +27,10 @@ fun ShimmerSearchCard() {
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
 
-            // Top Row: Image + Text Shimmers
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Image shimmer
                 Box(
                     modifier = Modifier
                         .size(64.dp)
@@ -46,7 +44,6 @@ fun ShimmerSearchCard() {
 
                 Spacer(Modifier.width(16.dp))
 
-                // Text placeholders
                 Column(modifier = Modifier.weight(1f)) {
                     Spacer(Modifier.height(4.dp))
                     Box(
@@ -86,7 +83,6 @@ fun ShimmerSearchCard() {
 
             Spacer(Modifier.height(16.dp))
 
-            // Button shimmers row
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
