@@ -27,6 +27,7 @@ import com.example.atonce.presentation.common.component.TapBarBtn
 import com.example.atonce.presentation.home.view.CircularIconButton
 import com.example.atonce.presentation.common.theme.BoldFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 
 @Preview(showBackground = true)
@@ -39,7 +40,7 @@ fun OneIconCard(onClick : () -> Unit={},headerTxt: String =stringResource(R.stri
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy((screenWidth*0.175).dp)
     ){
-        TapBarBtn(icon = icon, onIconClick = {onClick()})
+        TapBarBtn(onIconClick = {onClick()}, icon = icon)
         Text(
             text = headerTxt,
             fontSize = titleSize.sp,

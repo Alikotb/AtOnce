@@ -44,6 +44,7 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
                     fullList.addAll(items)
                     val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
                     val newList = currentItems + items
+
                     _uiState.value = Response.Success(newList)
                     if (items.size < pageSize) {
                         isLastPage = true

@@ -34,8 +34,17 @@ val DarkLightGrayColor = Color(0xFF2C2C2C)
 val LightGrayText = Color(0xFF888888)
 val DarkGrayText = Color(0xFFCCCCCC)
 
-val DarkbottomNavColor  = Color(0xFF25252D)
-val LightbottomNavColor  = Color(0xFFFFFFFF)
+val DarkBottomNavColor  = Color(0xFF25252D)
+val LightBottomNavColor  = Color(0xFFFFFFFF)
 
 val RedColor = Color(0xFFEE4D4D)
+
+val ProfileDark = Color(0xFF1E2A2A)
+val ProfileWhite = WhiteColor
+
+val ProfileBackDark =Color(0xff131f1f)
+val ProfileBackWhite = Til
+
+val CircleBorderColorDark =Color(0xff131f1f)
+val CircleBorderColorWhite = WhiteColor
 

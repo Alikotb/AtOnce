@@ -38,6 +38,7 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
 
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
     LaunchedEffect(searchText) {
