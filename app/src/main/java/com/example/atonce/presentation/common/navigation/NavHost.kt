@@ -15,8 +15,8 @@ import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.search.view.SearchScreen
 import com.example.atonce.presentation.common.navigation.ScreenRoute
-import com.example.atonce.presentation.profile.ProfileDetails
-import com.example.atonce.presentation.profile.ProfileScreen
+import com.example.atonce.presentation.profile.view.ProfileDetails
+import com.example.atonce.presentation.profile.view.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
@@ -140,9 +140,9 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.ProfileDetailsScreen> {
             bottomBarState.value = false
-            ProfileDetails( modifier =paddingValues){
+            ProfileDetails( modifier =paddingValues,onClick={
                 navController.popBackStack()
-            }
+            })
         }
         composable<ScreenRoute.ProfileScreen> {
             bottomBarState.value = false

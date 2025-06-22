@@ -10,4 +10,6 @@ interface AuthRepository {
     fun savePharmacy(pharmacy: Pharmacy)
 
     fun getPharmacy(): Pharmacy
+    fun freePharmacy()
+
 }

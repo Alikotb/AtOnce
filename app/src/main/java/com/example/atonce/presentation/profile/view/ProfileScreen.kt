@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.profile
+package com.example.atonce.presentation.profile.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,15 +44,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun ProfileScreen(
     onBackClick: () -> Unit = {},
     onWebViewClick: (title: String, url: String) -> Unit,
     modifier: PaddingValues,
-    onDetailsClick :()-> Unit={}
+    onDetailsClick :()-> Unit={},
+    viewmodel: ProfileViewModel = koinInject(),
+    onLogoutClicK:()-> Unit={}
 ) {
     val colors = MaterialTheme.colorScheme
+    val user = viewmodel.userData
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -99,7 +104,7 @@ fun ProfileScreen(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        "Hamada Hamada",
+                        user.userName,
                         fontSize = 18.sp,
                         color = colors.onBackground,
                         fontWeight = FontWeight.SemiBold,
@@ -147,7 +152,10 @@ fun ProfileScreen(
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.AutoMirrored.Filled.Logout, stringResource(R.string.logout), isLogout = true) {}
+                ProfileItem(Icons.AutoMirrored.Filled.Logout, stringResource(R.string.logout), isLogout = true) {
+                    viewmodel.logOut()
+                    onLogoutClicK
+                }
             }
         }
     }

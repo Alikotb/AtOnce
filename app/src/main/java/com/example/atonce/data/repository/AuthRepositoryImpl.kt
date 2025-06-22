@@ -44,4 +44,15 @@ class AuthRepositoryImpl(
             sharedPreferences.fetchData("phoneNumber", ""),
         )
     }
+
+    override fun freePharmacy() {
+        sharedPreferences.saveData("token", "")
+        sharedPreferences.saveData("id",-1)
+        sharedPreferences.saveData("userName", "")
+        sharedPreferences.saveData("name", "")
+        sharedPreferences.saveData("email","")
+        sharedPreferences.saveData("address", "")
+        sharedPreferences.saveData("governate","")
+        sharedPreferences.saveData("areaId",-1)
+        sharedPreferences.saveData("phoneNumber","")    }
 }
