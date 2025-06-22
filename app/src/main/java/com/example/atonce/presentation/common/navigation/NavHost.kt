@@ -46,9 +46,6 @@ fun SetUpNavHost(
                 navToSignUp = {
                     navController.navigate(ScreenRoute.SignupScreen)
                 },
-                navToStore = {
-                    navController.navigate(ScreenRoute.StoreScreen)
-                },
                 navToSearch = {
                     navController.navigate(ScreenRoute.SearchScreen)
                 },
@@ -102,14 +99,17 @@ fun SetUpNavHost(
                 onProfileClick = {
                     navController.navigate(ScreenRoute.ProfileScreen)
                 },
-                onNavToStore = {
-                    navController.navigate(ScreenRoute.StoreScreen)
+                onNavToStore = { warehouseId ->
+                    navController.navigate(ScreenRoute.StoreScreen(warehouseId))
                 }
             )
         }
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
-            StoreScreen(modifier =paddingValues,
+            val warehouseId = it.toRoute<ScreenRoute.StoreScreen>().warehouseId
+            StoreScreen(
+                warehouseId = warehouseId,
+                modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
                 }

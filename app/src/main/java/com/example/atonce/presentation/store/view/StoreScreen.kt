@@ -33,7 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun StoreScreen(modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel : WarehouseViewModel = koinViewModel()){
+fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel : WarehouseViewModel = koinViewModel()){
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }

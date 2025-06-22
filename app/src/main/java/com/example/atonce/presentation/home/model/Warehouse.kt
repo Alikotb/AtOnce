@@ -4,6 +4,7 @@ import com.example.atonce.R
 import com.example.atonce.domain.entity.Warehouse
 
 data class WarehouseUiModel(
+    val id: Int,
     val name: String,
     val location: String,
     val minOrder: Int,
@@ -13,6 +14,7 @@ data class WarehouseUiModel(
 
 fun Warehouse.toUiModel(): WarehouseUiModel {
     return WarehouseUiModel(
+        id = this.id,
         name = this.name,
         location = this.address,
         minOrder = this.minmumPrice.toInt(),

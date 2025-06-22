@@ -34,7 +34,7 @@ import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
 
     val ads = listOf(
@@ -117,7 +117,7 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: () -> Unit, modifier: Pa
             is Response.Success -> {
                 val warehouses = state.data
                 items(warehouses) { warehouse ->
-                    WarehouseCard(warehouse = warehouse) { onNavToStore() }
+                    WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
                 }
             }
             is Response.Error -> {

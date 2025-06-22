@@ -20,18 +20,23 @@ import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource.Companion.SideEffect
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.example.anees.ui.navigation.SetUpNavHost
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
 import com.example.atonce.presentation.common.theme.AtOnceTheme
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 class MainActivity : ComponentActivity() {
@@ -41,17 +46,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-           // hideSystemUI()
-
-            window.statusBarColor = if( isSystemInDarkTheme() ) DarkWhiteColor.toArgb() else  WhiteColor.toArgb()
-
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-
-            WindowCompat.getInsetsController(window, window.decorView).apply {
-                isAppearanceLightStatusBars = !isSystemInDarkTheme()
-            }
+            hideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
                 bottomBarState = rememberSaveable { (mutableStateOf(false)) }
@@ -83,24 +79,29 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @Composable
     private fun hideSystemUI() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.let {
-                it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                it.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE        }
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    )    }
-        window.statusBarColor = Color.Transparent.toArgb()
-        window.navigationBarColor = Color.Transparent.toArgb()
+        val darkTheme = isSystemInDarkTheme()
+        val systemUiController = rememberSystemUiController()
+
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color = if (darkTheme) DarkWhiteColor else WhiteColor,
+                darkIcons = !darkTheme
+            )
+        }
+
+        // Set nav bar color + behavior
+        systemUiController.setNavigationBarColor(
+            color = Color.Transparent,
+            darkIcons = !darkTheme,
+            navigationBarContrastEnforced = false
+        )
+
+        // Hide nav bar and status bar if you want immersive
+        systemUiController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        systemUiController.isNavigationBarVisible = false
+        systemUiController.isStatusBarVisible = true
     }
 }
 

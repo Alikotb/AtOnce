@@ -13,7 +13,7 @@ sealed class ScreenRoute(val route: String) {
     @Serializable
     object SignupScreen : ScreenRoute("signup")
     @Serializable
-    object StoreScreen : ScreenRoute("store")
+    data class StoreScreen(val warehouseId: Int) : ScreenRoute("store")
     @Serializable
     object SearchScreen : ScreenRoute("search")
     @Serializable
