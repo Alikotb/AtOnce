@@ -1,17 +1,12 @@
 package com.example.atonce.presentation
 
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,16 +22,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource.Companion.SideEffect
-import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.anees.ui.navigation.SetUpNavHost
+import com.example.atonce.core.extensions.applyLanguage
+import com.example.atonce.presentation.common.navigation.SetUpNavHost
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
 import com.example.atonce.presentation.common.theme.AtOnceTheme
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {
@@ -46,6 +40,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val lang = Locale.getDefault().language
+        applyLanguage(lang)
         setContent {
             hideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
@@ -78,6 +74,8 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
 
     @Composable
     private fun hideSystemUI() {

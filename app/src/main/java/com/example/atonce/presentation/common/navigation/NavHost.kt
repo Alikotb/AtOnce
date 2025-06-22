@@ -1,4 +1,4 @@
-package com.example.anees.ui.navigation
+package com.example.atonce.presentation.common.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,7 +14,6 @@ import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.search.view.SearchScreen
-import com.example.atonce.presentation.common.navigation.ScreenRoute
 import com.example.atonce.presentation.profile.view.ProfileDetails
 import com.example.atonce.presentation.profile.view.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
