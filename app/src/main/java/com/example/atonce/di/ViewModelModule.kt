@@ -10,4 +10,6 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { WarehouseViewModel(get()) }
+    viewModel { LoginViewModel(get()) }
+    viewModel { WarehouseViewModel(get(),get()) }
 }
