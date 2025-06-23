@@ -1,5 +1,6 @@
 package com.example.atonce.data.remote
 
+import com.example.atonce.data.remote.dto.SupplierDto
 import com.example.atonce.data.remote.dto.Warehouse.WarehouseDto
 import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.data.remote.service.WarehouseApiService
@@ -19,6 +20,13 @@ class RemoteDataSourceImpl(
     }
     override  suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int): Flow<WarehouseMedicinesDto>{
         return flowOf(apiService.getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageNum = pageNum,pageSize=pageSize))
+    }
+
+    override suspend fun getAllSuppliersByAreaAndMedicine(
+        areaId: Int,
+        medicineId: Int
+    ): Flow<List<SupplierDto>> {
+       return flowOf(apiService.getAllSuppliersByAreaAndMedicine(areaId, medicineId))
     }
 
 }

@@ -35,7 +35,9 @@ import com.example.atonce.presentation.common.component.CustomCartBtn
 
 
 @Composable
-fun SearchCard(medicine: Medicine, onCartClick: () -> Unit = {}, onSuppliersClick: () -> Unit = {}) {
+fun SearchCard(medicine: Medicine,
+               onCartClick: () -> Unit = {},
+               onSuppliersClick: (Medicine) -> Unit = {}) {
     val colors = MaterialTheme.colorScheme
 
     Card(
@@ -103,7 +105,7 @@ fun SearchCard(medicine: Medicine, onCartClick: () -> Unit = {}, onSuppliersClic
                     imageVictor = Icons.Filled.Store,
                     color =colors.surfaceDim,
                     onClick ={
-                        onSuppliersClick()
+                        onSuppliersClick(medicine)
                     }
                 )
             }

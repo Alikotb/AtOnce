@@ -1,5 +1,6 @@
 package com.example.atonce.data.remote.service
 
+import com.example.atonce.data.remote.dto.SupplierDto
 import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.data.remote.dto.Warehouse.WarehousesResponse
 import retrofit2.http.GET
@@ -21,4 +22,10 @@ interface WarehouseApiService {
         @Query("page") pageNum: Int,
         @Query("pageSize") pageSize: Int
     ): WarehouseMedicinesDto
+
+    @GET("api/warehouse/area/{areaId}/medicine/{medicineId}")
+    suspend fun getAllSuppliersByAreaAndMedicine(
+        @Path("areaId") warehouseId: Int,
+        @Path("medicineId") medicineId: Int,
+    ): List<SupplierDto>
 }

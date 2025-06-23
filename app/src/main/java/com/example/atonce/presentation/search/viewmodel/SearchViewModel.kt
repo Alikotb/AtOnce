@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
+import com.example.atonce.domain.entity.SupplierEntity
+import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
 import com.example.atonce.presentation.home.model.toUiModel
 import kotlinx.coroutines.Dispatchers
@@ -16,9 +18,14 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase) : ViewModel() {
+class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase,
+    private val getAllSuppliersByAreaIdAndMedicine: GetAllSuppliersByAreaIdAndMedicine
+) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<Medicine>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
+
+    private val _uiStateSuppliers = MutableStateFlow<Response<List<SupplierEntity>>>(Response.Loading)
+    val uiStateSuppliers = _uiStateSuppliers.asStateFlow()
 
     private var currentPage = 1
     private var pageSize = 15
@@ -73,5 +80,21 @@ class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase
         currentPage = 1
         isLastPage = false
         _uiState.value = Response.Loading
+    }
+
+    fun getAllSuppliers(medicineId: Int, areaId: Int){
+        viewModelScope.launch (Dispatchers.IO){
+            getAllSuppliersByAreaIdAndMedicine(areaId, medicineId)
+                .catch { e ->
+                    _uiStateSuppliers.value = Response.Error(e.message.toString())
+                }
+                .collectLatest { list ->
+                    _uiStateSuppliers.value = Response.Success(list)
+                }
+        }
+    }
+
+    fun freeUiState(){
+        _uiStateSuppliers.value = Response.Loading
     }
 }

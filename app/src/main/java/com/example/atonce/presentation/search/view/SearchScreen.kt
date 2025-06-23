@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
@@ -43,6 +44,10 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
     var filterSearch by remember { mutableStateOf("") }
+
+    var selectedMedicine by remember { mutableStateOf<Medicine?>(null) }
+    var areaId by remember { mutableStateOf(3) }
+
     val colors = MaterialTheme.colorScheme
 
 
@@ -52,7 +57,7 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
     LaunchedEffect(Unit) {
         viewModel.getMedicinesByArea(3, search = "")
     }
-    LaunchedEffect(listState, searchText){
+    LaunchedEffect(listState, searchText) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
                 val totalItems = listState.layoutInfo.totalItemsCount
@@ -65,19 +70,21 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
 
     Column(
         modifier = Modifier
-            .fillMaxSize().background(colors.onPrimary)
+            .fillMaxSize()
+            .background(colors.onPrimary)
             .padding(top = modifier.calculateTopPadding()),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         NoIconCard(
             headerTxt = stringResource(R.string.search_screen)
         )
 
-        SearchComponent(expanded=expanded, onSearch = {
-            viewModel.onSearchChanged(it)
-        },
+        SearchComponent(
+            expanded = expanded, onSearch = {
+                viewModel.onSearchChanged(it)
+            },
             onFilterClick = {
-                filterSearch=it
+                filterSearch = it
             }
 
         )
@@ -85,27 +92,32 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
         LazyColumn(
             state = listState,
             modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .padding(top = 16.dp, bottom = 32.dp),
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp, bottom = 32.dp),
             contentPadding = PaddingValues(
                 bottom = 84.dp
             )
         ) {
             when (val state = uiState.value) {
                 is Response.Loading -> {
-                    items(5) { ShimmerSearchCard() }
+                    items(2){
+                        ShimmerSearchCard()
+                    }
                 }
+
                 is Response.Success -> {
                     val medicines = state.data
                     items(medicines) { medicine ->
                         SearchCard(
                             medicine = medicine,
                             onSuppliersClick = {
-                            showBottomSheet = true
-                        })
+                                selectedMedicine = it
+                                showBottomSheet = true
+                            })
                         Spacer(Modifier.height(8.dp))
                     }
                 }
+
                 is Response.Error -> {
 
                 }
@@ -114,9 +126,13 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
     }
 
     if (showBottomSheet) {
-        ModelSheet(onClose = {
+        ModelSheet(
+            viewModel = viewModel,
+            medicine = selectedMedicine,
+            areaId = areaId
+        ) {
             showBottomSheet = false
-        })
+        }
     }
 }
 

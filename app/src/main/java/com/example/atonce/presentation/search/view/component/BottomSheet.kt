@@ -13,15 +13,18 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,34 +35,60 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
+import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.entity.Medicine
+import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_BTN_SHEET_NAME
+import com.example.atonce.presentation.login.view.DotLoadingIndicator
+import com.example.atonce.presentation.search.viewmodel.SearchViewModel
 
 
 @ExperimentalMaterial3Api
 @Composable
-fun ModelSheet(onClose : () -> Unit={}){
+fun ModelSheet(
+    viewModel: SearchViewModel,
+    medicine: Medicine?,
+    areaId: Int,
+    onClose: () -> Unit = {}
+) {
     val sheetState = rememberModalBottomSheetState()
     val config = LocalConfiguration.current
     val screenHeight = config.screenHeightDp
     val colors = MaterialTheme.colorScheme
 
+    val uiState = viewModel.uiStateSuppliers.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        if (medicine != null) {
+            viewModel.getAllSuppliers(areaId = areaId, medicineId = medicine.medicineId)
+        }
+    }
+
+
+
     ModalBottomSheet(
         onDismissRequest = {
             onClose()
+            viewModel.freeUiState()
         },
         sheetState = sheetState,
-        containerColor =colors.surface,
+        containerColor = colors.surface,
         scrimColor = Color.Black.copy(alpha = 0.2f)
-    ){
+    ) {
+
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = (screenHeight*.35).dp, max = (screenHeight*.75).dp)
+                .heightIn(min = (screenHeight * .35).dp, max = (screenHeight * .75).dp)
                 .padding(bottom = 12.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(
@@ -76,26 +105,46 @@ fun ModelSheet(onClose : () -> Unit={}){
                     )
                 }
                 Text(
-                    text = "Panadol Extra 600mg ",
+                    text = medicine?.medicineName ?: "",
                     fontSize = MEDICINE_BTN_SHEET_NAME.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                     fontWeight = FontWeight.Bold
                 )
             }
             Divider(thickness = 2.dp, modifier = Modifier.padding(horizontal = 12.dp))
-            LazyColumn(
-                modifier = Modifier.weight(1f)
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 12.dp),
-                contentPadding = PaddingValues(
-                    vertical = 12.dp
-                )
-            ) {
-                items(10) {
-                    BottomSheetCard()
-                    Spacer(Modifier.height(8.dp))
+
+            when(uiState.value) {
+                is Response.Error -> {
+                    Text(text = "Error")
+                }
+
+                is Response.Loading -> {
+                    LazyColumn{
+                        items(3){
+                            ShimmerSearchCard()
+                        }
+                    }
+                }
+
+                is Response.Success -> {
+                    val list = (uiState.value as Response.Success<List<SupplierEntity>>).data
+                    LazyColumn(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 12.dp),
+                        contentPadding = PaddingValues(
+                            vertical = 12.dp
+                        )
+                    ) {
+                        items(list) { item ->
+                            BottomSheetCard(supplier = item)
+                            Spacer(Modifier.height(8.dp))
+                        }
+                    }
                 }
             }
         }
     }
+
 }
