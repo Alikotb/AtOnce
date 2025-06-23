@@ -48,3 +48,7 @@ val ProfileBackWhite = Til
 val CircleBorderColorDark =Color(0xff131f1f)
 val CircleBorderColorWhite = WhiteColor
 
+
+val LightTeal = Color(0xFFFFFFFF)
+val DarkTeal = Color(0xFF004D40)
+

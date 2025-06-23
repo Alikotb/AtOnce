@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
             applyLanguage(lang())
         }
         setContent {
-            hideSystemUI()
+            HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
                 bottomBarState = rememberSaveable { (mutableStateOf(false)) }
@@ -88,13 +88,10 @@ class MainActivity : ComponentActivity() {
 
             }
         }
-
-
     }
 
-
     @Composable
-    private fun hideSystemUI() {
+    private fun HideSystemUI() {
         val darkTheme = isSystemInDarkTheme()
         val systemUiController = rememberSystemUiController()
 
@@ -105,16 +102,13 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        // Set nav bar color + behavior
         systemUiController.setNavigationBarColor(
             color = Color.Transparent,
             darkIcons = !darkTheme,
             navigationBarContrastEnforced = false
         )
 
-        // Hide nav bar and status bar if you want immersive
-        systemUiController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        systemUiController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         systemUiController.isNavigationBarVisible = false
         systemUiController.isStatusBarVisible = true
     }

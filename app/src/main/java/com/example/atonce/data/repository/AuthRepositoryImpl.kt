@@ -66,4 +66,9 @@ class AuthRepositoryImpl(
         sharedPreferences.saveData("areaId", -1)
         sharedPreferences.saveData("phoneNumber", "")
     }
+
+
+    override fun isLoggedIn(): Boolean {
+        return sharedPreferences.fetchData("userName", "").isNotEmpty()
+    }
 }

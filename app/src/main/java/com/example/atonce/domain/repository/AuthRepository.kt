@@ -14,4 +14,8 @@ interface AuthRepository {
     fun getPharmacy(): Pharmacy
     fun freePharmacy()
 
+
+    fun freePharmacy()
+
+    fun isLoggedIn() : Boolean
 }

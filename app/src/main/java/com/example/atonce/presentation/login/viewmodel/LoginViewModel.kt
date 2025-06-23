@@ -8,7 +8,9 @@ import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
@@ -23,30 +25,29 @@ class LoginViewModel(
     private val _loginSuccess = MutableSharedFlow<Boolean>()
     val loginSuccess = _loginSuccess.asSharedFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     fun login(email: String, password: String) {
+        _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             if (email.isBlank() || password.isBlank()) {
+                _isLoading.value = false
                 _message.emit("Please fill in all fields")
                 return@launch
             }
             loginUseCase(email, password)
                 .catch { e ->
+                    _isLoading.value = false
                     _message.emit("An error occurred")
                 }
                 .collect { result ->
+                    _isLoading.value = false
                     if (result.success == true) {
-                        _loginSuccess.emit(true)
                         savePharmacyUseCase(result.pharmacy!!)
+                        _loginSuccess.emit(true)
                     } else {
-                        val passwordErrors = result.errors?.Password?.joinToString("\n") ?: ""
-                        val emailErrors = result.errors?.Email?.joinToString("\n") ?: ""
-                        val combinedErrors = listOf(passwordErrors, emailErrors)
-                            .filter { it.isNotBlank() }
-                            .joinToString("\n")
-
-                        _message.emit(
-                            combinedErrors.ifBlank { result.message ?: "Login failed" }
-                        )
+                        _message.emit(result.message ?: "Login failed")
                     }
                 }
         }
