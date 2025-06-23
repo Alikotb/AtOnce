@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            hideSystemUI()
+            HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
                 bottomBarState = rememberSaveable { (mutableStateOf(false)) }
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun hideSystemUI() {
+    private fun HideSystemUI() {
         val darkTheme = isSystemInDarkTheme()
         val systemUiController = rememberSystemUiController()
 

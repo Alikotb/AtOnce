@@ -5,7 +5,6 @@ data class LoginResponseDto(
     val message: String? = null,
     val success: Boolean? = null,
     val pharmacy: PharmacyDto? = null,
-    val errors: LoginErrorsDto? = null
 )
 
 data class PharmacyDto(
@@ -20,7 +19,3 @@ data class PharmacyDto(
     val phoneNumber: String? = null
 )
 
-data class LoginErrorsDto(
-    val Password: List<String>? = null,
-    val Email: List<String>? = null
-)

@@ -66,5 +66,5 @@
     <string name="invitation_code">كود الدعوة</string>
     <string name="enter_invitation_code">ادخل كود الدعوة</string>
     <string name="register">تسجيل</string>
-
+    <string name="logging">جاري تسجيل الدخول</string>
 </resources>

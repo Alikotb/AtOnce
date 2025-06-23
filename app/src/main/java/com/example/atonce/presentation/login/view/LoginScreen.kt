@@ -1,5 +1,12 @@
 package com.example.atonce.presentation.login.view
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.InfiniteTransition
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -37,6 +46,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.presentation.common.FontSizes.FORGOTPASS
 import com.example.atonce.presentation.common.FontSizes.LOGINBTN
@@ -44,6 +54,7 @@ import com.example.atonce.presentation.common.FontSizes.REGISTERHERE
 import com.example.atonce.presentation.common.component.LoginPasswordTF
 import com.example.atonce.presentation.common.component.LoginTF
 import com.example.atonce.presentation.login.viewmodel.LoginViewModel
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -55,6 +66,8 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val colors = MaterialTheme.colorScheme
+
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.loginSuccess.collect {
@@ -139,8 +152,12 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
             colors = ButtonDefaults.buttonColors(
                 containerColor = colors.primary,
                 contentColor = Color.White
-            )
+            ),
+            enabled = !isLoading
         ) {
+            if (isLoading) {
+                DotLoadingIndicator()
+            }
             Text(
                 text = stringResource(R.string.login),
                 fontWeight = FontWeight.Bold,
@@ -172,5 +189,41 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
             }
         }
     }
+}
 
+@Composable
+fun DotLoadingIndicator() {
+    val dots = listOf(remember { Animatable(0.8f) },
+        remember { Animatable(0.8f) },
+        remember { Animatable(0.8f) })
+
+    dots.forEachIndexed { index, animatable ->
+        LaunchedEffect(animatable) {
+            delay(index * 100L)
+            animatable.animateTo(
+                targetValue = 1.2f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(300),
+                    repeatMode = RepeatMode.Reverse
+                )
+            )
+        }
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        dots.forEach { scale ->
+            Text(
+                text = "•",
+                modifier = Modifier.scale(scale.value),
+                fontSize = 24.sp
+            )
+            Spacer(Modifier.width(4.dp))
+        }
+        Spacer(Modifier.width(8.dp))
+        Text(
+            text = stringResource(R.string.logging),
+            fontWeight = FontWeight.Bold,
+            fontSize = LOGINBTN.sp
+        )
+    }
 }

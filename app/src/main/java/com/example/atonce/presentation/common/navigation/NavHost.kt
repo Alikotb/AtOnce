@@ -17,7 +17,7 @@ import com.example.atonce.presentation.search.view.SearchScreen
 import com.example.atonce.presentation.common.navigation.ScreenRoute
 import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
-import com.example.atonce.presentation.splash.SplashScreen
+import com.example.atonce.presentation.splash.view.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
 import com.example.atonce.presentation.webview.WebViewScreen
 
@@ -32,33 +32,23 @@ fun SetUpNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.LoginScreen
+        startDestination = ScreenRoute.SplashScreen
 
     ) {
         composable<ScreenRoute.SplashScreen> {
             SplashScreen(
-                navToHome = {
-                navController.navigate(ScreenRoute.HomeScreen)
-            },
-                navToLogin = {
-                    navController.navigate(ScreenRoute.LoginScreen)
+                onNavToHome = {
+                    navController.navigate(ScreenRoute.HomeScreen) {
+                        popUpTo(0) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 },
-                navToSignUp = {
-                    navController.navigate(ScreenRoute.SignupScreen)
-                },
-                navToSearch = {
-                    navController.navigate(ScreenRoute.SearchScreen)
-                },
-                navToOrders = {
-                    navController.navigate(ScreenRoute.OrderScreen)
-                },
-                navToCart = {
-                    navController.navigate(ScreenRoute.CartScreen)
-                },
-                navToProfile = {
-
+                onNavToLogIn = {
+                    navController.navigate(ScreenRoute.LoginScreen) {
+                        popUpTo(0) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 }
-
             )
         }
         composable<ScreenRoute.LoginScreen> {
