@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.store.view
+package com.example.atonce.presentation.store.view.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -27,11 +27,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_FONT
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_PRICE
 import com.example.atonce.presentation.common.component.CustomCartBtn
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.store.model.WarehouseMedicines
+import java.util.Locale
 
 
 @Composable
@@ -40,6 +42,7 @@ fun MedicineCard(obj: WarehouseMedicines){
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
     val colors = MaterialTheme.colorScheme
+    val languageFlag = if ( Locale.getDefault().language == "ar") true else false
 
     Card(
         modifier = Modifier
@@ -73,7 +76,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = obj.englishMedicineName,
+                    text = if(languageFlag)obj.arabicMedicineName else obj.englishMedicineName,
                     fontSize = MEDICINE_CARD_MAIN_FONT.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp)
                 )
@@ -81,7 +84,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = "${stringResource(R.string.discount)} "+obj.medicineDiscount+"%",
+                    text = "${stringResource(R.string.discount)} ${obj.medicineDiscount}%".convertNumbersToArabic(),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     color = colors.primary,
@@ -91,7 +94,7 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = stringResource(R.string.price)+obj.medicineFinalPrice+ stringResource(R.string.egp),
+                    text = stringResource(R.string.price)+"${obj.medicineFinalPrice}".convertNumbersToArabic()+ stringResource(R.string.egp),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
                     fontFamily = SemiBoldFont

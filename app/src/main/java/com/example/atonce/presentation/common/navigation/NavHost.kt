@@ -1,4 +1,4 @@
-package com.example.anees.ui.navigation
+package com.example.atonce.presentation.common.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,9 +13,9 @@ import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
+import com.example.atonce.presentation.profile.view.ProfileDetails
+import com.example.atonce.presentation.profile.view.ProfileScreen
 import com.example.atonce.presentation.search.view.SearchScreen
-import com.example.atonce.presentation.common.navigation.ScreenRoute
-import com.example.atonce.presentation.profile.ProfileScreen
 import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.view.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
@@ -68,6 +68,7 @@ fun SetUpNavHost(
              )
         }
         composable<ScreenRoute.SignupScreen> {
+
             bottomBarState.value = false
             SignUpScreen(
                 modifier =paddingValues,
@@ -128,6 +129,12 @@ fun SetUpNavHost(
             bottomBarState.value = true
             SearchScreen( modifier =paddingValues,)
         }
+        composable<ScreenRoute.ProfileDetailsScreen> {
+            bottomBarState.value = false
+            ProfileDetails( modifier =paddingValues,onClick={
+                navController.popBackStack()
+            })
+        }
         composable<ScreenRoute.ProfileScreen> {
             bottomBarState.value = false
             ProfileScreen(
@@ -137,6 +144,13 @@ fun SetUpNavHost(
                 },
                 onWebViewClick = { title, url ->
                     navController.navigate(ScreenRoute.WebViewScreen(title, url))
+                },
+                onDetailsClick = {
+                    navController.navigate(ScreenRoute.ProfileDetailsScreen)
+                },
+                onLogoutClicK = {
+                    navController.popBackStack()
+                    navController.navigate(ScreenRoute.LoginScreen)
                 }
             )
         }

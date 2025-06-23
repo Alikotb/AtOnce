@@ -11,6 +11,8 @@ interface AuthRepository {
     suspend fun login(email: String, password: String): Flow<LoginResult>
 
     fun savePharmacy(pharmacy: Pharmacy)
+    fun saveLanguage(code: String)
+    fun getLanguage(): String
 
     fun getPharmacy(): Pharmacy
 
@@ -19,7 +21,8 @@ interface AuthRepository {
     suspend fun getAreasByGovernorateId(governorateId: Int): Flow<List<AreaDto>>
 
     suspend fun register(registerRequest: RegisterRequestDto): Flow<RegisterResponseDto>
-  
+
+
     fun freePharmacy()
 
     fun isLoggedIn() : Boolean

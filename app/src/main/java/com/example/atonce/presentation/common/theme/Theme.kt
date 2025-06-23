@@ -20,7 +20,10 @@ private val DarkColorScheme = darkColorScheme(
     background = DarkLightGrayColor,
     onBackground = WhiteColor,
     onSurfaceVariant = DarkGrayText,
-    primaryContainer = DarkbottomNavColor,
+    primaryContainer = DarkBottomNavColor,
+    onSecondary = ProfileBackDark,
+    onTertiary = ProfileDark,
+    outlineVariant = CircleBorderColorDark,
     secondaryContainer = DarkTeal
 )
 
@@ -35,7 +38,13 @@ private val LightColorScheme = lightColorScheme(
     onBackground = BlackColor,
     onSurfaceVariant = LightGrayText,
     primaryContainer = LightbottomNavColor,
-    secondaryContainer = LightTeal
+    secondaryContainer = LightTeal,
+    onSecondary = ProfileBackWhite,
+    onTertiary = ProfileWhite,
+    outlineVariant = CircleBorderColorWhite
+
+
+
 )
 
 

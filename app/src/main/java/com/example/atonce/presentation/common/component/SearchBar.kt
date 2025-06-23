@@ -2,7 +2,6 @@ package com.example.atonce.presentation.common.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -32,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.common.theme.RegularFont
+import com.example.atonce.presentation.common.theme.WhiteColor
 
 @Composable
 fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
@@ -87,10 +87,10 @@ fun SearchComponent(expanded: MutableState<Boolean>, onFilterClick : (String) ->
 
         Box {
             TapBarBtn(
-                icon = Icons.Filled.FilterList,
                 onIconClick = {
                     expanded.value = !expanded.value
-                }
+                },
+                icon = Icons.Filled.FilterList,
             )
             DropdownMenu(
                 expanded = expanded.value,

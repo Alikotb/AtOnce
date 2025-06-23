@@ -1,15 +1,24 @@
 package com.example.atonce.presentation.home.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
@@ -23,22 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
-import com.example.atonce.data.local.sharedpreference.SharedPreferences
-import com.example.atonce.data.local.sharedpreference.SharedPreferencesImpl
 import com.example.atonce.data.remote.Response
-import com.example.atonce.data.repository.AuthRepositoryImpl
-import com.example.atonce.domain.repository.AuthRepository
-import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.common.component.MySearchBar
-import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
-import com.example.atonce.presentation.home.view.component.AdPager
-import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
+import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
@@ -50,8 +52,6 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
         R.drawable.ads2
     )
 
-    val shared : SharedPreferences = koinInject()
-    Log.d("TAG", "HomeScreen: ${shared.fetchData("token", "")}")
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 

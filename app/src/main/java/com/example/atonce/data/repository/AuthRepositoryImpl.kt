@@ -1,5 +1,7 @@
 package com.example.atonce.data.repository
 
+import com.example.atonce.core.constants.AppConstants
+import com.example.atonce.core.constants.AppConstants.LANGUAGE
 import com.example.atonce.data.local.sharedpreference.SharedPreferences
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.dto.AreaDto
@@ -34,6 +36,14 @@ class AuthRepositoryImpl(
         sharedPreferences.saveData("phoneNumber", pharmacy.phoneNumber)
     }
 
+    override fun saveLanguage(code: String) {
+        sharedPreferences.saveData(LANGUAGE, code)
+    }
+
+    override fun getLanguage(): String {
+        return sharedPreferences.fetchData(LANGUAGE, "")
+    }
+
     override fun getPharmacy(): Pharmacy {
         return Pharmacy(
             sharedPreferences.fetchData("token", ""),
@@ -62,15 +72,16 @@ class AuthRepositoryImpl(
 
     override fun freePharmacy() {
         sharedPreferences.saveData("token", "")
-        sharedPreferences.saveData("id", 0)
+        sharedPreferences.saveData("id", -1)
         sharedPreferences.saveData("userName", "")
         sharedPreferences.saveData("name", "")
         sharedPreferences.saveData("email", "")
         sharedPreferences.saveData("address", "")
         sharedPreferences.saveData("governate", "")
-        sharedPreferences.saveData("areaId", 0)
+        sharedPreferences.saveData("areaId", -1)
         sharedPreferences.saveData("phoneNumber", "")
     }
+
 
     override fun isLoggedIn(): Boolean {
         return sharedPreferences.fetchData("userName", "").isNotEmpty()
