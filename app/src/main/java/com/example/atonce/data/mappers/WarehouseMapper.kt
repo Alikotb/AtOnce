@@ -1,6 +1,6 @@
 package com.example.atonce.data.mappers
 
-import com.example.atonce.data.remote.dto.WarehouseDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseDto
 import com.example.atonce.domain.entity.Warehouse
 
 

@@ -5,16 +5,20 @@ import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
 import com.example.atonce.domain.usecase.GetAreasUseCase
 import com.example.atonce.domain.usecase.GetGovernoratesUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
+import com.example.atonce.domain.usecase.IsLoggedInUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.RegisterUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import com.example.atonce.domain.usecase.SearchInWareHouseUseCase
+import com.example.atonce.domain.usecase.SearchMedicinesUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
     factory { GetAllWarehousesByAreaUseCase(get()) }
 
     factory { LoginUseCase(get()) }
+    factory { IsLoggedInUseCase(get()) }
+
     factory { GetAllMedicinesByWarehousesId(get()) }
 
     factory { SavePharmacyUseCase(get()) }
@@ -24,5 +28,7 @@ val useCaseModule = module {
     factory { GetAreasUseCase(get()) }
 
     factory { RegisterUseCase(get()) }
+
+    factory { SearchMedicinesUseCase(get()) }
 
 }

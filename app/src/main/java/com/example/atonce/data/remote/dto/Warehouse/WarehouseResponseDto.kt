@@ -1,4 +1,4 @@
-package com.example.atonce.data.remote.dto
+package com.example.atonce.data.remote.dto.Warehouse
 
 
 data class WarehouseDto(

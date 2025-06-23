@@ -39,3 +39,7 @@ val LightbottomNavColor  = Color(0xFFFFFFFF)
 
 val RedColor = Color(0xFFEE4D4D)
 
+
+val LightTeal = Color(0xFFFFFFFF)
+val DarkTeal = Color(0xFF004D40)
+

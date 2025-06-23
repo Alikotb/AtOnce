@@ -1,11 +1,10 @@
-package com.example.atonce.data.remote.dto
+package com.example.atonce.data.remote.dto.authentication
 
 data class LoginResponseDto(
     val token: String? = null,
     val message: String? = null,
     val success: Boolean? = null,
     val pharmacy: PharmacyDto? = null,
-    val errors: LoginErrorsDto? = null
 )
 
 data class PharmacyDto(
@@ -20,7 +19,3 @@ data class PharmacyDto(
     val phoneNumber: String? = null
 )
 
-data class LoginErrorsDto(
-    val Password: List<String>? = null,
-    val Email: List<String>? = null
-)

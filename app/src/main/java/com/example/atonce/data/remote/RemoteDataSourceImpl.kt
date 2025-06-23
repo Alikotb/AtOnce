@@ -1,7 +1,7 @@
 package com.example.atonce.data.remote
 
-import com.example.atonce.data.remote.dto.WarehouseDto
-import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.data.remote.service.WarehouseApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

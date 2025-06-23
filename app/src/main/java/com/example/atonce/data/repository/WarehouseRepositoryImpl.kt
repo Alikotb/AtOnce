@@ -2,7 +2,7 @@ package com.example.atonce.data.repository
 
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.RemoteDataSource
-import com.example.atonce.data.remote.dto.WarehouseMedicinesDto
+import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
 import com.example.atonce.domain.entity.Warehouse
 import com.example.atonce.domain.repository.WarehouseRepository
 import kotlinx.coroutines.flow.Flow

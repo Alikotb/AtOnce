@@ -19,4 +19,8 @@ interface AuthRepository {
     suspend fun getAreasByGovernorateId(governorateId: Int): Flow<List<AreaDto>>
 
     suspend fun register(registerRequest: RegisterRequestDto): Flow<RegisterResponseDto>
+  
+    fun freePharmacy()
+
+    fun isLoggedIn() : Boolean
 }

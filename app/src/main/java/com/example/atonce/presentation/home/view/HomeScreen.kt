@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.home.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,7 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
+import com.example.atonce.data.local.sharedpreference.SharedPreferences
+import com.example.atonce.data.local.sharedpreference.SharedPreferencesImpl
 import com.example.atonce.data.remote.Response
+import com.example.atonce.data.repository.AuthRepositoryImpl
+import com.example.atonce.domain.repository.AuthRepository
+import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
@@ -32,6 +38,7 @@ import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
@@ -43,6 +50,8 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
         R.drawable.ads2
     )
 
+    val shared : SharedPreferences = koinInject()
+    Log.d("TAG", "HomeScreen: ${shared.fetchData("token", "")}")
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
 

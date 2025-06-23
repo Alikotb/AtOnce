@@ -65,4 +65,5 @@
     <string name="invitation_code">Invitation Code</string>
     <string name="enter_invitation_code">Enter invitation code</string>
     <string name="register">Register</string>
+    <string name="logging">Logging</string>
 </resources>

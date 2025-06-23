@@ -6,6 +6,7 @@ import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.LoginRequestDto
 import com.example.atonce.data.remote.dto.RegisterRequestDto
 import com.example.atonce.data.remote.dto.RegisterResponseDto
+import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import com.example.atonce.data.remote.service.AuthApiService
 import com.example.atonce.domain.entity.LoginResult
 import com.example.atonce.domain.entity.Pharmacy
@@ -58,5 +59,19 @@ class AuthRepositoryImpl(
 
     override suspend fun register(registerRequest: RegisterRequestDto): Flow<RegisterResponseDto> {
         return flowOf(service.register(registerRequest))
+    override fun freePharmacy() {
+        sharedPreferences.saveData("token", "")
+        sharedPreferences.saveData("id", 0)
+        sharedPreferences.saveData("userName", "")
+        sharedPreferences.saveData("name", "")
+        sharedPreferences.saveData("email", "")
+        sharedPreferences.saveData("address", "")
+        sharedPreferences.saveData("governate", "")
+        sharedPreferences.saveData("areaId", 0)
+        sharedPreferences.saveData("phoneNumber", "")
+    }
+
+    override fun isLoggedIn(): Boolean {
+        return sharedPreferences.fetchData("userName", "").isNotEmpty()
     }
 }

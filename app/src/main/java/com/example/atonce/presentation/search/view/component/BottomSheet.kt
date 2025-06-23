@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.search_screen.vies.component
+package com.example.atonce.presentation.search.view.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
