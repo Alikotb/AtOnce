@@ -4,23 +4,31 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
+import com.example.atonce.data.remote.Response
 import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.RegisterRequestDto
+import com.example.atonce.data.remote.dto.RegisterResponseDto
 import com.example.atonce.domain.usecase.GetAreasUseCase
 import com.example.atonce.domain.usecase.GetGovernoratesUseCase
+import com.example.atonce.domain.usecase.RegisterUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val getGovernoratesUseCase: GetGovernoratesUseCase,
-    private val getAreasUseCase: GetAreasUseCase
+    private val getAreasUseCase: GetAreasUseCase,
+    private val registerUseCase: RegisterUseCase
 ): ViewModel() {
+
+    private val _registerState = MutableStateFlow<Response<Boolean>?>(null)
+    val registerState = _registerState.asStateFlow()
 
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
@@ -44,7 +52,6 @@ class SignUpViewModel(
         password: String,
         confirmPassword: String
     ){
-
         viewModelScope.launch(Dispatchers.IO) {
             if (username.isEmpty() || pharmacyName.isEmpty() || email.isEmpty() || phone.isEmpty() ||
                 governorate.isEmpty() || addressDetails.isEmpty() || password.isEmpty() ||
@@ -73,7 +80,25 @@ class SignUpViewModel(
                     password = password,
                     confirmPassword = confirmPassword
                 )
-                Log.d("TAG", "signUp: $request")
+                _registerState.value = Response.Loading
+                registerUseCase(request)
+                    .catch(
+                        {e->
+                            _message.emit(ErrorMessagesEnum.NETWORKERROR.getLocalizedMessage())
+                        }
+                    )
+                    .collect{
+                    if (it.success){
+                        _registerState.value = Response.Success(true)
+                        _message.emit(ErrorMessagesEnum.REGISTERSUCCESS.getLocalizedMessage())
+                    }
+                    else{
+                        _registerState.value = Response.Error(
+                            it.message
+                        )
+                        _message.emit(it.message)
+                    }
+                }
             }
         }
     }

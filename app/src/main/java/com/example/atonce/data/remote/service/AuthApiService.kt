@@ -3,6 +3,8 @@ package com.example.atonce.data.remote.service
 import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.LoginRequestDto
 import com.example.atonce.data.remote.dto.LoginResponseDto
+import com.example.atonce.data.remote.dto.RegisterRequestDto
+import com.example.atonce.data.remote.dto.RegisterResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,4 +20,6 @@ interface AuthApiService {
     @GET("api/Pharmacy/register")
     suspend fun getAreasByGovernorateId(@Query("governateId") governorateId: Int): List<AreaDto>
 
+    @POST("api/Pharmacy/register")
+    suspend fun register(@Body registerRequestDto: RegisterRequestDto): RegisterResponseDto
 }

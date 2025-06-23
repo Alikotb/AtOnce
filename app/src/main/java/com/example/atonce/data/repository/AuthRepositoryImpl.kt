@@ -4,6 +4,8 @@ import com.example.atonce.data.local.sharedpreference.SharedPreferences
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.LoginRequestDto
+import com.example.atonce.data.remote.dto.RegisterRequestDto
+import com.example.atonce.data.remote.dto.RegisterResponseDto
 import com.example.atonce.data.remote.service.AuthApiService
 import com.example.atonce.domain.entity.LoginResult
 import com.example.atonce.domain.entity.Pharmacy
@@ -52,5 +54,9 @@ class AuthRepositoryImpl(
 
     override suspend fun getAreasByGovernorateId(governorateId: Int): Flow<List<AreaDto>> {
         return flowOf(service.getAreasByGovernorateId(governorateId))
+    }
+
+    override suspend fun register(registerRequest: RegisterRequestDto): Flow<RegisterResponseDto> {
+        return flowOf(service.register(registerRequest))
     }
 }

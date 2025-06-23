@@ -13,6 +13,6 @@ val viewModelModule = module {
     viewModel { WarehouseViewModel(get(),get()) }
     viewModel { LoginViewModel(get(),get()) }
     viewModel { WarehouseViewModel(get(),get()) }
-    viewModel { SignUpViewModel(get(),get()) }
+    viewModel { SignUpViewModel(get(),get() , get()) }
 
 }

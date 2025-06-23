@@ -16,9 +16,17 @@ enum class ErrorMessagesEnum(
         "رجاء قم بملئ جميع البيانات المطلوبة"
     )
     ,
+    NETWORKERROR(
+        "Check your internet connection",
+        "تحقق من الاتصال بالإنترنت"
+     ),
     SCANQRCODE(
         "Please scan invitation QR code",
-        "رجاء قم بمسح كود الدعوه")
+        "رجاء قم بمسح كود الدعوه"),
+    REGISTERSUCCESS(
+        "Register successfully",
+        "تم التسجيل بنجاح")
+
     ;
 
 
