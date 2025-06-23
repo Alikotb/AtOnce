@@ -28,14 +28,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
 import com.example.atonce.presentation.common.component.CustomCartBtn
 
 
-@Preview(showBackground = true)
 @Composable
-fun BottomSheetCard() {
+fun BottomSheetCard(
+    modifier: Modifier = Modifier,
+    supplier : SupplierEntity,
+    onAddToCartClick: () -> Unit = {}
+) {
     val colors =MaterialTheme.colorScheme
 
     Card(
@@ -73,19 +77,19 @@ fun BottomSheetCard() {
                 modifier = Modifier.weight(3.5f)
             ) {
                 Text(
-                    text = "UM Pharma UM Pharma UM  ",
+                    text = supplier.warehouseName,
                     fontSize = PHARMA_NAME.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "${stringResource(R.string.discount)} 28 %",
+                    text = "${stringResource(R.string.discount)} ${supplier.discount}%",
                     fontSize = MEDICINE_DISCOUNT.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                     color = colors.primary
                 )
                 Text(
-                    text = stringResource(R.string.price)+"21.76"+ stringResource(R.string.egp),
+                    text = stringResource(R.string.price)+"${supplier.finalPrice}"+ stringResource(R.string.egp),
                     fontSize = MEDICINE_DISCOUNT.sp,
                     modifier = Modifier.padding(start = 12.dp)
                 )
