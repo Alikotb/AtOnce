@@ -58,24 +58,6 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
         }
 
     }
-    fun searchInMedicines(searchText: String) {
-        viewModelScope.launch(Dispatchers.Default) {
-            searchUseCase(searchText, fullList)
-                .catch {
-                    _uiState.value = Response.Error("Search failed")
-                }
-                .collect { filteredList ->
-                    _uiState.value = Response.Success(filteredList)
-                }
-        }
-    }
-    fun clearSearch() {
-        _uiState.value = Response.Success(fullList)
-    }
-    fun resetPagination() {
-        currentPage = 1
-        isLastPage = false
-        _uiState.value = Response.Loading
-    }
+
 }
 

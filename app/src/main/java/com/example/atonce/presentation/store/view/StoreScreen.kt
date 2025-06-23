@@ -25,14 +25,20 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
-import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.store.model.WarehouseMedicines
+import com.example.atonce.presentation.store.view.component.MedicineCard
+import com.example.atonce.presentation.store.view.component.MedicineCardShimmer
 import com.example.atonce.presentation.store.view_model.WarehouseViewModel
 import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Unit = {},viewModel : WarehouseViewModel = koinViewModel()){
+fun StoreScreen(
+    warehouseId: Int,
+    modifier: PaddingValues,
+    onBackClick: () -> Unit = {},
+    viewModel: WarehouseViewModel = koinViewModel()
+) {
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -41,12 +47,9 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
-    LaunchedEffect(searchText) {
-        if (searchText.isNotBlank()) {
-            viewModel.searchInMedicines(searchText)
-        } else {
-            viewModel.clearSearch()
-        }
+    LaunchedEffect(Unit) {
+        viewModel.getAllMedicinesByStoreId(warehouseId=2)
+
     }
 
     LaunchedEffect(gState) {
@@ -69,7 +72,7 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
                 bottom = modifier.calculateBottomPadding()
             ),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         OneIconCard(
 
             onClick = { onBackClick() }
@@ -102,7 +105,7 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
             ) {
             when (uiState) {
                 is Response.Loading -> {
-                    items(8) { ShimmerWarehouseCard() }
+                    items(8) { MedicineCardShimmer() }
                 }
 
                 is Response.Success -> {

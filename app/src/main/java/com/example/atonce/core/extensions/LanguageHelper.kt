@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.atonce.core.extensions
 
 import android.app.Activity
@@ -6,12 +8,15 @@ import android.content.Intent
 import android.content.res.Configuration
 import java.util.Locale
 
- fun Context.applyLanguage(languageCode: String) {
-    val locale = Locale(languageCode)
-    Locale.setDefault(locale)
-    val config = resources.configuration
-    config.setLocale(locale)
-    resources.updateConfiguration(config, resources.displayMetrics)
+fun Context.applyLanguage(languageCode: String): Context {
+   val locale = Locale(languageCode)
+   Locale.setDefault(locale)
+
+   val config = Configuration(resources.configuration)
+   config.setLocale(locale)
+   config.setLayoutDirection(locale)
+
+   return createConfigurationContext(config)
 }
 
 fun Context.restartActivity() {
@@ -21,8 +26,16 @@ fun Context.restartActivity() {
    (this as? Activity)?.finish()
 }
 
-fun Context.wrapInLocale(locale: Locale): Context {
-   val config = Configuration(resources.configuration)
-   config.setLocale(locale)
-   return createConfigurationContext(config)
+fun String.convertNumbersToArabic(): String {
+   return if (Locale.getDefault().language == "ar") {
+      this.map { char ->
+         if (char in '0'..'9') {
+            ('\u0660' + (char - '0')).toChar()
+         } else {
+            char
+         }
+      }.joinToString("")
+   } else {
+      this
+   }
 }

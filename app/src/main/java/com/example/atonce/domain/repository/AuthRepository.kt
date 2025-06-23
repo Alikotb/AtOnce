@@ -12,7 +12,6 @@ interface AuthRepository {
     fun getLanguage(): String
 
     fun getPharmacy(): Pharmacy
-    fun freePharmacy()
 
 
     fun freePharmacy()

@@ -1,5 +1,6 @@
 package com.example.atonce.presentation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,25 +34,28 @@ import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
-import java.util.Locale
 
 
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
     lateinit var bottomBarState: MutableState<Boolean>
     lateinit var snackbarHostState: SnackbarHostState
+    override fun attachBaseContext(newBase: Context) {
+        val lang: GetLanguageUseCase by inject()
+        val languageCode = if (lang() == LanguageEnum.DEFAULT.code) {
+            newBase.resources.configuration.locales[0].language
+        } else {
+            lang()
+        }
+        val context = newBase.applyLanguage(languageCode)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
 
-
-        val lang: GetLanguageUseCase by inject()
-        if (lang() == LanguageEnum.DEFAULT.code) {
-            applyLanguage(this.resources.configuration.locales[0].language)
-        } else {
-            applyLanguage(lang())
-        }
         setContent {
             HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
@@ -108,7 +112,8 @@ class MainActivity : ComponentActivity() {
             navigationBarContrastEnforced = false
         )
 
-        systemUiController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        systemUiController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         systemUiController.isNavigationBarVisible = false
         systemUiController.isStatusBarVisible = true
     }
