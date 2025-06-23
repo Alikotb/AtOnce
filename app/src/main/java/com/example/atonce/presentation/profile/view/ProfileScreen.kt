@@ -3,6 +3,8 @@ package com.example.atonce.presentation.profile.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,27 +24,35 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.restartActivity
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
 import org.koin.compose.koinInject
@@ -52,18 +62,27 @@ fun ProfileScreen(
     onBackClick: () -> Unit = {},
     onWebViewClick: (title: String, url: String) -> Unit,
     modifier: PaddingValues,
-    onDetailsClick :()-> Unit={},
+    onDetailsClick: () -> Unit = {},
     viewmodel: ProfileViewModel = koinInject(),
-    onLogoutClicK:()-> Unit={}
+    onLogoutClicK: () -> Unit = {}
 ) {
     val colors = MaterialTheme.colorScheme
     val user = viewmodel.userData
+    var expanded = remember { mutableStateOf(false) }
+    val menuAnchor = remember { mutableStateOf<Offset?>(null) }
+
+    val ctx = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(colors.onPrimary)
-            .padding(top=modifier.calculateTopPadding(), bottom = modifier.calculateBottomPadding())
+            .padding(
+                top = modifier.calculateTopPadding(),
+                bottom = modifier.calculateBottomPadding()
+            )
     ) {
+
+
         TowIconCard(
             onStartIcon = Icons.AutoMirrored.Filled.ArrowBack,
             onEnIcon = Icons.Default.Language,
@@ -71,9 +90,16 @@ fun ProfileScreen(
                 onBackClick()
             },
             onEndClick = {
+                expanded.value = !expanded.value
             },
-            headerTxt = stringResource(R.string.profile)
+            headerTxt = stringResource(R.string.profile),
+            isProfile = true,
+            onLanguageClick = {code->
+                viewmodel.changeLanguage(code)
+                ctx.restartActivity()
+            }
         )
+
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -81,12 +107,13 @@ fun ProfileScreen(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = colors.surface),
-            modifier = Modifier.fillMaxWidth()
-                .padding(horizontal =16.dp )
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
                 .clickable(onClick = {
                     onDetailsClick()
                 })
-       ) {
+        ) {
             Row(
                 modifier = Modifier
                     .padding(16.dp),
@@ -115,7 +142,7 @@ fun ProfileScreen(
                         fontSize = 14.sp,
                         color = colors.primary,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.clickable {  }
+                        modifier = Modifier.clickable { }
                     )
                 }
 
@@ -133,17 +160,25 @@ fun ProfileScreen(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             colors = CardDefaults.cardColors(containerColor = colors.surface),
-            modifier = Modifier.fillMaxWidth().padding(horizontal =16.dp )
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         ) {
             Column {
                 var title = stringResource(R.string.common_questions)
                 ProfileItem(Icons.AutoMirrored.Filled.Help, title) {
-                    onWebViewClick(title, "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html")
+                    onWebViewClick(
+                        title,
+                        "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html"
+                    )
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 title = stringResource(R.string.privacy_policy)
                 ProfileItem(Icons.Default.Security, title) {
-                    onWebViewClick(title, "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1")
+                    onWebViewClick(
+                        title,
+                        "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1"
+                    )
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {}
@@ -152,18 +187,23 @@ fun ProfileScreen(
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.AutoMirrored.Filled.Logout, stringResource(R.string.logout), isLogout = true) {
+                ProfileItem(
+                    Icons.AutoMirrored.Filled.Logout,
+                    stringResource(R.string.logout),
+                    isLogout = true
+                ) {
                     viewmodel.logOut()
                     onLogoutClicK()
                 }
             }
         }
     }
+
 }
 
 @Composable
 fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onClick: () -> Unit) {
-   val colors= MaterialTheme.colorScheme
+    val colors = MaterialTheme.colorScheme
     val textColor = if (isLogout) Color.Red else colors.onBackground
     val iconColor = if (isLogout) Color.Red else Color(0xFF1A998E)
 

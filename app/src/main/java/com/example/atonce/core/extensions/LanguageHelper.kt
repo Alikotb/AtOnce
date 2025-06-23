@@ -3,6 +3,7 @@ package com.example.atonce.core.extensions
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import java.util.Locale
 
  fun Context.applyLanguage(languageCode: String) {
@@ -18,4 +19,10 @@ fun Context.restartActivity() {
    intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
    this.startActivity(intent)
    (this as? Activity)?.finish()
+}
+
+fun Context.wrapInLocale(locale: Locale): Context {
+   val config = Configuration(resources.configuration)
+   config.setLocale(locale)
+   return createConfigurationContext(config)
 }

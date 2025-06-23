@@ -75,7 +75,8 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
             onClick = { onBackClick() }
         )
         SearchComponent(
-            expanded = expanded, onSearch = {
+            expanded = expanded,
+            onSearch = {
                 searchText = it
             },
             onFilterClick = {
@@ -106,7 +107,6 @@ fun StoreScreen(warehouseId: Int, modifier: PaddingValues,onBackClick: () -> Uni
 
                 is Response.Success -> {
                     val list = (uiState as Response.Success<List<WarehouseMedicines>>).data
-//                    Log.d("asd", "StoreScreen: ${list.first().medicineFinalPrice}")
                     items(list) {
                         MedicineCard(obj = it)
                     }

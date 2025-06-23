@@ -9,6 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.atonce.core.constants.AppConstants
+import com.example.atonce.data.local.sharedpreference.SharedPreferences
+import com.example.atonce.data.local.sharedpreference.SharedPreferencesImpl
 import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
@@ -20,6 +23,7 @@ import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
 import com.example.atonce.presentation.webview.WebViewScreen
+import org.koin.compose.koinInject
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +34,7 @@ fun SetUpNavHost(
     snackbarState: SnackbarHostState,
     paddingValues: PaddingValues
 ) {
+    val pref: SharedPreferences= koinInject()
     NavHost(
         navController = navController,
         startDestination = ScreenRoute.LoginScreen
@@ -78,6 +83,7 @@ fun SetUpNavHost(
              )
         }
         composable<ScreenRoute.SignupScreen> {
+
             bottomBarState.value = false
             SignUpScreen(
                 modifier =paddingValues,

@@ -8,6 +8,8 @@ interface AuthRepository {
     suspend fun login(email: String, password: String): Flow<LoginResult>
 
     fun savePharmacy(pharmacy: Pharmacy)
+    fun saveLanguage(code: String)
+    fun getLanguage(): String
 
     fun getPharmacy(): Pharmacy
     fun freePharmacy()

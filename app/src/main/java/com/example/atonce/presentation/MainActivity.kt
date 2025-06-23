@@ -23,13 +23,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.atonce.core.enums.LanguageEnum
 import com.example.atonce.core.extensions.applyLanguage
+import com.example.atonce.domain.usecase.GetLanguageUseCase
 import com.example.atonce.presentation.common.navigation.SetUpNavHost
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
 import com.example.atonce.presentation.common.theme.AtOnceTheme
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import org.koin.android.ext.android.inject
+import org.koin.compose.koinInject
 import java.util.Locale
 
 
@@ -40,8 +44,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val lang = Locale.getDefault().language
-        applyLanguage(lang)
+
+
+        val lang: GetLanguageUseCase by inject()
+        if (lang() == LanguageEnum.DEFAULT.code) {
+            applyLanguage(this.resources.configuration.locales[0].language)
+        } else {
+            applyLanguage(lang())
+        }
         setContent {
             hideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
@@ -49,7 +59,12 @@ class MainActivity : ComponentActivity() {
                 bottomBarState = rememberSaveable { (mutableStateOf(false)) }
                 snackbarHostState = remember { SnackbarHostState() }
                 Scaffold(
-                    snackbarHost = { SnackbarHost(hostState = snackbarHostState, modifier = Modifier.padding(bottom = 50.dp)) },
+                    snackbarHost = {
+                        SnackbarHost(
+                            hostState = snackbarHostState,
+                            modifier = Modifier.padding(bottom = 50.dp)
+                        )
+                    },
                     bottomBar = {
                         Box(
                             modifier = Modifier
@@ -73,8 +88,9 @@ class MainActivity : ComponentActivity() {
 
             }
         }
-    }
 
+
+    }
 
 
     @Composable
@@ -97,7 +113,8 @@ class MainActivity : ComponentActivity() {
         )
 
         // Hide nav bar and status bar if you want immersive
-        systemUiController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        systemUiController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         systemUiController.isNavigationBarVisible = false
         systemUiController.isStatusBarVisible = true
     }

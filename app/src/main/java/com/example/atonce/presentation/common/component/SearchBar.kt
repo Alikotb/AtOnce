@@ -91,7 +91,6 @@ fun SearchComponent(expanded: MutableState<Boolean>, onFilterClick : (String) ->
                     expanded.value = !expanded.value
                 },
                 icon = Icons.Filled.FilterList,
-//                color = WhiteColor
             )
             DropdownMenu(
                 expanded = expanded.value,
