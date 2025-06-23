@@ -74,8 +74,9 @@ fun SetUpNavHost(
                 onBackClick = {
                     navController.popBackStack()
                 },
+                snackbarHostState = snackbarState,
                 onRegisterClick = {
-                    navController.navigate(ScreenRoute.HomeScreen) {
+                    navController.navigate(ScreenRoute.LoginScreen) {
                         popUpTo(0) { inclusive = true }
                         launchSingleTop = true
                     }

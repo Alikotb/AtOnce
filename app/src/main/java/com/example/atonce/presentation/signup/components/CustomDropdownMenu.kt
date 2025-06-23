@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
@@ -40,7 +41,7 @@ fun CustomDropdownMenu(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
-    options: List<String>,
+    options: List<AreaDto>,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit
 ) {
@@ -117,14 +118,14 @@ fun CustomDropdownMenu(
                     DropdownMenuItem(
                         text = {
                             Text(
-                                text = option,
+                                text = option.name,
                                 fontFamily = RegularFont,
                                 fontSize = 14.sp,
                                 color = colors.onBackground
                             )
                         },
                         onClick = {
-                            onValueChange(option)
+                            onValueChange(option.name)
                             onExpandedChange(false)
                         }
                     )
