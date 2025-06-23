@@ -1,8 +1,6 @@
 package com.example.atonce.data.remote.service
 
 import com.example.atonce.data.remote.dto.AreaDto
-import com.example.atonce.data.remote.dto.LoginRequestDto
-import com.example.atonce.data.remote.dto.LoginResponseDto
 import com.example.atonce.data.remote.dto.RegisterRequestDto
 import com.example.atonce.data.remote.dto.RegisterResponseDto
 
