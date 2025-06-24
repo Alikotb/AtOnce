@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
+import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
@@ -100,7 +101,7 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
         ) {
             when (val state = uiState.value) {
                 is Response.Loading -> {
-                    items(2){
+                    items(2) {
                         ShimmerSearchCard()
                     }
                 }
@@ -120,7 +121,9 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
                 }
 
                 is Response.Error -> {
-
+                    item {
+                        NoInternet()
+                    }
                 }
             }
         }

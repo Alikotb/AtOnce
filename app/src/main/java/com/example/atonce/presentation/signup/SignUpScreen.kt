@@ -27,6 +27,7 @@ import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.QRCodeScannerActivity
 import com.example.atonce.presentation.common.component.LoadingView
+import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
 import com.example.atonce.presentation.signup.components.CustomDropdownMenu
 import com.example.atonce.presentation.signup.components.CustomPasswordField
@@ -287,6 +288,7 @@ fun SignUpScreen(
 
         when(registerState){
             is Response.Error -> {
+                NoInternet()
             }
             is Response.Loading -> {
                 LoadingView()

@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.data.remote.Response
+import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
 import com.example.atonce.presentation.store.model.WarehouseMedicines
@@ -48,7 +49,7 @@ fun StoreScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
     LaunchedEffect(Unit) {
-        viewModel.getAllMedicinesByStoreId(warehouseId=2)
+        viewModel.getAllMedicinesByStoreId(warehouseId = 2)
 
     }
 
@@ -116,7 +117,9 @@ fun StoreScreen(
                 }
 
                 is Response.Error -> {
-
+                    item {
+                        NoInternet()
+                    }
                 }
             }
 

@@ -69,7 +69,6 @@ fun ProfileScreen(
     val colors = MaterialTheme.colorScheme
     val user = viewmodel.userData
     var expanded = remember { mutableStateOf(false) }
-    val menuAnchor = remember { mutableStateOf<Offset?>(null) }
 
     val ctx = LocalContext.current
     Column(

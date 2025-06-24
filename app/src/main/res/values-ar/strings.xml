@@ -69,4 +69,5 @@
     <string name="logging">جاري تسجيل الدخول</string>
     <string name="to_continue_login_now">قم بتسجيل الدخول للاستمرار</string>
     <string name="welcome_back">مرحبا بك !</string>
+    <string name="please_check_your_internet_connection">"يرجى التحقق من اتصالك بالإنترنت</string>
 </resources>

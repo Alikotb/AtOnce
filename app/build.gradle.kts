@@ -66,6 +66,8 @@ dependencies {
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
 
+    //lotti
+    implementation("com.airbnb.android:lottie-compose:6.6.3")
 
     implementation ("androidx.compose.material3:material3:1.1.1")
 
