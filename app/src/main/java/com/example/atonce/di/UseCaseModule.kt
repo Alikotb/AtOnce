@@ -13,7 +13,6 @@ import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.RegisterUseCase
 import com.example.atonce.domain.usecase.SaveLanguageUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
-import com.example.atonce.domain.usecase.SearchInWareHouseUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
 import org.koin.dsl.module
 
@@ -28,7 +27,6 @@ val useCaseModule = module {
 
     factory { SavePharmacyUseCase(get()) }
     factory { GetPharmacyUseCase(get()) }
-    factory { SearchInWareHouseUseCase() }
     factory { GetGovernoratesUseCase(get()) }
     factory { GetAreasUseCase(get()) }
 

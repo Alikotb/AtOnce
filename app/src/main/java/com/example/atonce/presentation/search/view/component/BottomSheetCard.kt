@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 //noinspection UsingMaterialAndMaterial3Libraries
@@ -20,11 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -88,11 +90,21 @@ fun BottomSheetCard(
                     modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                     color = colors.primary
                 )
-                Text(
-                    text = stringResource(R.string.price)+"${supplier.finalPrice}"+ stringResource(R.string.egp),
-                    fontSize = MEDICINE_DISCOUNT.sp,
-                    modifier = Modifier.padding(start = 12.dp)
-                )
+                Row {
+                    Text(
+                        text = stringResource(R.string.price) + " ${supplier.finalPrice} " + stringResource(
+                            R.string.egp
+                        ),
+                        fontSize = MEDICINE_DISCOUNT.sp
+                    )
+                    Spacer(Modifier.width(12.dp))
+                    Text(
+                        text = " ${supplier.medicinePrice} " + stringResource(  R.string.egp) ,
+                        fontSize = MEDICINE_DISCOUNT.sp,
+                        color = Color.Red,
+                        textDecoration = TextDecoration.LineThrough
+                    )
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
