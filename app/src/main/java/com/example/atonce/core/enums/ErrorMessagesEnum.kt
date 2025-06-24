@@ -25,7 +25,19 @@ enum class ErrorMessagesEnum(
         "رجاء قم بمسح كود الدعوه"),
     REGISTERSUCCESS(
         "Register successfully",
-        "تم التسجيل بنجاح")
+        "تم التسجيل بنجاح"),
+    LOGINSUCCESS(
+        "Login successful",
+        "تم تسجيل الدخول بنجاح"
+    ),
+    LOGINFAILED(
+        "Incorrect email or password",
+        "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+    ),
+    LOGINEXCEPTION(
+        "An error occurred during login",
+        "حدث خطأ أثناء تسجيل الدخول"
+    )
 
     ;
 
