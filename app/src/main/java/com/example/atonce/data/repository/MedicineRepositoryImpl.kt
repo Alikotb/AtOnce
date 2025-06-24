@@ -1,6 +1,5 @@
 package com.example.atonce.data.repository
 
-import android.util.Log
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.service.MedicineApiService
 import com.example.atonce.domain.entity.Medicine
@@ -21,7 +20,6 @@ class MedicineRepositoryImpl(
             page,
             pageSize,
             search).items.map {
-                Log.d("TAG", "searchMedicinesByNameAndArea: $it")
                 it.toEntity()
             })
     }
