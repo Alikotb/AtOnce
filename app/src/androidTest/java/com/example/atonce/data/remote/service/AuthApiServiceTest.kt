@@ -233,6 +233,36 @@ class AuthApiServiceTest : KoinTest {
         }
     }
 
+    @Test
+    fun testRegister_Fail_MissingEmail() {
+        runBlocking {
+
+            //given
+            val request = RegisterRequestDto(
+                address = "Test Address",
+                areaId = 1,
+                confirmPassword = "Aa12345678",
+                email = "",
+                governate = "Cairo",
+                name = "Test Pharmacy",
+                password = "Aa12345678",
+                phoneNumber = "0123456789",
+                representativeCode = "REP123",
+                userName = "missingemail${System.currentTimeMillis()}"
+            )
+
+            //when
+            val response = authApiService.register(request)
+            println("Register Missing Email Response: $response")
+
+            //then
+            assertNotNull(response)
+            assertTrue(!response.success)
+            assertNotNull(response.message)
+        }
+    }
+
+
 
 
 
