@@ -9,11 +9,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 
@@ -23,21 +25,6 @@ class AuthApiServiceTest : KoinTest {
 
     private val authApiService: AuthApiService by inject()
 
-//    @Before
-//    fun setUp(){
-//        startKoin {
-//            modules(
-//                modules = listOf(
-//                    networkModule,
-//                )
-//            )
-//        }
-//    }
-//
-//    @After
-//    fun tearDown(){
-//        stopKoin()
-//    }
 
     @Test
     fun testLogin_Success(){
@@ -58,6 +45,7 @@ class AuthApiServiceTest : KoinTest {
             //then
             assertNotNull(response)
             assertTrue(response.success == true)
+            assertNotNull(response.message)
             assertNotNull(response.token)
             assertNotNull(response.pharmacy)
             assertNotNull(response.pharmacy.id)
@@ -72,6 +60,18 @@ class AuthApiServiceTest : KoinTest {
                 email = "testUser@test.com",
                 password = "Aa123456789"
             )
+
+            val response = authApiService.login(request)
+
+            Log.e("TEST_TAG", "testLogin_Fail_WrongPassword: $response", )
+
+            //then
+            assertNotNull(response)
+            assertTrue(response.success == false)
+            assertNotNull(response.message)
+            assertNull(response.token)
+            assertNotNull(response.pharmacy)
+            assertNull(response.pharmacy.id)
 
         }
     }
