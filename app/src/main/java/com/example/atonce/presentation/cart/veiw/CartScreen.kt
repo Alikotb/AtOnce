@@ -1,6 +1,7 @@
 package com.example.atonce.presentation.cart.veiw
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,11 +23,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
+import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.cart.veiw.components.AddToCartCard
 import com.example.atonce.presentation.cart.veiw.components.OrderInfo
 import com.example.atonce.presentation.cart.veiw.components.StoreTabs
 import com.example.atonce.presentation.cart.viewModel.CartViewModel
+import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
@@ -34,73 +38,14 @@ import org.koin.androidx.compose.koinViewModel
 fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
     val colors = MaterialTheme.colorScheme
 
+    val items by viewModel.cartItems.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
         viewModel.getCartDetails()
     }
 
-    val stores = remember {
-        listOf(
-            Store(
-                id = "store1",
-                name = "store1",
-                items = listOf(
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 28, 200, 1),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 10, 150, 2),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 5, 80, 1),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 5, 80, 1)
-                )
-            ),
-            Store(
-                id = "store2",
-                name = "store2",
-                items = listOf(
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 15, 120, 3),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 0, 90, 2)
-                )
-            ),
-            Store(
-                id = "store3",
-                name = "store3",
-                items = listOf(
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 20, 180, 1),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 10, 220, 1)
-                )
-            ),
-            Store(
-                id = "store4",
-                name = "store4",
-                items = listOf(
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 0, 50, 5),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 5, 75, 2)
-                )
-            ),
-            Store(
-                id = "store5",
-                name = "store5",
-                items = listOf(
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 0, 50, 5),
-                    CartItem(R.drawable.medicin_card_img, "Panadol Extra 600mg", 5, 75, 2)
-                )
-            )
-        )
-    }
-
     var selectedStoreIndex by remember { mutableStateOf(0) }
-    val currentStore = stores[selectedStoreIndex]
-    val cartItems = currentStore.items
 
-    val (subtotal, discount, total) = remember(cartItems) {
-        var subTotal = 0.0
-        var totalDiscount = 0.0
-
-        cartItems.forEach { item ->
-            val itemTotal = item.unitCost * item.quantity
-            subTotal += itemTotal
-            totalDiscount += (itemTotal * item.discount / 100.0)
-        }
-
-        Triple(subTotal, totalDiscount, subTotal - totalDiscount)
-    }
 
     Column(
         modifier = Modifier
@@ -111,59 +56,68 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
       NoIconCard(
           headerTxt = stringResource(R.string.cart),
       )
+        when (items) {
+            is Response.Error -> {
 
-        StoreTabs(
-            stores = stores,
-            selectedIndex = selectedStoreIndex,
-            onTabSelected = { selectedStoreIndex = it }
-        )
-
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(bottom = 140.dp)
-        ) {
-            items(cartItems) { item ->
-                AddToCartCard(
-                    imageResId = item.imageResId,
-                    medicationName = item.name,
-                    discountPercent = item.discount,
-                    costPerItem = item.unitCost,
-                    quantity = item.quantity,
-                    onIncrease = { item.quantity++ },
-                    onDecrease = { if (item.quantity > 1) item.quantity-- },
-                    onDelete = { }
-                )
             }
-        }
+            Response.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ){
+                    ProgressIndicator()
+                }
+            }
+            is Response.Success -> {
+                val stores = (items as Response.Success).data
+                StoreTabs(
+                    stores = stores,
+                    selectedIndex = selectedStoreIndex,
+                    onTabSelected = { selectedStoreIndex = it }
+                )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                .background(colors.surface)
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-                .padding(bottom = 56.dp)
-        ) {
-            OrderInfo(
-                subtotal = subtotal,
-                discount = discount,
-                total = total,
-                onCheckout = { }
-            )
+
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(bottom = 140.dp)
+                ) {
+
+
+
+                    items(stores[selectedStoreIndex].items) { item ->
+                        AddToCartCard(
+                            cartItem = item,
+                            onIncrease = {},
+                            onDecrease = {},
+                            onDelete = { }
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                        .background(colors.surface)
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .padding(bottom = 56.dp)
+                ) {
+                    val subTotal = stores[selectedStoreIndex].totalPriceBeforeDiscount ?: 0.0
+                    val total = stores[selectedStoreIndex].totalPriceAfterDiscount ?: 0.0
+                    val discount = subTotal - total
+                    val minimum = stores[selectedStoreIndex].minimumPrice ?: 0.0
+                    OrderInfo(
+                        subtotal = subTotal,
+                        discount = discount,
+                        total = total,
+                        minimum = minimum,
+                        onCheckout = { }
+                    )
+                }
+            }
         }
     }
 }
 
-data class Store(
-    val id: String,
-    val name: String,
-    val items: List<CartItem>
-)
 
-data class CartItem(
-    val imageResId: Int,
-    val name: String,
-    val discount: Int,
-    val unitCost: Int,
-    var quantity: Int
-)
+

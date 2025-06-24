@@ -34,7 +34,7 @@ fun OrderInfo(
     subtotal: Double,
     discount: Double,
     total: Double,
-    minimum: Double = 70.0,
+    minimum: Double,
     onCheckout: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme

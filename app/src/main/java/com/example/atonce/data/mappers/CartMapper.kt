@@ -22,7 +22,7 @@ fun CartWarehouseDto.toEntity(): CartWarehouseEntity {
     return CartWarehouseEntity(
         warehouseId = warehouseId,
         warehouseUrl = warehouseUrl,
-        warehouseName = "Warehouse #$warehouseId",
+        warehouseName = "Store #$warehouseId",
         minimumPrice = 1000.0,
         totalQuantity = items.sumOf { it.quantity },
         totalPriceBeforeDiscount = items.sumOf { it.priceBeforeDiscount },

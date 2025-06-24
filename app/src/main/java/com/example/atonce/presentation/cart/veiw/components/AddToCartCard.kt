@@ -32,24 +32,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.domain.entity.CartItemEntity
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.RedColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import java.util.Locale
 
 @Composable
 fun AddToCartCard(
-    imageResId: Int,
-    medicationName: String,
-    discountPercent: Int,
-    costPerItem: Int,
-    quantity: Int,
+    cartItem : CartItemEntity,
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
     onDelete: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
-    val totalCost = costPerItem * quantity
+    val totalCost = cartItem.priceAfterDiscount
+    val medicationName = if (Locale.getDefault().language == "ar") cartItem.arabicMedicineName
+    else cartItem.englishMedicineName
+
+    val costPerItem = cartItem.priceBeforeDiscount
+    val discountPercent = cartItem.discount
+    val quantity = cartItem.quantity
 
     Card(
         modifier = Modifier
@@ -64,8 +68,8 @@ fun AddToCartCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = imageResId),
-                contentDescription = medicationName,
+                painter = painterResource(id = R.drawable.ads1),
+                contentDescription = "medicationName",
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(8.dp)),
