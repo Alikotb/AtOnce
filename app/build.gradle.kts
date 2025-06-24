@@ -107,6 +107,10 @@ dependencies {
     //zxing QRCode
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
 
+    //testing
+    testImplementation ("io.insert-koin:koin-test:$koin_android_version")
+    androidTestImplementation ("io.insert-koin:koin-android-test:$koin_android_version")
+
 
 
 }
