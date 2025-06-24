@@ -204,6 +204,35 @@ class AuthApiServiceTest : KoinTest {
         }
     }
 
+    @Test
+    fun testRegister_Fail_PasswordMismatch() {
+        runBlocking {
+
+            //given
+            val request = RegisterRequestDto(
+                address = "Test Address",
+                areaId = 1,
+                confirmPassword = "Aa12345678",
+                email = "mismatch${System.currentTimeMillis()}@test.com",
+                governate = "Cairo",
+                name = "Test Pharmacy",
+                password = "DifferentPass123",
+                phoneNumber = "0123456789",
+                representativeCode = "REP123",
+                userName = "mismatchuser${System.currentTimeMillis()}"
+            )
+
+            //when
+            val response = authApiService.register(request)
+            println("Register Password Mismatch Response: $response")
+
+            //then
+            assertNotNull(response)
+            assertTrue(!response.success)
+            assertNotNull(response.message)
+        }
+    }
+
 
 
 
