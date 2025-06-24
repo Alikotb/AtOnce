@@ -3,7 +3,7 @@ package com.example.atonce.data.remote.dto.cart
 data class CartResponseDto(
     val success: Boolean,
     val message: String,
-    val data: CartDataDto
+    val data: CartDataDto?
 )
 
 data class CartDataDto(
