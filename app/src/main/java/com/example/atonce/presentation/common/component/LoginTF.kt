@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -40,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.example.atonce.R
 import com.example.atonce.presentation.common.FontSizes.LOGINTXT
 import com.example.atonce.presentation.common.theme.MediumFont
+import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 
 
@@ -49,6 +52,8 @@ fun LoginPasswordTF(
     msg: String = "***************",
     onValueChange: (String) -> Unit = {}
 ) {
+
+    val TextFieldColor = Color(0xFFF2F2F2)
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
@@ -66,20 +71,15 @@ fun LoginPasswordTF(
             color = colors.onBackground,
             fontFamily = MediumFont,
         )
-        TextField(
+        OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
-                .border(
-                    color = colors.onSurfaceVariant,
-                    width = 2.dp,
-                    shape = RoundedCornerShape(12.dp)
-                ),
+                .padding(bottom = 8.dp),
             value = text,
             visualTransformation = if (passwordHidden) PasswordVisualTransformation() else VisualTransformation.None,
             placeholder = {
                 Text(
-                    text = msg,
+                    text = txt,
                     fontFamily = RegularFont,
                     fontSize = LOGINTXT.sp
                 )
@@ -87,23 +87,23 @@ fun LoginPasswordTF(
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = RegularFont,
-                fontSize = 14.sp
-            ),
             onValueChange = { it ->
                 text = it
                 onValueChange(it.text)
             },
-            shape = MaterialTheme.shapes.large,
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = colors.onPrimary,
-                unfocusedContainerColor = colors.onPrimary,
-                cursorColor = colors.primary,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = colors.onBackground,
-                unfocusedTextColor = colors.onBackground
+            shape = RoundedCornerShape(8.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = Color.Transparent,
+                focusedBorderColor = PrimaryColor,
+                disabledBorderColor = Color.Transparent,
+                errorBorderColor = Color.Transparent,
+                cursorColor = Color.Black,
+                focusedContainerColor = Color(0xFFF5F5F5),
+                unfocusedContainerColor = TextFieldColor,
+                disabledContainerColor = Color(0xFFF5F5F5),
+                errorContainerColor = Color(0xFFF5F5F5),
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
             ),
             trailingIcon = {
                 IconButton(onClick = { passwordHidden = !passwordHidden }) {
@@ -129,6 +129,9 @@ fun LoginTF(
     secondIcon: ImageVector = Icons.Filled.ArrowDropUp,
     onIconClick: () -> Unit = {}
 ) {
+    val TextFieldColor = Color(0xFFF2F2F2)
+    val PrimaryColor = Color(0xFF179C92)
+
     var text by remember { mutableStateOf(TextFieldValue("")) }
     var changeIcon by rememberSaveable { mutableStateOf(true) }
     val colors = MaterialTheme.colorScheme
@@ -147,44 +150,41 @@ fun LoginTF(
             fontFamily = MediumFont,
 
             )
-        TextField(
+
+        OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
-                .border(
-                    color = colors.onSurfaceVariant,
-                    width = 2.dp,
-                    shape = RoundedCornerShape(12.dp)
-                ),
+                .padding(bottom = 8.dp),
             value = text,
             placeholder = {
                 Text(
-                    text = msg,
+                    text = txt,
                     fontFamily = RegularFont,
                     fontSize = LOGINTXT.sp
                 )
 
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text
+                keyboardType = KeyboardType.Email
             ),
             onValueChange = { it ->
                 text = it
                 onValueChange(it.text)
             },
-            textStyle = LocalTextStyle.current.copy(
-                fontFamily = RegularFont,
-                fontSize = 14.sp
-            ),
-            shape = MaterialTheme.shapes.large,
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = colors.surface,
-                unfocusedContainerColor = colors.surface,
-                cursorColor = colors.primary,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                focusedTextColor = colors.onBackground,
-                unfocusedTextColor = colors.onBackground
+
+            shape = RoundedCornerShape(8.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = Color.Transparent,
+                focusedBorderColor = PrimaryColor,
+                disabledBorderColor = Color.Transparent,
+                errorBorderColor = Color.Transparent,
+                cursorColor = Color.Black,
+                focusedContainerColor = Color(0xFFF5F5F5),
+                unfocusedContainerColor = TextFieldColor,
+                disabledContainerColor = Color(0xFFF5F5F5),
+                errorContainerColor = Color(0xFFF5F5F5),
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black
             ),
 
             trailingIcon = {
