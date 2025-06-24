@@ -61,8 +61,8 @@ class AuthApiServiceTest : KoinTest {
                 password = "Aa123456789"
             )
 
+            //when
             val response = authApiService.login(request)
-
             Log.e("TEST_TAG", "testLogin_Fail_WrongPassword: $response", )
 
             //then
@@ -75,5 +75,27 @@ class AuthApiServiceTest : KoinTest {
 
         }
     }
+
+    @Test
+    fun testLogin_Fail_MissingEmail() = runBlocking {
+        //given
+        val request = LoginRequestDto(
+            email = "",
+            password = "Aa12345678"
+        )
+
+        //when
+        val response = authApiService.login(request)
+        Log.e("TEST_TAG", "testLogin_Fail_MissingEmail: $response")
+
+        //then
+        assertNotNull(response)
+        assertTrue(response.success == false)
+        assertNotNull(response.message)
+        assertNull(response.token)
+        assertNotNull(response.pharmacy)
+        assertNull(response.pharmacy.id)
+    }
+
 
 }
