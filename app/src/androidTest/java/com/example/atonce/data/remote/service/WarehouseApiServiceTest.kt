@@ -45,6 +45,31 @@ class WarehouseApiServiceTest : KoinTest {
 
     }
 
+    @Test
+    fun getAllMedicinesByWarehousesId_WarehouseId2_Return20Medicine() {
+        runBlocking {
+            //given
+            val warehouseId = 2
+            val pageSize = 100
+            val page = 1
+            //when
+            val result = warehouseApiService.getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageSize = pageSize, pageNum = page)
+
+            //then
+            assertNotNull(result)
+            assertTrue(result.items.size == 20)
+
+            assertTrue(result.items[1].medicineId == 2)
+
+            assertTrue(result.items.first().medicineId == 1)
+
+            assertTrue(result.items.first().arabicMedicineName == "بانادول")
+            assertTrue(result.items[1].quantity == 20)
+
+        }
+
+
+    }
 
 
 }
