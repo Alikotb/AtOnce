@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface WarehouseRepository {
     suspend fun getAllWarehousesByArea(areaId: Int, page: Int, pageSize: Int, search: String): Flow<List<Warehouse>>
-    suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int): Flow<WarehouseMedicinesDto>
+    suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int,search: String): Flow<WarehouseMedicinesDto>
     suspend fun getAllSuppliersByAreaAndMedicine(areaId: Int, medicineId: Int): Flow<List<SupplierEntity>>
 }

@@ -7,7 +7,6 @@ import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.domain.entity.Warehouse
 import com.example.atonce.domain.repository.WarehouseRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 class WarehouseRepositoryImpl(private val remoteDataSource: RemoteDataSource) :
@@ -25,9 +24,10 @@ class WarehouseRepositoryImpl(private val remoteDataSource: RemoteDataSource) :
     override suspend fun getAllMedicinesByWarehousesId(
         warehouseId: Int,
         pageNum: Int,
-        pageSize: Int
+        pageSize: Int,
+        search: String
     ): Flow<WarehouseMedicinesDto> {
-        return remoteDataSource.getAllMedicinesByWarehousesId(warehouseId, pageNum, pageSize)
+        return remoteDataSource.getAllMedicinesByWarehousesId(warehouseId, pageNum, pageSize,search)
     }
 
     override suspend fun getAllSuppliersByAreaAndMedicine(

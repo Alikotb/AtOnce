@@ -20,7 +20,8 @@ interface WarehouseApiService {
     suspend fun getAllMedicinesByWarehousesId(
         @Path("warehouseId") warehouseId: Int,
         @Query("page") pageNum: Int,
-        @Query("pageSize") pageSize: Int
+        @Query("pageSize") pageSize: Int,
+        @Query("search") search: String
     ): WarehouseMedicinesDto
 
     @GET("api/warehouse/area/{areaId}/medicine/{medicineId}")

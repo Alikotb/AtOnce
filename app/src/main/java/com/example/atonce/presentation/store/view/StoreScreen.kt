@@ -49,7 +49,7 @@ fun StoreScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
     LaunchedEffect(Unit) {
-        viewModel.getAllMedicinesByStoreId(warehouseId = 2)
+        viewModel.getAllMedicinesByStoreId(warehouseId = 2,searchText)
 
     }
 
@@ -58,7 +58,7 @@ fun StoreScreen(
             .collect { lastVisible ->
                 val totalItems = gState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getAllMedicinesByStoreId(warehouseId = 2)
+                    viewModel.getAllMedicinesByStoreId(warehouseId = 2,search=viewModel.searchQuery.value)
                 }
             }
     }
@@ -82,6 +82,7 @@ fun StoreScreen(
             expanded = expanded,
             onSearch = {
                 searchText = it
+                viewModel.onSearchChanged(it)
             },
             onFilterClick = {
                 filterSearch = it
