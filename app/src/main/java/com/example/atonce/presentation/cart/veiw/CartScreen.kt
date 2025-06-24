@@ -82,8 +82,6 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                     contentPadding = PaddingValues(bottom = 140.dp)
                 ) {
 
-
-
                     items(stores[selectedStoreIndex].items) { item ->
                         AddToCartCard(
                             cartItem = item,

@@ -32,7 +32,7 @@ class CartViewModel(
         _cartItems.value = Response.Loading
         viewModelScope.launch(Dispatchers.IO + errorExceptionHandler){
             Log.d("CartTAG", "getCartDetails: $userData")
-            getCartDetailsByIdUseCase(pharmacyId = 45 /*userData.id ?: 45*/)
+            getCartDetailsByIdUseCase(pharmacyId = userData.id ?: 0)
                 .collect{ response  ->
                     if (response.success){
                         _cartItems.value = Response.Success(response.warehouses ?: emptyList())

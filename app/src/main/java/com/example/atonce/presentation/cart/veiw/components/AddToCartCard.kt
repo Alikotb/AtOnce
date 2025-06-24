@@ -41,13 +41,13 @@ import java.util.Locale
 
 @Composable
 fun AddToCartCard(
-    cartItem : CartItemEntity,
+    cartItem: CartItemEntity,
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
     onDelete: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
-    val totalCost = cartItem.priceAfterDiscount
+    val totalCost = cartItem.priceAfterDiscount * cartItem.quantity
     val medicationName = if (Locale.getDefault().language == "ar") cartItem.arabicMedicineName
     else cartItem.englishMedicineName
 
@@ -57,14 +57,17 @@ fun AddToCartCard(
 
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(16.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = colors.surface)
     ) {
+
         Row(
-            modifier = Modifier.padding(8.dp).height(IntrinsicSize.Min),
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -73,16 +76,18 @@ fun AddToCartCard(
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(8.dp)),
+
                 contentScale = ContentScale.Crop
             )
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            Column(modifier = Modifier.weight(1f)) {
-
+            Column(
+                verticalArrangement = Arrangement.Top,
+            ){
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
@@ -90,66 +95,64 @@ fun AddToCartCard(
                         fontFamily = SemiBoldFont,
                         fontSize = 16.sp,
                         color = colors.onSurface,
-                        modifier = Modifier.weight(1f)
                     )
                     IconButton(onClick = onDelete) {
                         Icon(
                             painter = painterResource(id = R.drawable.trash),
                             contentDescription = "Delete",
-                            tint = RedColor
+                            tint = RedColor,
                         )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.cart_discount, discountPercent),
-                            fontFamily = MediumFont,
-                            fontSize = 14.sp,
-                            color = colors.primary
-                        )
-                        Text(
-                            text = stringResource(R.string.cost_per_item_egp, costPerItem),
-                            fontFamily = RegularFont,
-                            fontSize = 13.sp,
-                            color = colors.onSurfaceVariant
-                        )
-                        Text(
-                            text = stringResource(R.string.total_egp, totalCost),
-                            fontFamily = MediumFont,
-                            fontSize = 14.sp,
-                            color = RedColor
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .border(1.dp, colors.primary, RoundedCornerShape(16.dp))
-                    ) {
-                        IconButton(onClick = onDecrease) {
-                            Icon(Icons.Default.Remove, contentDescription = "Decrease")
-                        }
-                        Text(
-                            "$quantity",
-                            fontFamily = MediumFont,
-                            modifier = Modifier.padding(horizontal = 4.dp)
-                        )
-                        IconButton(onClick = onIncrease) {
-                            Icon(Icons.Default.Add, contentDescription = "Increase")
-                        }
-                    }
-                }
+                Text(
+                    text = stringResource(R.string.cart_discount, discountPercent),
+                    fontFamily = MediumFont,
+                    fontSize = 14.sp,
+                    color = colors.primary
+                )
+                Text(
+                    text = stringResource(R.string.cost_per_item_egp, costPerItem),
+                    fontFamily = RegularFont,
+                    fontSize = 13.sp,
+                    color = colors.onSurfaceVariant
+                )
             }
         }
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth().padding(start = 8.dp , end = 8.dp , bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = stringResource(R.string.total_egp, String.format("%.2f", totalCost)),
+                fontFamily = MediumFont,
+                fontSize = 14.sp,
+                color = RedColor
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .border(1.dp, colors.primary, RoundedCornerShape(16.dp))
+            ) {
+                IconButton(onClick = onDecrease) {
+                    Icon(Icons.Default.Remove, contentDescription = "Decrease")
+                }
+                Text(
+                    "$quantity",
+                    fontFamily = MediumFont,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+                IconButton(onClick = onIncrease) {
+                    Icon(Icons.Default.Add, contentDescription = "Increase")
+                }
+            }
+
+
+        }
+
     }
 }
