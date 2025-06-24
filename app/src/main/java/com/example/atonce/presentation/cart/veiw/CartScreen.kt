@@ -28,8 +28,11 @@ import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.cart.veiw.components.AddToCartCard
 import com.example.atonce.presentation.cart.veiw.components.OrderInfo
+import com.example.atonce.presentation.cart.veiw.components.ShimmerCartCard
 import com.example.atonce.presentation.cart.veiw.components.StoreTabs
 import com.example.atonce.presentation.cart.viewModel.CartViewModel
+import com.example.atonce.presentation.common.component.EmptyCart
+import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
@@ -61,56 +64,63 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
 
             }
             Response.Loading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
+                LazyColumn(
+                    modifier = Modifier.padding(16.dp)
                 ){
-                    ProgressIndicator()
+                    items(3){
+                        ShimmerCartCard()
+                    }
                 }
             }
             is Response.Success -> {
                 val stores = (items as Response.Success).data
-                StoreTabs(
-                    stores = stores,
-                    selectedIndex = selectedStoreIndex,
-                    onTabSelected = { selectedStoreIndex = it }
-                )
+
+                if (stores.isEmpty()){
+                    EmptyCart()
+                }
+                else{
+                    StoreTabs(
+                        stores = stores,
+                        selectedIndex = selectedStoreIndex,
+                        onTabSelected = { selectedStoreIndex = it }
+                    )
 
 
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    contentPadding = PaddingValues(bottom = 140.dp)
-                ) {
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(bottom = 140.dp)
+                    ) {
 
-                    items(stores[selectedStoreIndex].items) { item ->
-                        AddToCartCard(
-                            cartItem = item,
-                            onIncrease = {},
-                            onDecrease = {},
-                            onDelete = { }
+                        items(stores[selectedStoreIndex].items) { item ->
+                            AddToCartCard(
+                                cartItem = item,
+                                onIncrease = {},
+                                onDecrease = {},
+                                onDelete = { }
+                            )
+                        }
+                    }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                            .background(colors.surface)
+                            .padding(horizontal = 16.dp, vertical = 12.dp)
+                            .padding(bottom = 56.dp)
+                    ) {
+                        val subTotal = stores[selectedStoreIndex].totalPriceBeforeDiscount ?: 0.0
+                        val total = stores[selectedStoreIndex].totalPriceAfterDiscount ?: 0.0
+                        val discount = subTotal - total
+                        val minimum = stores[selectedStoreIndex].minimumPrice ?: 0.0
+                        OrderInfo(
+                            subtotal = subTotal,
+                            discount = discount,
+                            total = total,
+                            minimum = minimum,
+                            onCheckout = { }
                         )
                     }
-                }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                        .background(colors.surface)
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
-                        .padding(bottom = 56.dp)
-                ) {
-                    val subTotal = stores[selectedStoreIndex].totalPriceBeforeDiscount ?: 0.0
-                    val total = stores[selectedStoreIndex].totalPriceAfterDiscount ?: 0.0
-                    val discount = subTotal - total
-                    val minimum = stores[selectedStoreIndex].minimumPrice ?: 0.0
-                    OrderInfo(
-                        subtotal = subTotal,
-                        discount = discount,
-                        total = total,
-                        minimum = minimum,
-                        onCheckout = { }
-                    )
                 }
             }
         }
