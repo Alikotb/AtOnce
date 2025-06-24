@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.cart.components
+package com.example.atonce.presentation.cart.veiw.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
