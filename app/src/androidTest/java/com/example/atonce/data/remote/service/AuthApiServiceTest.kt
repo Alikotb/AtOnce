@@ -2,6 +2,7 @@ package com.example.atonce.data.remote.service
 
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.atonce.data.remote.dto.RegisterRequestDto
 import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -144,6 +145,36 @@ class AuthApiServiceTest : KoinTest {
             assertTrue(response.isEmpty(), "Areas list should be empty for invalid governorateId")
         }
     }
+
+    @Test
+    fun testRegister_Success(){
+        runBlocking {
+
+            //given
+            val request = RegisterRequestDto(
+                address = "Test Address",
+                areaId = 1,
+                confirmPassword = "Aa12345678",
+                email = "newuser${System.currentTimeMillis()}@test.com",
+                governate = "Cairo",
+                name = "Test Pharmacy",
+                password = "Aa12345678",
+                phoneNumber = "0123456789",
+                representativeCode = "RYHOZF",
+                userName = "testuser${System.currentTimeMillis()}"
+            )
+
+            //when
+            val response = authApiService.register(request)
+            println("Register Success Response: $response")
+
+            //then
+            assertNotNull(response)
+            assertTrue(response.success)
+            assertNotNull(response.message)
+        }
+    }
+
 
 
 
