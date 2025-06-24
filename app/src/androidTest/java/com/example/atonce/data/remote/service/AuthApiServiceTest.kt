@@ -96,5 +96,24 @@ class AuthApiServiceTest : KoinTest {
         }
     }
 
+    @Test
+    fun testGetAllGovernorates_Success(){
+        runBlocking {
+
+            //when
+            val response = authApiService.getAllGovernorates()
+            println("Governorates Response: $response")
+
+            // then
+            assertNotNull(response)
+            assertTrue(response.isNotEmpty(), "Governorates list should not be empty")
+
+            val firstGovernorate = response.first()
+            assertNotNull(firstGovernorate.id)
+            assertNotNull(firstGovernorate.name)
+        }
+    }
+
+
 
 }
