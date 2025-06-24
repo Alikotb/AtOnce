@@ -3,15 +3,9 @@ package com.example.atonce.data.remote.service
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
-import com.example.atonce.di.networkModule
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.context.GlobalContext
-import org.koin.core.context.GlobalContext.startKoin
-import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.assertNotNull
