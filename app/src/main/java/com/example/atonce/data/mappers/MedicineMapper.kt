@@ -7,6 +7,7 @@ fun MedicineDto.toEntity(): Medicine {
     return Medicine(
         medicineId = medicineId,
         medicineName = medicineName,
+        arabicMedicineName = arabicMedicineName,
         drug = drug,
         price = price,
         maximumwareHouseAreaName = maximumwareHouseAreaName,

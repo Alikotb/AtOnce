@@ -50,8 +50,8 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
 
     val colors = MaterialTheme.colorScheme
 
-
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val currentLanguage by viewModel.currentLanguage
     val listState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
@@ -110,6 +110,7 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
                     items(medicines) { medicine ->
                         SearchCard(
                             medicine = medicine,
+                            language = currentLanguage,
                             onSuppliersClick = {
                                 selectedMedicine = it
                                 showBottomSheet = true

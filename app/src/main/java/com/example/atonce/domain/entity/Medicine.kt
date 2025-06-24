@@ -3,6 +3,7 @@ package com.example.atonce.domain.entity
 data class Medicine(
     val medicineId: Int,
     val medicineName: String,
+    val arabicMedicineName : String,
     val drug: Int,
     val price: Double,
     val maximumwareHouseAreaName: String,

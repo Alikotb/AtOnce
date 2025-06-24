@@ -1,12 +1,14 @@
 package com.example.atonce.presentation.search.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
+import com.example.atonce.domain.usecase.GetLanguageUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
 import com.example.atonce.presentation.home.model.toUiModel
 import kotlinx.coroutines.Dispatchers
@@ -18,14 +20,19 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase,
-    private val getAllSuppliersByAreaIdAndMedicine: GetAllSuppliersByAreaIdAndMedicine
+class SearchViewModel(
+    private val searchMedicinesUseCase: SearchMedicinesUseCase,
+    private val getAllSuppliersByAreaIdAndMedicine: GetAllSuppliersByAreaIdAndMedicine,
+    private val getLanguageUseCase: GetLanguageUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<Medicine>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
 
     private val _uiStateSuppliers = MutableStateFlow<Response<List<SupplierEntity>>>(Response.Loading)
     val uiStateSuppliers = _uiStateSuppliers.asStateFlow()
+
+    private val _currentLanguage = mutableStateOf("")
+    val currentLanguage = _currentLanguage
 
     private var currentPage = 1
     private var pageSize = 15
@@ -36,6 +43,7 @@ class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase
     val searchQuery = _searchQuery.asStateFlow()
 
     init {
+        getLanguage()
         viewModelScope.launch {
             _searchQuery
                 .debounce(500)
@@ -66,7 +74,6 @@ class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase
                     val newList = currentItems + list
 
                     _uiState.value = Response.Success(newList)
-                    Log.d("TAG", "getMedicinesByArea: $newList")
 
                     if (list.size < pageSize) isLastPage = true
                     else currentPage++
@@ -96,5 +103,9 @@ class SearchViewModel(private val searchMedicinesUseCase: SearchMedicinesUseCase
 
     fun freeUiState(){
         _uiStateSuppliers.value = Response.Loading
+    }
+
+    private fun getLanguage() {
+        _currentLanguage.value = getLanguageUseCase()
     }
 }

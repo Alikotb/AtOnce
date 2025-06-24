@@ -41,7 +41,6 @@ import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_BTN_SHEET_NAME
-import com.example.atonce.presentation.login.view.DotLoadingIndicator
 import com.example.atonce.presentation.search.viewmodel.SearchViewModel
 
 
