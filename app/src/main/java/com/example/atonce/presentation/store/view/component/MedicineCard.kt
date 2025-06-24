@@ -20,10 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -31,6 +33,7 @@ import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_FONT
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_PRICE
 import com.example.atonce.presentation.common.component.CustomCartBtn
+import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 import java.util.Locale
@@ -94,13 +97,21 @@ fun MedicineCard(obj: WarehouseMedicines){
             }
             Row {
                 Text(
-                    text = stringResource(R.string.price)+"${obj.medicineFinalPrice}".convertNumbersToArabic()+ stringResource(R.string.egp),
+                    text = stringResource(R.string.price)+String.format("%.2f", obj.medicineFinalPrice.toDouble()).convertNumbersToArabic()+ stringResource(R.string.egp),
                     fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
                     modifier = Modifier.padding(start = 12.dp),
-                    fontFamily = SemiBoldFont
+                    fontFamily = RegularFont
                 )
-                Spacer(Modifier.weight(1f))
-            }
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "${ obj.medicinePrice.toInt()}".convertNumbersToArabic(),
+                    fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
+                    color = Color.Red,
+                    fontFamily = RegularFont,
+                    textDecoration = TextDecoration.LineThrough
+                )
+
+                Spacer(Modifier.weight(1f))            }
             CustomCartBtn()
 
         }
