@@ -25,7 +25,7 @@ interface WarehouseApiService {
 
     @GET("api/warehouse/area/{areaId}/medicine/{medicineId}")
     suspend fun getAllSuppliersByAreaAndMedicine(
-        @Path("areaId") warehouseId: Int,
+        @Path("areaId") areaId: Int,
         @Path("medicineId") medicineId: Int,
     ): List<SupplierDto>
 }

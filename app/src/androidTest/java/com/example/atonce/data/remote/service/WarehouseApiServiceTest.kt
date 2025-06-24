@@ -76,7 +76,7 @@ class WarehouseApiServiceTest : KoinTest {
             //when
             val result = warehouseApiService.getAllSuppliersByAreaAndMedicine(
                 medicineId = medicineID,
-                warehouseId = areaID,
+                areaId = areaID,
             )
 
             //then
