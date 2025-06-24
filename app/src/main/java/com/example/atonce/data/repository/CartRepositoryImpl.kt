@@ -1,6 +1,5 @@
 package com.example.atonce.data.repository
 
-import com.example.atonce.data.remote.dto.cart.CartWarehouseDto
 import com.example.atonce.data.remote.dto.cart.UpdateCartResponse
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.service.CartApiService
@@ -13,8 +12,8 @@ class CartRepositoryImpl(
     private val apiService: CartApiService
 ) : CartRepository {
 
-    override suspend fun getCartItems(pharmacyId: Int): Flow<List<CartWarehouseDto>> {
-        return flowOf(apiService.getCartItems(pharmacyId).data.warehouses)
+    override suspend fun getCartItems(pharmacyId: Int): Flow<CartEntity> {
+        return flowOf( apiService.getCartItems(pharmacyId).toEntity())
     }
 
     override suspend fun updateCart(

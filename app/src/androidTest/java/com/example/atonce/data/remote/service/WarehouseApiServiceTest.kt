@@ -51,7 +51,8 @@ class WarehouseApiServiceTest : KoinTest {
             val result = warehouseApiService.getAllMedicinesByWarehousesId(
                 warehouseId = warehouseId,
                 pageSize = pageSize,
-                pageNum = page
+                pageNum = page,
+                search = ""
             )
 
             //then
