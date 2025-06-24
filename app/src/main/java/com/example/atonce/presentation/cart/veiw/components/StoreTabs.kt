@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.cart.components
+package com.example.atonce.presentation.cart.veiw.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.presentation.cart.Store
+import com.example.atonce.presentation.cart.veiw.Store
 import com.example.atonce.presentation.common.theme.MediumFont
 
 @Composable

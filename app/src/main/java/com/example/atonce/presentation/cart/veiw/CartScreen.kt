@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.cart
+package com.example.atonce.presentation.cart.veiw
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,13 +22,15 @@ import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
-import com.example.atonce.presentation.cart.components.AddToCartCard
-import com.example.atonce.presentation.cart.components.OrderInfo
-import com.example.atonce.presentation.cart.components.StoreTabs
+import com.example.atonce.presentation.cart.veiw.components.AddToCartCard
+import com.example.atonce.presentation.cart.veiw.components.OrderInfo
+import com.example.atonce.presentation.cart.veiw.components.StoreTabs
+import com.example.atonce.presentation.cart.viewModel.CartViewModel
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues) {
+fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
     val colors = MaterialTheme.colorScheme
 
     val stores = remember {
@@ -124,7 +126,7 @@ fun CartScreen(modifier: PaddingValues) {
                     quantity = item.quantity,
                     onIncrease = { item.quantity++ },
                     onDecrease = { if (item.quantity > 1) item.quantity-- },
-                    onDelete = {  }
+                    onDelete = { }
                 )
             }
         }
@@ -141,7 +143,7 @@ fun CartScreen(modifier: PaddingValues) {
                 subtotal = subtotal,
                 discount = discount,
                 total = total,
-                onCheckout = {  }
+                onCheckout = { }
             )
         }
     }
