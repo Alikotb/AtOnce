@@ -8,16 +8,13 @@
       <SelectionState runConfigName="MedicineApiServiceTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="searchMedicinesByNameAndArea_AreaId3SearchAugm_returnAugmentin()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="getAllWarehousesByArea_AreaId3_Return10Warehouses()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
       <SelectionState runConfigName="WarehouseApiServiceTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="getAllMedicinesByWarehousesId_WarehouseId2_Return20Medicine()">
+      <SelectionState runConfigName="AuthApiServiceTest">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="testLogin_Fail_WrongPassword()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
