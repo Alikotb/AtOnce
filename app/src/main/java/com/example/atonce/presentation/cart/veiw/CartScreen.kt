@@ -25,10 +25,12 @@ import com.example.atonce.R
 import com.example.atonce.presentation.cart.veiw.components.AddToCartCard
 import com.example.atonce.presentation.cart.veiw.components.OrderInfo
 import com.example.atonce.presentation.cart.veiw.components.StoreTabs
+import com.example.atonce.presentation.cart.viewModel.CartViewModel
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues) {
+fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
     val colors = MaterialTheme.colorScheme
 
     val stores = remember {
