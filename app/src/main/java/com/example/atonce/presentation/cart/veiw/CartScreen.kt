@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,6 +33,10 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
     val colors = MaterialTheme.colorScheme
+
+    LaunchedEffect(Unit) {
+        viewModel.getCartDetails()
+    }
 
     val stores = remember {
         listOf(
