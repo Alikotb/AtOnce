@@ -12,6 +12,7 @@ import androidx.navigation.toRoute
 import com.example.atonce.presentation.cart.CartScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
+import com.example.atonce.presentation.no_internet.NoInternetScreen
 import com.example.atonce.presentation.orders.view.OrderScreen
 import com.example.atonce.presentation.profile.view.ProfileDetails
 import com.example.atonce.presentation.profile.view.ProfileScreen
@@ -153,6 +154,10 @@ fun SetUpNavHost(
             WebViewScreen(title = title, url = url, onBackClick = {
                 navController.popBackStack()
             })
+        }
+        composable<ScreenRoute.NoInternetScreen> {
+            bottomBarState.value = true
+            NoInternetScreen(padding=paddingValues)
         }
     }
 }
