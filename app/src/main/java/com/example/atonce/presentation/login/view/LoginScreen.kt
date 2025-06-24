@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -43,6 +44,11 @@ import com.example.atonce.presentation.common.FontSizes.LOGINBTN
 import com.example.atonce.presentation.common.FontSizes.REGISTERHERE
 import com.example.atonce.presentation.common.component.LoginPasswordTF
 import com.example.atonce.presentation.common.component.LoginTF
+import com.example.atonce.presentation.common.theme.BoldFont
+import com.example.atonce.presentation.common.theme.MediumFont
+import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.RegularFont
+import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.login.view.component.DotLoadingIndicator
 import com.example.atonce.presentation.login.viewmodel.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -83,26 +89,41 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
         )
 
         Image(
-            painter = painterResource(R.drawable.logo),
+            painter = painterResource(R.drawable.pharmacy),
             modifier = Modifier
-                .size((screenWidth * 0.4).dp)
+                .size((screenWidth * 0.25).dp)
                 .clip(CircleShape),
             contentScale = ContentScale.Fit,
             contentDescription = "App Logo",
-
             )
 
-        Text(
+       /* Text(
             text = stringResource(R.string.welcome_back_login_now),
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
+        )*/
+
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            stringResource(R.string.welcome_back), fontSize = 20.sp, color = PrimaryColor,
+            fontFamily = BoldFont
         )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            stringResource(R.string.to_continue_login_now),
+            fontSize = 12.sp,
+            fontFamily = RegularFont
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+
         LoginTF(onValueChange = {
             email = it
         })
         Spacer(
-            Modifier.height((screenHeight * 0.02).dp)
+            Modifier.height((screenHeight * 0.01).dp)
         )
         LoginPasswordTF(onValueChange = {
             password = it
@@ -128,10 +149,10 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
 
         }
         Spacer(
-            Modifier.height((screenHeight * 0.02).dp)
+            Modifier.height((screenHeight * 0.01).dp)
         )
         Button(
-            shape = RoundedCornerShape(12.dp),
+            shape = RoundedCornerShape(8.dp),
             onClick = {
                 viewModel.login(email, password)
             },
@@ -150,7 +171,7 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
             }
             Text(
                 text = stringResource(R.string.login),
-                fontWeight = FontWeight.Bold,
+                fontFamily = MediumFont,
                 fontSize = LOGINBTN.sp
             )
         }
@@ -158,14 +179,14 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
             Modifier.height((screenHeight * 0.01).dp)
         )
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(Modifier.weight(1f))
             Text(
                 text = stringResource(R.string.don_t_have_an_account_yet),
                 fontSize = REGISTERHERE.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(top = 12.dp, start = 12.dp)
+                fontFamily = MediumFont,
             )
             TextButton(
                 onClick = { onRegisterClick() }
@@ -174,9 +195,10 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
                     text = stringResource(R.string.register_here),
                     fontSize = REGISTERHERE.sp,
                     color = colors.primary,
-                    fontWeight = FontWeight.Bold,
+                    fontFamily = SemiBoldFont,
                 )
             }
+            Spacer(Modifier.width(4.dp))
         }
     }
 }
