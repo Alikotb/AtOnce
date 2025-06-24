@@ -28,7 +28,7 @@ import com.example.atonce.presentation.cart.components.StoreTabs
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 
 @Composable
-fun CartScreen(onProfileClick: () -> Unit, onCallClick: () -> Unit, modifier: PaddingValues) {
+fun CartScreen(modifier: PaddingValues) {
     val colors = MaterialTheme.colorScheme
 
     val stores = remember {

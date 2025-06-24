@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -64,8 +65,8 @@ fun OrderInfo(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(stringResource(id = R.string.total), fontFamily = SemiBoldFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
-            Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 14.sp, color = colors.onSurfaceVariant)
+            Text(stringResource(id = R.string.total), fontFamily = SemiBoldFont, fontSize = 14.sp, color = colors.onSurfaceVariant, fontWeight = FontWeight.Bold)
+            Text(text = stringResource(R.string.egp_cart, "%.2f".format(total)), fontFamily = RegularFont, fontSize = 14.sp, color = colors.onSurfaceVariant, fontWeight = FontWeight.Bold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))

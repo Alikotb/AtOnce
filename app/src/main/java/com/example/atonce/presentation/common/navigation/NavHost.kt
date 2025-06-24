@@ -111,14 +111,6 @@ fun SetUpNavHost(
             bottomBarState.value = true
             CartScreen(
                 modifier =paddingValues,
-                onProfileClick = {
-                    navController.popBackStack()
-                    navController.navigate(ScreenRoute.ProfileScreen)
-                },
-                onCallClick = {
-                    navController.popBackStack()
-                    navController.navigate(ScreenRoute.LoginScreen)
-                }
             )
         }
         composable<ScreenRoute.OrderScreen> {

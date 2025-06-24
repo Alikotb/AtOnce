@@ -107,7 +107,7 @@ fun CustomDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { onExpandedChange(false) },
                 modifier = Modifier
-                    .background(WhiteColor)
+                    .background(colors.onTertiary)
                     .border(
                         width = 1.dp,
                         color = colors.onSurfaceVariant,
