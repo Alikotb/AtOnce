@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 sealed class ScreenRoute(val route: String) {
     @Serializable
     object SplashScreen : ScreenRoute("splash")
+
+    @Serializable
+    object NoInternetScreen : ScreenRoute("noInternetScreen")
     @Serializable
     object HomeScreen : ScreenRoute("home")
     @Serializable
