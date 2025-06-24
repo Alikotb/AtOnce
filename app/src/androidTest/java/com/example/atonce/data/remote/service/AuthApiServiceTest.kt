@@ -156,7 +156,7 @@ class AuthApiServiceTest : KoinTest {
                 areaId = 1,
                 confirmPassword = "Aa12345678",
                 email = "newuser${System.currentTimeMillis()}@test.com",
-                governate = "Cairo",
+                governate = "القاهرة",
                 name = "Test Pharmacy",
                 password = "Aa12345678",
                 phoneNumber = "0123456789",
@@ -166,11 +166,11 @@ class AuthApiServiceTest : KoinTest {
 
             //when
             val response = authApiService.register(request)
-            println("Register Success Response: $response")
+            Log.d("TAG", "testRegister_Success: $response")
 
             //then
             assertNotNull(response)
-            assertTrue(response.success)
+            assertTrue(response.success == true)
             assertNotNull(response.message)
         }
     }
@@ -185,7 +185,7 @@ class AuthApiServiceTest : KoinTest {
                 areaId = 1,
                 confirmPassword = "Aa12345678",
                 email = "testUser@test.com",
-                governate = "Cairo",
+                governate = "القاهرة",
                 name = "Test Pharmacy",
                 password = "Aa12345678",
                 phoneNumber = "0123456789",
@@ -214,7 +214,7 @@ class AuthApiServiceTest : KoinTest {
                 areaId = 1,
                 confirmPassword = "Aa12345678",
                 email = "mismatch${System.currentTimeMillis()}@test.com",
-                governate = "Cairo",
+                governate = "القاهرة",
                 name = "Test Pharmacy",
                 password = "DifferentPass123",
                 phoneNumber = "0123456789",
@@ -243,7 +243,7 @@ class AuthApiServiceTest : KoinTest {
                 areaId = 1,
                 confirmPassword = "Aa12345678",
                 email = "",
-                governate = "Cairo",
+                governate = "القاهرة",
                 name = "Test Pharmacy",
                 password = "Aa12345678",
                 phoneNumber = "0123456789",
