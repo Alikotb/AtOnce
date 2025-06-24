@@ -176,6 +176,35 @@ class AuthApiServiceTest : KoinTest {
     }
 
     @Test
+    fun testRegister_Fail_InvalidGovernorateId(){
+        runBlocking {
+
+            //given
+            val request = RegisterRequestDto(
+                address = "Test Address",
+                areaId = 1,
+                confirmPassword = "Aa12345678",
+                email = "newuser${System.currentTimeMillis()}@test.com",
+                governate = "باريس",
+                name = "Test Pharmacy",
+                password = "Aa12345678",
+                phoneNumber = "0123456789",
+                representativeCode = "RYHOZF",
+                userName = "testuser${System.currentTimeMillis()}"
+            )
+
+            //when
+            val response = authApiService.register(request)
+            Log.d("TAG", "testRegister_Success: $response")
+
+            //then
+            assertNotNull(response)
+            assertTrue(!response.success)
+            assertNotNull(response.message)
+        }
+    }
+
+    @Test
     fun testRegister_Fail_ExistingEmail(){
         runBlocking {
 
