@@ -1,12 +1,11 @@
 package com.example.atonce.data.repository
 
-import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.core.constants.AppConstants.LANGUAGE
 import com.example.atonce.data.local.sharedpreference.SharedPreferences
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.dto.AreaDto
-import com.example.atonce.data.remote.dto.RegisterRequestDto
-import com.example.atonce.data.remote.dto.RegisterResponseDto
+import com.example.atonce.data.remote.dto.authentication.RegisterRequestDto
+import com.example.atonce.data.remote.dto.authentication.RegisterResponseDto
 import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import com.example.atonce.data.remote.service.AuthApiService
 import com.example.atonce.domain.entity.LoginResult

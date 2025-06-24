@@ -2,7 +2,7 @@ package com.example.atonce.data.remote.service
 
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.atonce.data.remote.dto.RegisterRequestDto
+import com.example.atonce.data.remote.dto.authentication.RegisterRequestDto
 import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

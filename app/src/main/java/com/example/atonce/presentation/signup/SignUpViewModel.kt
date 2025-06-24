@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
 import com.example.atonce.data.remote.dto.AreaDto
-import com.example.atonce.data.remote.dto.RegisterRequestDto
-import com.example.atonce.data.remote.dto.RegisterResponseDto
+import com.example.atonce.data.remote.dto.authentication.RegisterRequestDto
 import com.example.atonce.domain.usecase.GetAreasUseCase
 import com.example.atonce.domain.usecase.GetGovernoratesUseCase
 import com.example.atonce.domain.usecase.RegisterUseCase
