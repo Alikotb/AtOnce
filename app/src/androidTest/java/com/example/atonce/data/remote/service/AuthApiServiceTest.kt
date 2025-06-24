@@ -114,6 +114,37 @@ class AuthApiServiceTest : KoinTest {
         }
     }
 
+    @Test
+    fun testGetAreasByGovernorateId_Success(){
+        runBlocking {
+            //given
+            val governorateId = 1
+            //when
+            val response = authApiService.getAreasByGovernorateId(governorateId)
+            println("Areas Response: $response")
+            //then
+            assertNotNull(response)
+            assertTrue(response.isNotEmpty(), "Areas list should not be empty")
+            val firstArea = response.first()
+            assertNotNull(firstArea.id)
+            assertNotNull(firstArea.name)
+        }
+    }
+
+    @Test
+    fun testGetAreasByGovernorateId_InvalidGovernorateId_ReturnsEmptyList(){
+        runBlocking {
+            //given
+            val invalidGovernorateId = 999
+            //when
+            val response = authApiService.getAreasByGovernorateId(invalidGovernorateId)
+            println("Areas Response: $response")
+            //then
+            assertNotNull(response)
+            assertTrue(response.isEmpty(), "Areas list should be empty for invalid governorateId")
+        }
+    }
+
 
 
 }
