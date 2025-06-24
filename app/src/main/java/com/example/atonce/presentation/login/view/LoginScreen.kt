@@ -1,12 +1,5 @@
 package com.example.atonce.presentation.login.view
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.InfiniteTransition
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
@@ -58,8 +48,8 @@ import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.login.view.component.DotLoadingIndicator
 import com.example.atonce.presentation.login.viewmodel.LoginViewModel
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -212,39 +202,3 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
     }
 }
 
-@Composable
-fun DotLoadingIndicator() {
-    val dots = listOf(remember { Animatable(0.8f) },
-        remember { Animatable(0.8f) },
-        remember { Animatable(0.8f) })
-
-    dots.forEachIndexed { index, animatable ->
-        LaunchedEffect(animatable) {
-            delay(index * 100L)
-            animatable.animateTo(
-                targetValue = 1.2f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(300),
-                    repeatMode = RepeatMode.Reverse
-                )
-            )
-        }
-    }
-
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        dots.forEach { scale ->
-            Text(
-                text = "•",
-                modifier = Modifier.scale(scale.value),
-                fontSize = 24.sp
-            )
-            Spacer(Modifier.width(4.dp))
-        }
-        Spacer(Modifier.width(8.dp))
-        Text(
-            text = stringResource(R.string.logging),
-            fontWeight = FontWeight.Bold,
-            fontSize = LOGINBTN.sp
-        )
-    }
-}

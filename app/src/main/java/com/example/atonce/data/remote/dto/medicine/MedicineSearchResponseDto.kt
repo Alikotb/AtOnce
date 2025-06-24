@@ -11,6 +11,7 @@ data class MedicineSearchResponseDto(
 data class MedicineDto(
     val medicineId: Int,
     val medicineName: String,
+    val arabicMedicineName : String,
     val drug: Int,
     val price: Double,
     val maximumwareHouseAreaName: String,

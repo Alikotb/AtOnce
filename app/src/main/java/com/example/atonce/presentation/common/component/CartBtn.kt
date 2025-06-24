@@ -34,7 +34,7 @@ fun CustomCartBtn(onClick : ()->Unit = {}, imageVictor: ImageVector = Icons.Fill
         },
         modifier = Modifier
             .padding(horizontal = 8.dp)
-            .padding(vertical = 8.dp),
+            .padding(bottom = 8.dp),
         shape = RoundedCornerShape(12.dp),
         colors =ButtonDefaults.buttonColors(
             containerColor = color,
