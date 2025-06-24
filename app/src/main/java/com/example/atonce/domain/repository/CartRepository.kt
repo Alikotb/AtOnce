@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
     suspend fun getCartItems(pharmacyId: Int): Flow<List<CartWarehouseDto>>
+
 }

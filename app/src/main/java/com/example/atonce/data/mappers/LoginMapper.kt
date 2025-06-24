@@ -10,12 +10,23 @@ fun LoginResponseDto.toEntity() : LoginResult {
         token = token,
         message = message,
         success = success,
-        pharmacy = pharmacy?.toEntity()
+        pharmacy = Pharmacy(
+            token = token,
+            id = pharmacy?.id,
+            userName = pharmacy?.userName,
+            name = pharmacy?.name,
+            email = pharmacy?.email,
+            address = pharmacy?.address,
+            governate = pharmacy?.governate,
+            areaId = pharmacy?.areaId,
+            phoneNumber = pharmacy?.phoneNumber
+        )
     )
 }
 
 fun PharmacyDto.toEntity() : Pharmacy {
     return Pharmacy(
+        token = token,
         id = id,
         userName = userName,
         name = name,
