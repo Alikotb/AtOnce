@@ -6,7 +6,7 @@ import com.example.atonce.domain.repository.CartRepository
 import kotlinx.coroutines.flow.Flow
 
 class UpdateCartUseCase(private val repo : CartRepository) {
-    suspend operator fun invoke(request: UpdateCartRequest): Flow<UpdateCartResponse>{
-        return repo.updateCart(request.pharmacyId,request.warehouseId,request.medicineId,request.newQuantity)
+    suspend operator fun invoke(pharmacyId:Int,request: UpdateCartRequest): Flow<UpdateCartResponse>{
+        return repo.updateCart(pharmacyId,request.warehouseId,request.medicineId,request.newQuantity)
     }
 }

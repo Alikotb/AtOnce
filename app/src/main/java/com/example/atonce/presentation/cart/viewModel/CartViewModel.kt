@@ -5,25 +5,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.data.remote.Response
+import com.example.atonce.data.remote.dto.cart.UpdateCartResponse
 import com.example.atonce.domain.entity.CartWarehouseEntity
 import com.example.atonce.domain.usecase.GetCartDetailsByIdUseCase
 import com.example.atonce.domain.usecase.UpdateCartUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CartViewModel(
     private val getCartDetailsByIdUseCase: GetCartDetailsByIdUseCase,
-    private val updateCartUseCase: UpdateCartUseCase
-    private val getPharmacyUseCase: GetPharmacyUseCase,
+    private val updateCartUseCase: UpdateCartUseCase,
+    private val getPharmacyUseCase: GetPharmacyUseCase
 ): ViewModel() {
 
     private val _cartItems = MutableStateFlow<Response<List<CartWarehouseEntity>>>(Response.Loading)
     val cartItems = _cartItems.asStateFlow()
+
+    private val _message = MutableSharedFlow<String>()
+    val message = _message.asSharedFlow()
 
 
     val userData = getPharmacyUseCase()
@@ -51,12 +57,14 @@ class CartViewModel(
     fun updateCart(request: UpdateCartRequest){
 
 
-
-
         viewModelScope.launch (Dispatchers.IO){
-            updateCartUseCase(request).catch{
-
-            }.collect {
+            if(request.newQuantity<1){
+                _message.emit("deleted successfully")
+            }
+            updateCartUseCase(getPharmacyUseCase().id?:0,request).catch{
+                    _message.emit(it.message?:"can't update cart")
+            }.collect {response: UpdateCartResponse->
+                _message.emit(response.message)
 
             }
         }

@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
+import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.presentation.cart.view.components.AddToCartCard
 import com.example.atonce.presentation.cart.view.components.OrderInfo
 import com.example.atonce.presentation.cart.view.components.ShimmerCartCard
@@ -91,8 +92,15 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                         items(stores[selectedStoreIndex].items) { item ->
                             AddToCartCard(
                                 cartItem = item,
-                                onIncrease = {},
-                                onDecrease = {},
+                                onIncrease = {
+                                    viewModel.updateCart(UpdateCartRequest(newQuantity = item.quantity+1, medicineId = item.medicineId, warehouseId =stores[selectedStoreIndex].warehouseId,))
+                                    viewModel.getCartDetails()
+                                },
+                                onDecrease = {
+                                    viewModel.updateCart(UpdateCartRequest(newQuantity = item.quantity-1, medicineId = item.medicineId, warehouseId =stores[selectedStoreIndex].warehouseId,))
+                                    viewModel.getCartDetails()
+
+                                },
                                 onDelete = { }
                             )
                         }
