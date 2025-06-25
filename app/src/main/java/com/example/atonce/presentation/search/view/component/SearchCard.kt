@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
@@ -90,21 +91,21 @@ fun SearchCard(medicine: Medicine,
                     )
 
                     Text(
-                        text = "${stringResource(R.string.discount)} ${medicine.maximumDiscount} %",
+                        text = "${stringResource(R.string.discount)} ${medicine.maximumDiscount.toString().convertNumbersToArabic()} %",
                         fontSize = MEDICINE_DISCOUNT.sp,
                         color = colors.primary
                     )
 
                     Row {
                         Text(
-                            text = stringResource(R.string.price) + " ${medicine.finalPrice} " + stringResource(
+                            text = stringResource(R.string.price) + " ${medicine.finalPrice.toString().convertNumbersToArabic()} " + stringResource(
                                 R.string.egp
                             ),
                             fontSize = MEDICINE_DISCOUNT.sp
                         )
                         Spacer(Modifier.width(12.dp))
                         Text(
-                            text = " ${medicine.price} " + stringResource(  R.string.egp) ,
+                            text = " ${medicine.price.toString().convertNumbersToArabic()} " + stringResource(  R.string.egp) ,
                             fontSize = MEDICINE_DISCOUNT.sp,
                             color = Color.Red,
                             textDecoration = TextDecoration.LineThrough
