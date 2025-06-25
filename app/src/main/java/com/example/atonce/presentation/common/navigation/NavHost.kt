@@ -102,6 +102,7 @@ fun SetUpNavHost(
             val warehouseId = it.toRoute<ScreenRoute.StoreScreen>().warehouseId
             StoreScreen(
                 warehouseId = warehouseId,
+                snackbarHostState = snackbarState,
                 modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
@@ -112,6 +113,7 @@ fun SetUpNavHost(
             bottomBarState.value = true
             CartScreen(
                 modifier =paddingValues,
+                snackbarHostState = snackbarState
             )
         }
         composable<ScreenRoute.OrderScreen> {

@@ -2,13 +2,20 @@ package com.example.atonce.presentation.store.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.core.enums.CartMessagesEnum
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.Response
 import com.example.atonce.data.remote.dto.Warehouse.WarehouseMedicinesDto
+import com.example.atonce.domain.usecase.AddToCartUseCase
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
+import com.example.atonce.domain.usecase.GetPharmacyUseCase
+import com.example.atonce.presentation.search.model.AddToCartUiModel
+import com.example.atonce.presentation.search.model.toEntity
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -16,20 +23,27 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId,
-    ) :
-    ViewModel() {
+class WarehouseViewModel(
+    private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val getPharmacyUseCase: GetPharmacyUseCase
+) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<WarehouseMedicines>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
     private val fullList = mutableListOf<WarehouseMedicines>()
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
+    private val _message = MutableSharedFlow<String>()
+    val message = _message.asSharedFlow()
+
+    private val _loadingItemId = MutableStateFlow<Int?>(null)
+    val loadingItemId = _loadingItemId.asStateFlow()
+
     private var currentPage = 1
     private var pageSize = 10
     private var isLastPage = false
     private var isLoading = false
-
 
 
     init {
@@ -49,9 +63,9 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
     }
 
     fun getAllMedicinesByStoreId(warehouseId: Int,search: String) {
-
         if (isLoading || isLastPage) return
         isLoading = true
+
         viewModelScope.launch(Dispatchers.IO) {
             getAllMedicinesByWarehousesId(
                 warehouseId = warehouseId,
@@ -74,13 +88,25 @@ class WarehouseViewModel(private val getAllMedicinesByWarehousesId: GetAllMedici
                     } else {
                         currentPage++
                     }
-
                     isLoading = false
-
                 }
         }
 
     }
+
+    fun addToCart(warehouseId: Int, medicineId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _loadingItemId.value = medicineId
+            val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().id!!, medicineId = medicineId, quantity = 1).toEntity())
+            _loadingItemId.value = null
+            if (result.isSuccessful) {
+                _message.emit(CartMessagesEnum.ADDEDTOCART.getMessage())
+            } else {
+                _message.emit(CartMessagesEnum.FAILED.getMessage())
+            }
+        }
+    }
+
 
     fun resetPagination() {
         currentPage = 1

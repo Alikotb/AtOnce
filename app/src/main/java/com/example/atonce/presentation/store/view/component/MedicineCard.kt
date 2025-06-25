@@ -40,7 +40,11 @@ import java.util.Locale
 
 
 @Composable
-fun MedicineCard(obj: WarehouseMedicines){
+fun MedicineCard(
+    obj: WarehouseMedicines,
+    onClick: () -> Unit = {},
+    enabled: Boolean = true
+){
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -111,8 +115,14 @@ fun MedicineCard(obj: WarehouseMedicines){
                     textDecoration = TextDecoration.LineThrough
                 )
 
-                Spacer(Modifier.weight(1f))            }
-            CustomCartBtn()
+                Spacer(Modifier.weight(1f))
+            }
+            CustomCartBtn(
+                onClick = {
+                    onClick()
+                },
+                enabled = enabled
+            )
 
         }
     }

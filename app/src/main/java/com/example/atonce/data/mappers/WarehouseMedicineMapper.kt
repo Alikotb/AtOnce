@@ -5,6 +5,7 @@ import com.example.atonce.presentation.store.model.WarehouseMedicines
 
 fun WarehouseMedicinesItemDto.toEntity(): WarehouseMedicines {
     return WarehouseMedicines(
+        medicineId = medicineId,
         arabicMedicineName = arabicMedicineName,
         type = drug,
         englishMedicineName =englishMedicineName,
