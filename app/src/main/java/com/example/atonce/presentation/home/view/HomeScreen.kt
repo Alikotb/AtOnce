@@ -1,6 +1,9 @@
 package com.example.atonce.presentation.home.view
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
+import android.util.Log.v
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +39,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.EmptyCart
-import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
@@ -46,8 +49,10 @@ import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
+
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
+               onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
 
     val ads = listOf(
@@ -73,6 +78,8 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
             }
     }
 
+    val context = LocalContext.current
+
     LazyColumn(
         state = listState,
         modifier = Modifier
@@ -88,6 +95,12 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
                     onProfileClick()
                 },
                 onStartClick = {
+
+                    val phoneNumber =
+                        "+201234567890"
+                    val intent = Intent(Intent.ACTION_DIAL)
+                    intent.setData(Uri.parse("tel:" + phoneNumber))
+                    context.startActivity(intent)
                 },
                 headerTxt = stringResource(R.string.home_screen)
             )
