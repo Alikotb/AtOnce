@@ -1,6 +1,6 @@
 package com.example.atonce.presentation.home.view
 
-import android.util.Log
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,14 +28,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.EmptyCart
-import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
@@ -49,7 +51,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
-
+    val ctx = LocalContext.current
     val ads = listOf(
         R.drawable.ads,
         R.drawable.ads1,
@@ -61,7 +63,6 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
 
     LaunchedEffect(Unit) {
         viewModel.getWarehousesByArea(viewModel.getPharmacyId())
-        Log.d("TAG", "HomeScreen: ${viewModel.getPharmacyId()}")
     }
     LaunchedEffect(listState){
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
@@ -88,6 +89,13 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
                     onProfileClick()
                 },
                 onStartClick = {
+                    val u = ("tel:" + AppConstants.PHONE_NUMBER).toUri()
+                    val i = Intent(Intent.ACTION_DIAL, u)
+                    try {
+                        ctx.startActivity(i)
+                    } catch (s: SecurityException) {
+
+                    }
                 },
                 headerTxt = stringResource(R.string.home_screen)
             )
