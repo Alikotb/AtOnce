@@ -34,18 +34,20 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
+import com.example.atonce.presentation.common.component.EmptyCart
 import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
+import com.example.atonce.presentation.home.view.component.TappableSearchBar
 import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
 
     val ads = listOf(
@@ -103,13 +105,9 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
         }
 
         item {
-            MySearchBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .shadow(4.dp, RoundedCornerShape(12.dp))
-            )
-
+            TappableSearchBar {
+                onNavToSearch()
+            }
         }
 
         item {
@@ -128,12 +126,17 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
             }
             is Response.Success -> {
                 val warehouses = state.data
-                items(warehouses) { warehouse ->
-                    WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
+
+                if(warehouses.isEmpty()) {
+                    item { EmptyCart(R.raw.no_data, "No warehouses found in this area") }
+                }else {
+                    items(warehouses) { warehouse ->
+                        WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
+                    }
                 }
             }
             is Response.Error -> {
-               item {   NoInternet()}
+               item { NoInternet() }
             }
         }
 

@@ -85,9 +85,10 @@ fun CartScreen(modifier: PaddingValues ,
             is Response.Success -> {
                 val stores = (items as Response.Success).data
 
-                if (stores.isEmpty()) {
-                    EmptyCart()
-                } else {
+                if (stores.isEmpty()){
+                    EmptyCart(messageInfo = "No orders yet ? \nAdd some orders to your cart!")
+                }
+                else{
                     StoreTabs(
                         stores = stores,
                         selectedIndex = selectedStoreIndex,

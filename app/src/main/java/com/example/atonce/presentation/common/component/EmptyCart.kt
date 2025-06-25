@@ -27,10 +27,10 @@ import com.example.atonce.presentation.common.theme.MediumFont
 
 
 @Composable
-fun EmptyCart(){
+fun EmptyCart(resId: Int = R.raw.empty_cart, messageInfo : String){
     val config = LocalConfiguration.current
     val screenHeight =config.screenHeightDp
-    val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty_cart))
+    val composition = rememberLottieComposition(LottieCompositionSpec.RawRes(resId))
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -45,7 +45,7 @@ fun EmptyCart(){
                 modifier = Modifier.height((screenHeight*0.3).dp),
                 renderMode = RenderMode.AUTOMATIC,
             )
-            Text(stringResource(R.string.no_orders_yet_add_some_orders_to_your_cart),fontSize = 16.sp, fontFamily = BoldFont, textAlign = TextAlign.Center)
+            Text(messageInfo ,fontSize = 16.sp, fontFamily = BoldFont, textAlign = TextAlign.Center)
         }
     }
 }
