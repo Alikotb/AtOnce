@@ -47,6 +47,9 @@ class SearchViewModel(
     private val _loadingItemId = MutableStateFlow<Pair<Int?,Int?>?>(null)
     val loadingItemId = _loadingItemId.asStateFlow()
 
+    private val _isPaginationLoading = MutableStateFlow(false)
+    val isPaginationLoading = _isPaginationLoading.asStateFlow()
+
     private var currentPage = 1
     private var pageSize = 15
     private var isLastPage = false
@@ -75,12 +78,14 @@ class SearchViewModel(
     fun getMedicinesByArea(areaId: Int, search: String) {
         if (isLoading || isLastPage) return
         isLoading = true
+        _isPaginationLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
             searchMedicinesUseCase(areaId, currentPage, pageSize, search)
                 .catch { e ->
                     _uiState.value = Response.Error("")
                     isLoading = false
+                    _isPaginationLoading.value = false
                 }
                 .collect { list ->
                     val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
@@ -92,6 +97,7 @@ class SearchViewModel(
                     else currentPage++
 
                     isLoading = false
+                    _isPaginationLoading.value = false
                 }
         }
     }

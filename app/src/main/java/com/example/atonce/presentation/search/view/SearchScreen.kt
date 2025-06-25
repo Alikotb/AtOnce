@@ -32,6 +32,7 @@ import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
+import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.search.view.component.ModelSheet
 import com.example.atonce.presentation.search.view.component.SearchCard
 import com.example.atonce.presentation.search.view.component.ShimmerSearchCard
@@ -60,6 +61,7 @@ fun SearchScreen(
     val listState = rememberLazyListState()
 
     val isLoading by viewModel.loadingItemId.collectAsStateWithLifecycle()
+    val isPaginationLoading = viewModel.isPaginationLoading.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getMedicinesByArea(areaId, search = "")
@@ -141,6 +143,11 @@ fun SearchScreen(
                     item {
                         NoInternet()
                     }
+                }
+            }
+            if (isPaginationLoading.value) {
+                items(3) {
+                    ShimmerSearchCard()
                 }
             }
         }
