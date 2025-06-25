@@ -21,10 +21,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +50,7 @@ import com.example.atonce.presentation.search.viewmodel.SearchViewModel
 @Composable
 fun ModelSheet(
     viewModel: SearchViewModel,
+    snackbarHostState: SnackbarHostState,
     medicine: Medicine?,
     areaId: Int,
     onClose: () -> Unit = {}
@@ -62,6 +65,9 @@ fun ModelSheet(
     LaunchedEffect(Unit) {
         if (medicine != null) {
             viewModel.getAllSuppliers(areaId = areaId, medicineId = medicine.medicineId)
+        }
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
         }
     }
 
@@ -137,7 +143,16 @@ fun ModelSheet(
                         )
                     ) {
                         items(list) { item ->
-                            BottomSheetCard(supplier = item)
+                            BottomSheetCard(
+                                supplier = item,
+                                loadingItemId = viewModel.loadingItemId,
+                                onAddToCartClick = {
+                                    viewModel.addToCart(
+                                        item.warehouseId,
+                                        item.medicineId
+                                    )
+                                }
+                            )
                             Spacer(Modifier.height(8.dp))
                         }
                     }

@@ -3,6 +3,7 @@ package com.example.atonce.presentation.search.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.core.enums.CartMessagesEnum
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
@@ -43,8 +44,8 @@ class SearchViewModel(
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
 
-    private val _isLoadingState = MutableStateFlow(false)
-    val isLoadingState = _isLoadingState.asStateFlow()
+    private val _loadingItemId = MutableStateFlow<Pair<Int?,Int?>?>(null)
+    val loadingItemId = _loadingItemId.asStateFlow()
 
     private var currentPage = 1
     private var pageSize = 15
@@ -123,13 +124,13 @@ class SearchViewModel(
 
     fun addToCart(warehouseId: Int, medicineId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isLoadingState.value = true
-            val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().areaId!!, medicineId = medicineId, quantity = 1).toEntity())
-            _isLoadingState.value = false
+            _loadingItemId.value = Pair(warehouseId,medicineId)
+            val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().id!!, medicineId = medicineId, quantity = 1).toEntity())
+            _loadingItemId.value = null
             if (result.isSuccessful) {
-                _message.emit("Successfully added to cart")
+                _message.emit(CartMessagesEnum.ADDEDTOCART.getMessage())
             } else {
-                _message.emit("Failed to add to cart")
+                _message.emit(CartMessagesEnum.FAILED.getMessage())
             }
         }
     }

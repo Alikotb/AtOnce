@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.store.view_model
+package com.example.atonce.presentation.store.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
