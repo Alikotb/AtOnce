@@ -31,6 +31,8 @@ class CartViewModel(
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
 
+    private val _isUpdated = MutableStateFlow<Boolean>(true)
+    val isUpdated = _isUpdated.asStateFlow()
 
     val userData = getPharmacyUseCase()
 
@@ -45,8 +47,13 @@ class CartViewModel(
             getCartDetailsByIdUseCase(pharmacyId = userData.id ?: 0)
                 .collect{ response  ->
                     if (response.success){
-                        _cartItems.value = Response.Success(response.warehouses ?: emptyList())
-                    }else{
+                        _cartItems.value = Response.Success(
+                            (response.warehouses ?: emptyList()).map { warehouse ->
+                                warehouse.copy(
+                                    items = warehouse.items.map { it.copy() }
+                                )
+                            }
+                        )                    }else{
                        _cartItems.value = Response.Success(emptyList())
                     }
                 }
@@ -54,22 +61,35 @@ class CartViewModel(
         }
     }
 
-    fun updateCart(request: UpdateCartRequest){
 
 
-        viewModelScope.launch (Dispatchers.IO){
-            if(request.newQuantity<1){
+    suspend fun updateCart(request: UpdateCartRequest): Boolean {
+        return try {
+            if (request.newQuantity < 1) {
                 _message.emit("deleted successfully")
+                return true
             }
-            updateCartUseCase(getPharmacyUseCase().id?:0,request).catch{
-                    _message.emit(it.message?:"can't update cart")
-            }.collect {response: UpdateCartResponse->
-                _message.emit(response.message)
 
+            updateCartUseCase(getPharmacyUseCase().id ?: 0, request).collect { response ->
+                _message.emit(response.message)
             }
+
+            true
+        } catch (e: Exception) {
+            _message.emit(e.message ?: "can't update cart")
+            false
         }
     }
 
+    fun updateCartAndRefresh(request: UpdateCartRequest) {
+        viewModelScope.launch {
+            _isUpdated.emit(false)
+            val success = updateCart(request)
+            if (success) getCartDetails()
+            _isUpdated.emit(true)
+
+        }
+    }
 
 
 }

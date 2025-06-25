@@ -36,10 +36,11 @@ import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
+fun CartScreen(modifier: PaddingValues, viewModel: CartViewModel = koinViewModel()) {
     val colors = MaterialTheme.colorScheme
 
     val items by viewModel.cartItems.collectAsStateWithLifecycle()
+    val isClicked by viewModel.isUpdated.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getCartDetails()
@@ -54,29 +55,30 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
             .background(colors.onPrimary)
             .padding(top = modifier.calculateTopPadding())
     ) {
-      NoIconCard(
-          headerTxt = stringResource(R.string.cart),
-      )
+        NoIconCard(
+            headerTxt = stringResource(R.string.cart),
+        )
         when (items) {
             is Response.Error -> {
 
             }
+
             Response.Loading -> {
                 LazyColumn(
                     modifier = Modifier.padding(16.dp)
-                ){
-                    items(3){
+                ) {
+                    items(3) {
                         ShimmerCartCard()
                     }
                 }
             }
+
             is Response.Success -> {
                 val stores = (items as Response.Success).data
 
-                if (stores.isEmpty()){
+                if (stores.isEmpty()) {
                     EmptyCart()
-                }
-                else{
+                } else {
                     StoreTabs(
                         stores = stores,
                         selectedIndex = selectedStoreIndex,
@@ -89,16 +91,29 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                         contentPadding = PaddingValues(bottom = 140.dp)
                     ) {
 
-                        items(stores[selectedStoreIndex].items) { item ->
+                        items(
+                            items = stores[selectedStoreIndex].items,
+                            key = { it.medicineId }) { item ->
                             AddToCartCard(
+                                enapled =isClicked,
                                 cartItem = item,
                                 onIncrease = {
-                                    viewModel.updateCart(UpdateCartRequest(newQuantity = item.quantity+1, medicineId = item.medicineId, warehouseId =stores[selectedStoreIndex].warehouseId,))
-                                    viewModel.getCartDetails()
+                                    viewModel.updateCartAndRefresh(
+                                        UpdateCartRequest(
+                                            newQuantity = item.quantity + 1,
+                                            medicineId = item.medicineId,
+                                            warehouseId = stores[selectedStoreIndex].warehouseId,
+                                        )
+                                    )
                                 },
                                 onDecrease = {
-                                    viewModel.updateCart(UpdateCartRequest(newQuantity = item.quantity-1, medicineId = item.medicineId, warehouseId =stores[selectedStoreIndex].warehouseId,))
-                                    viewModel.getCartDetails()
+                                    viewModel.updateCartAndRefresh(
+                                        UpdateCartRequest(
+                                            newQuantity = item.quantity - 1,
+                                            medicineId = item.medicineId,
+                                            warehouseId = stores[selectedStoreIndex].warehouseId,
+                                        )
+                                    )
 
                                 },
                                 onDelete = { }
@@ -109,7 +124,10 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                            )
                             .background(colors.surface)
                             .padding(horizontal = 16.dp, vertical = 12.dp)
                             .padding(bottom = 56.dp)

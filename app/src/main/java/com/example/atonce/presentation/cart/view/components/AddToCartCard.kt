@@ -42,7 +42,8 @@ fun AddToCartCard(
     cartItem: CartItemEntity,
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    enapled: Boolean
 ) {
     val colors = MaterialTheme.colorScheme
     val totalCost = cartItem.priceAfterDiscount * cartItem.quantity
@@ -136,7 +137,9 @@ fun AddToCartCard(
                     .clip(RoundedCornerShape(16.dp))
                     .border(1.dp, colors.primary, RoundedCornerShape(16.dp))
             ) {
-                IconButton(onClick = onDecrease) {
+                IconButton(
+                    enabled = enapled,
+                    onClick = onDecrease) {
                     Icon(Icons.Default.Remove, contentDescription = "Decrease")
                 }
                 Text(
@@ -144,7 +147,9 @@ fun AddToCartCard(
                     fontFamily = MediumFont,
                     modifier = Modifier.padding(horizontal = 4.dp)
                 )
-                IconButton(onClick = onIncrease) {
+                IconButton(
+                    enabled = enapled,
+                    onClick = onIncrease) {
                     Icon(Icons.Default.Add, contentDescription = "Increase")
                 }
             }
