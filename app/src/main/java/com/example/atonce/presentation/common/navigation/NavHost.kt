@@ -120,7 +120,10 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.SearchScreen> {
             bottomBarState.value = true
-            SearchScreen( modifier =paddingValues,)
+            SearchScreen(
+                modifier =paddingValues,
+                snackbarHostState = snackbarState,
+                )
         }
         composable<ScreenRoute.ProfileDetailsScreen> {
             bottomBarState.value = false

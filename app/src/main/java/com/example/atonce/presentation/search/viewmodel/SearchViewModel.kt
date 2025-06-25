@@ -1,18 +1,22 @@
 package com.example.atonce.presentation.search.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
+import com.example.atonce.domain.usecase.AddToCartUseCase
 import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
 import com.example.atonce.domain.usecase.GetLanguageUseCase
+import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
-import com.example.atonce.presentation.home.model.toUiModel
+import com.example.atonce.presentation.search.model.AddToCartUiModel
+import com.example.atonce.presentation.search.model.toEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +27,9 @@ import kotlinx.coroutines.launch
 class SearchViewModel(
     private val searchMedicinesUseCase: SearchMedicinesUseCase,
     private val getAllSuppliersByAreaIdAndMedicine: GetAllSuppliersByAreaIdAndMedicine,
-    private val getLanguageUseCase: GetLanguageUseCase
+    private val getLanguageUseCase: GetLanguageUseCase,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val getPharmacyUseCase: GetPharmacyUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<Medicine>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
@@ -33,6 +39,12 @@ class SearchViewModel(
 
     private val _currentLanguage = mutableStateOf("")
     val currentLanguage = _currentLanguage
+
+    private val _message = MutableSharedFlow<String>()
+    val message = _message.asSharedFlow()
+
+    private val _isLoadingState = MutableStateFlow(false)
+    val isLoadingState = _isLoadingState.asStateFlow()
 
     private var currentPage = 1
     private var pageSize = 15
@@ -107,5 +119,18 @@ class SearchViewModel(
 
     private fun getLanguage() {
         _currentLanguage.value = getLanguageUseCase()
+    }
+
+    fun addToCart(warehouseId: Int, medicineId: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _isLoadingState.value = true
+            val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().areaId!!, medicineId = medicineId, quantity = 1).toEntity())
+            _isLoadingState.value = false
+            if (result.isSuccessful) {
+                _message.emit("Successfully added to cart")
+            } else {
+                _message.emit("Failed to add to cart")
+            }
+        }
     }
 }

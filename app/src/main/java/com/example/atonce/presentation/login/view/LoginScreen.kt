@@ -49,7 +49,7 @@ import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
-import com.example.atonce.presentation.login.view.component.DotLoadingIndicator
+import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.login.viewmodel.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 
