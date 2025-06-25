@@ -3,9 +3,11 @@ package com.example.atonce.data.mappers
 import com.example.atonce.data.remote.dto.cart.CartItemDto
 import com.example.atonce.data.remote.dto.cart.CartResponseDto
 import com.example.atonce.data.remote.dto.cart.CartWarehouseDto
+import com.example.atonce.data.remote.dto.cart.DeleteFromCartResponse
 import com.example.atonce.domain.entity.CartEntity
 import com.example.atonce.domain.entity.CartItemEntity
 import com.example.atonce.domain.entity.CartWarehouseEntity
+import com.example.atonce.domain.entity.DeleteResponseEntity
 
 fun CartResponseDto.toEntity(): CartEntity {
     return CartEntity(
@@ -41,5 +43,13 @@ fun CartItemDto.toEntity(): CartItemEntity {
         priceAfterDiscount = priceAfterDiscount,
         priceBeforeDiscount = priceBeforeDiscount,
         discount = discount
+    )
+}
+
+fun DeleteFromCartResponse.toEntity(): DeleteResponseEntity {
+    return DeleteResponseEntity(
+        success = success,
+        message = message,
+        data = data
     )
 }
