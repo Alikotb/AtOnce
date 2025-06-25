@@ -91,7 +91,7 @@ fun ProfileDetails(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = (screenHeight * 0.15).dp, bottom = (screenHeight * 0.3).dp)
+                    .padding(top = (screenHeight * 0.23).dp, bottom = (screenHeight * 0.2).dp)
                     .padding(horizontal = 16.dp)
                     .border(
                         width = 2.dp,
@@ -132,7 +132,7 @@ fun ProfileDetails(
                 modifier = Modifier
                     .size(128.dp)
                     .align(Alignment.TopCenter)
-                    .offset(y = (screenHeight * 0.06).dp)
+                    .offset(y = (screenHeight * 0.14).dp)
                     .border(width = 3.dp, color = colors.onSecondary, shape = CircleShape)
                     .clip(CircleShape)
                     .background(color = colors.outlineVariant.copy(alpha = 0.2f)),
