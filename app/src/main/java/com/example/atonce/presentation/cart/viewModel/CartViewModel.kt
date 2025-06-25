@@ -53,16 +53,20 @@ class CartViewModel(
     }
 
     fun deleteFromCart(
-        pharmacyId: Int,
         wareHouseId: Int,
         medicineId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO + errorExceptionHandler) {
-            deleteFromCartUseCase(pharmacyId, wareHouseId, medicineId)
+            Log.d("CartTAG", "deleteFromCart: $userData")
+            Log.d("CartTAG", "deleteFromCart: $wareHouseId")
+            Log.d("CartTAG", "deleteFromCart: $medicineId")
+
+            deleteFromCartUseCase(userData.id ?: 0, wareHouseId, medicineId)
                 .collect { response ->
+                    Log.d("CartTAG", "deleteFromCart: $response")
                     if (response.success) {
-                        getCartDetails()
                         _message.emit(ErrorMessagesEnum.DELETESUCCESS.getLocalizedMessage())
+                        getCartDetails()
                     }
                     else {
                         _message.emit(ErrorMessagesEnum.DELETEEXCEPTION.getLocalizedMessage())

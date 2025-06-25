@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,13 +36,21 @@ import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
+fun CartScreen(modifier: PaddingValues ,
+               viewModel: CartViewModel = koinViewModel(), snackbarHostState: SnackbarHostState
+) {
     val colors = MaterialTheme.colorScheme
 
     val items by viewModel.cartItems.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getCartDetails()
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
     }
 
     var selectedStoreIndex by remember { mutableStateOf(0) }
@@ -95,7 +104,6 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                                 onDecrease = {},
                                 onDelete = {
                                     viewModel.deleteFromCart(
-                                        pharmacyId = viewModel.userData.id ?: 0,
                                         wareHouseId = stores[selectedStoreIndex].warehouseId,
                                         medicineId = item.medicineId
                                     )

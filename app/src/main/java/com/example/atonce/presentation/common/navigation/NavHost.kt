@@ -112,6 +112,7 @@ fun SetUpNavHost(
             bottomBarState.value = true
             CartScreen(
                 modifier =paddingValues,
+                snackbarHostState = snackbarState
             )
         }
         composable<ScreenRoute.OrderScreen> {
