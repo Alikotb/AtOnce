@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.cart.veiw.components
+package com.example.atonce.presentation.cart.view.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape

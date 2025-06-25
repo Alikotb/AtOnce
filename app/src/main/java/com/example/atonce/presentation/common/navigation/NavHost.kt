@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.atonce.presentation.cart.veiw.CartScreen
+import com.example.atonce.presentation.cart.view.CartScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.no_internet.NoInternetScreen
@@ -120,7 +120,10 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.SearchScreen> {
             bottomBarState.value = true
-            SearchScreen( modifier =paddingValues,)
+            SearchScreen(
+                modifier =paddingValues,
+                snackbarHostState = snackbarState,
+                )
         }
         composable<ScreenRoute.ProfileDetailsScreen> {
             bottomBarState.value = false

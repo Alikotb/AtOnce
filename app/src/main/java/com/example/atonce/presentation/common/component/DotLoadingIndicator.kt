@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.login.view.component
+package com.example.atonce.presentation.common.component
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
@@ -14,12 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.R
-import com.example.atonce.presentation.common.FontSizes.LOGINBTN
 import kotlinx.coroutines.delay
 
 @Composable
