@@ -5,21 +5,28 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.CartWarehouseEntity
+import com.example.atonce.domain.usecase.DeleteFromCartUseCase
 import com.example.atonce.domain.usecase.GetCartDetailsByIdUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CartViewModel(
     private val getCartDetailsByIdUseCase: GetCartDetailsByIdUseCase,
     private val getPharmacyUseCase: GetPharmacyUseCase,
-): ViewModel() {
+    private val deleteFromCartUseCase: DeleteFromCartUseCase
+) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<Response<List<CartWarehouseEntity>>>(Response.Loading)
     val cartItems = _cartItems.asStateFlow()
+
+    private val _message = MutableSharedFlow<String>()
+    val message = _message.asSharedFlow()
 
 
     val userData = getPharmacyUseCase()
@@ -28,20 +35,39 @@ class CartViewModel(
         println("Error: ${throwable.message}")
     }
 
-    fun getCartDetails(){
+    fun getCartDetails() {
         _cartItems.value = Response.Loading
-        viewModelScope.launch(Dispatchers.IO + errorExceptionHandler){
+        viewModelScope.launch(Dispatchers.IO + errorExceptionHandler) {
             Log.d("CartTAG", "getCartDetails: $userData")
             getCartDetailsByIdUseCase(pharmacyId = userData.id ?: 0)
-                .collect{ response  ->
-                    if (response.success){
+                .collect { response ->
+                    if (response.success) {
                         _cartItems.value = Response.Success(response.warehouses ?: emptyList())
-                    }else{
-                       _cartItems.value = Response.Success(emptyList())
+                    } else {
+                        _cartItems.value = Response.Success(emptyList())
                     }
                 }
 
         }
+    }
+
+    fun deleteFromCart(
+        pharmacyId: Int,
+        wareHouseId: Int,
+        medicineId: Int
+    ) {
+        viewModelScope.launch(Dispatchers.IO + errorExceptionHandler) {
+            deleteFromCartUseCase(pharmacyId, wareHouseId, medicineId)
+                .collect { response ->
+                    if (response.success) {
+                        getCartDetails()
+                    }
+                    else {
+                        _message.emit(response.message)
+                    }
+                }
+        }
+
     }
 
 }
