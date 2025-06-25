@@ -112,7 +112,7 @@ fun ProfileDetails(
                         fontSize = 16.sp,
                         color = colors.primary,
                         modifier = Modifier
-                            .padding(top = ((screenHeight * 0.07).dp))
+                            .padding(top = 80.dp)
                             .align(Alignment.CenterHorizontally)
                     )
                     Spacer(Modifier.height(((screenHeight * 0.03).dp)))

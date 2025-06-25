@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.Til
 
 
@@ -27,12 +28,12 @@ fun DetailsRow(
 ){
     val colors = MaterialTheme.colorScheme
     Row (
-        modifier = Modifier.padding(horizontal = 24.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(24.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ){
         Box (
-            modifier = Modifier.size(36.dp)
+            modifier = Modifier.size(32.dp)
                 .background(color = colors.primary.copy(alpha = 0.25f)),
             contentAlignment = Alignment.Center
         ){
@@ -45,8 +46,9 @@ fun DetailsRow(
         }
         Text(
             text = txt,
-            fontSize = 18.sp,
-            color = colors.onBackground
+            fontSize = 14.sp,
+            color = colors.onBackground,
+            fontFamily = RegularFont
 
         )
     }
