@@ -158,7 +158,9 @@ fun ProfileScreen(
                         fontSize = 14.sp,
                         color = colors.primary,
                         fontWeight = FontWeight.Medium,
-                        modifier = Modifier.clickable { }
+                        modifier = Modifier.clickable {
+                            onDetailsClick()
+                        }
                     )
                 }
 
