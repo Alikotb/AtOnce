@@ -37,6 +37,14 @@ enum class ErrorMessagesEnum(
     LOGINEXCEPTION(
         "An error occurred during login",
         "حدث خطأ أثناء تسجيل الدخول"
+    ),
+    DELETESUCCESS(
+        "Delete successfully",
+        "تم الحذف بنجاح"
+    ),
+    DELETEEXCEPTION(
+        "An error occurred during delete",
+        "حدث خطأ أثناء الحذف"
     )
 
     ;

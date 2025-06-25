@@ -1,6 +1,7 @@
 package com.example.atonce.di
 
 import com.example.atonce.domain.usecase.AddToCartUseCase
+import com.example.atonce.domain.usecase.DeleteFromCartUseCase
 import com.example.atonce.domain.usecase.FreePharmacyUseCase
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
 import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
@@ -16,6 +17,7 @@ import com.example.atonce.domain.usecase.RegisterUseCase
 import com.example.atonce.domain.usecase.SaveLanguageUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
+import com.example.atonce.domain.usecase.UpdateCartUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -38,9 +40,11 @@ val useCaseModule = module {
     factory { SaveLanguageUseCase(get()) }
 
     factory { GetLanguageUseCase(get()) }
-
+    factory { UpdateCartUseCase(get()) }
     factory { GetAllSuppliersByAreaIdAndMedicine(get()) }
 
     factory { GetCartDetailsByIdUseCase(get()) }
     factory { AddToCartUseCase(get()) }
+
+    factory { DeleteFromCartUseCase(get()) }
 }

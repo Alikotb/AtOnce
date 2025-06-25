@@ -70,4 +70,5 @@
     <string name="to_continue_login_now">قم بتسجيل الدخول للاستمرار</string>
     <string name="welcome_back">مرحبا بك !</string>
     <string name="please_check_your_internet_connection">"يرجى التحقق من اتصالك بالإنترنت</string>
+    <string name="no_orders_yet_add_some_orders_to_your_cart">لا توجد طلبات بعد!\nأضف بعض الطلبات إلى سلة التسوق.</string>
 </resources>

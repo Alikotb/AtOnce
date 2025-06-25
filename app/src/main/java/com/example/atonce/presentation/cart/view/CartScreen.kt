@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
+import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.presentation.cart.view.components.AddToCartCard
 import com.example.atonce.presentation.cart.view.components.OrderInfo
 import com.example.atonce.presentation.cart.view.components.ShimmerCartCard
@@ -35,13 +37,22 @@ import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewModel()) {
+fun CartScreen(modifier: PaddingValues ,
+               viewModel: CartViewModel = koinViewModel(), snackbarHostState: SnackbarHostState
+) {
     val colors = MaterialTheme.colorScheme
 
     val items by viewModel.cartItems.collectAsStateWithLifecycle()
+    val isClicked by viewModel.isUpdated.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getCartDetails()
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
     }
 
     var selectedStoreIndex by remember { mutableStateOf(0) }
@@ -53,22 +64,24 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
             .background(colors.onPrimary)
             .padding(top = modifier.calculateTopPadding())
     ) {
-      NoIconCard(
-          headerTxt = stringResource(R.string.cart),
-      )
+        NoIconCard(
+            headerTxt = stringResource(R.string.cart),
+        )
         when (items) {
             is Response.Error -> {
 
             }
+
             Response.Loading -> {
                 LazyColumn(
                     modifier = Modifier.padding(16.dp)
-                ){
-                    items(3){
+                ) {
+                    items(3) {
                         ShimmerCartCard()
                     }
                 }
             }
+
             is Response.Success -> {
                 val stores = (items as Response.Success).data
 
@@ -88,12 +101,37 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                         contentPadding = PaddingValues(bottom = 140.dp)
                     ) {
 
-                        items(stores[selectedStoreIndex].items) { item ->
+                        items(
+                            items = stores[selectedStoreIndex].items,
+                            key = { it.medicineId }) { item ->
                             AddToCartCard(
+                                enapled =isClicked,
                                 cartItem = item,
-                                onIncrease = {},
-                                onDecrease = {},
-                                onDelete = { }
+                                onIncrease = {
+                                    viewModel.updateCartAndRefresh(
+                                        UpdateCartRequest(
+                                            newQuantity = item.quantity + 1,
+                                            medicineId = item.medicineId,
+                                            warehouseId = stores[selectedStoreIndex].warehouseId,
+                                        )
+                                    )
+                                },
+                                onDecrease = {
+                                    viewModel.updateCartAndRefresh(
+                                        UpdateCartRequest(
+                                            newQuantity = item.quantity - 1,
+                                            medicineId = item.medicineId,
+                                            warehouseId = stores[selectedStoreIndex].warehouseId,
+                                        )
+                                    )
+
+                                },
+                                onDelete = {
+                                    viewModel.deleteFromCart(
+                                        wareHouseId = stores[selectedStoreIndex].warehouseId,
+                                        medicineId = item.medicineId
+                                    )
+                                }
                             )
                         }
                     }
@@ -101,7 +139,10 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .shadow(elevation = 4.dp, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                            )
                             .background(colors.surface)
                             .padding(horizontal = 16.dp, vertical = 12.dp)
                             .padding(bottom = 56.dp)
