@@ -38,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.EmptyCart
+import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
@@ -58,6 +59,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
         R.drawable.ads1,
         R.drawable.ads2
     )
+
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
     val colors = MaterialTheme.colorScheme
@@ -94,7 +96,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                 onStartClick = {
 
                     val phoneNumber =
-                        "+201234567890"
+                        "+201067205869"
                     val intent = Intent(Intent.ACTION_DIAL)
                     intent.setData(("tel:" + phoneNumber).toUri())
                     context.startActivity(intent)
@@ -138,7 +140,8 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                 val warehouses = state.data
 
                 if(warehouses.isEmpty()) {
-                    item { EmptyCart(R.raw.no_data, "No warehouses found in this area") }
+                    item { EmptyCart(R.raw.no_data,
+                        stringResource(R.string.no_warehouses_found_in_this_area)) }
                 }else {
                     items(warehouses) { warehouse ->
                         WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id,warehouse.name) }
