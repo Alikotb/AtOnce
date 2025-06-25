@@ -44,6 +44,7 @@ import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_BTN_SHEET_NAME
 import com.example.atonce.presentation.search.viewmodel.SearchViewModel
+import java.util.Locale
 
 
 @ExperimentalMaterial3Api
@@ -61,6 +62,8 @@ fun ModelSheet(
     val colors = MaterialTheme.colorScheme
 
     val uiState = viewModel.uiStateSuppliers.collectAsStateWithLifecycle()
+
+    val medicineName : String = if (Locale.getDefault().language == "ar") medicine?.arabicMedicineName ?: "" else medicine?.medicineName ?: ""
 
     LaunchedEffect(Unit) {
         if (medicine != null) {
@@ -110,7 +113,7 @@ fun ModelSheet(
                     )
                 }
                 Text(
-                    text = medicine?.medicineName ?: "",
+                    text = medicineName,
                     fontSize = MEDICINE_BTN_SHEET_NAME.sp,
                     modifier = Modifier.padding(start = 12.dp, top = 8.dp),
                     fontWeight = FontWeight.Bold

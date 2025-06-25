@@ -1,6 +1,7 @@
 package com.example.atonce.presentation.home.view
 
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -41,6 +42,7 @@ import com.example.atonce.presentation.common.component.EmptyCart
 import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
@@ -86,7 +88,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
         state = listState,
         modifier = Modifier
             .fillMaxSize()
-            .background(colors.onPrimary)
+            .background(color = MaterialTheme.colorScheme.onPrimary)
             .padding(top = modifier.calculateTopPadding()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = 32.dp)

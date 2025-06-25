@@ -3,11 +3,13 @@ package com.example.atonce.presentation.home.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.home.model.WarehouseUiModel
 import com.example.atonce.presentation.home.model.toUiModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,12 +31,16 @@ class HomeViewModel(
     private var isLastPage = false
     private var isLoading = false
 
+    private val errorHandler = CoroutineExceptionHandler { _, throwable ->
+        _uiState.value = Response.Error(ErrorMessagesEnum.NETWORKERROR.getLocalizedMessage())
+    }
+
      fun getWarehousesByArea(areaId: Int, search: String = "") {
         if (isLoading || isLastPage) return
         isLoading = true
          _isPaginationLoading.value = true
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
             getWarehousesByAreaUseCase(areaId, currentPage, pageSize, search)
                 .catch { e ->
                     _uiState.value = Response.Error("")

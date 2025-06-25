@@ -3,6 +3,9 @@ package com.example.atonce.presentation.profile.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -34,6 +37,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,7 +58,11 @@ import com.example.atonce.core.extensions.restartActivity
 import com.example.atonce.presentation.common.component.AlertDialogExample
 import com.example.atonce.presentation.common.component.ShareApp
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.common.theme.DarkWhiteColor
+import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.compose.koinInject
 
 @Composable
@@ -80,6 +88,15 @@ fun ProfileScreen(
                 bottom = modifier.calculateBottomPadding()
             )
     ) {
+        val darkTheme = isSystemInDarkTheme()
+        val systemUiController = rememberSystemUiController()
+
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color = if (darkTheme) DarkWhiteColor else WhiteColor,
+                darkIcons = !darkTheme
+            )
+        }
 
 
         TowIconCard(
@@ -219,7 +236,6 @@ fun ProfileScreen(
         }
     }
 }
-
 
 @Composable
 fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onClick: () -> Unit) {
