@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TabRowDefaults.Divider
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.MedicalInformation
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
@@ -49,6 +51,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.example.atonce.R
 import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.core.extensions.restartActivity
+import com.example.atonce.presentation.common.component.AlertDialogExample
 import com.example.atonce.presentation.common.component.ShareApp
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
@@ -66,7 +69,7 @@ fun ProfileScreen(
     val colors = MaterialTheme.colorScheme
     val user = viewmodel.userData
     var expanded = remember { mutableStateOf(false) }
-
+    val openAlertDialog = remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     Column(
         modifier = Modifier
@@ -179,7 +182,10 @@ fun ProfileScreen(
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Info, stringResource(R.string.about_us)) {}
+                ProfileItem(Icons.Default.Info, stringResource(R.string.about_us)) {
+                    openAlertDialog.value=true
+
+                }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {
 
@@ -199,7 +205,21 @@ fun ProfileScreen(
         }
     }
 
+    when {
+        openAlertDialog.value -> {
+            AlertDialogExample(
+                onDismissRequest = { openAlertDialog.value = false },
+                onConfirmation = {
+                    openAlertDialog.value = false
+                },
+                dialogTitle = AppConstants.ABOUT_US_TITLE,
+                dialogText = AppConstants.ABOUT_US_MESSAGE,
+                icon = Icons.Filled.MedicalInformation
+            )
+        }
+    }
 }
+
 
 @Composable
 fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onClick: () -> Unit) {
@@ -239,4 +259,5 @@ fun ProfileItem(icon: ImageVector, title: String, isLogout: Boolean = false, onC
         )
     }
 }
+
 
