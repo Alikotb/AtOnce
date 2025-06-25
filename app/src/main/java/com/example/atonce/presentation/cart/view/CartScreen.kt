@@ -93,7 +93,13 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                                 cartItem = item,
                                 onIncrease = {},
                                 onDecrease = {},
-                                onDelete = { }
+                                onDelete = {
+                                    viewModel.deleteFromCart(
+                                        pharmacyId = viewModel.userData.id ?: 0,
+                                        wareHouseId = stores[selectedStoreIndex].warehouseId,
+                                        medicineId = item.medicineId
+                                    )
+                                }
                             )
                         }
                     }

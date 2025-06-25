@@ -3,6 +3,7 @@ package com.example.atonce.presentation.cart.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.CartWarehouseEntity
 import com.example.atonce.domain.usecase.DeleteFromCartUseCase
@@ -61,9 +62,10 @@ class CartViewModel(
                 .collect { response ->
                     if (response.success) {
                         getCartDetails()
+                        _message.emit(ErrorMessagesEnum.DELETESUCCESS.getLocalizedMessage())
                     }
                     else {
-                        _message.emit(response.message)
+                        _message.emit(ErrorMessagesEnum.DELETEEXCEPTION.getLocalizedMessage())
                     }
                 }
         }
