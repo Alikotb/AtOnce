@@ -25,7 +25,7 @@ fun CartWarehouseDto.toEntity(): CartWarehouseEntity {
         warehouseId = warehouseId,
         warehouseUrl = warehouseUrl,
         warehouseName = name,
-        minimumPrice = minWarehousePriceInPharmacyArea,
+        minimumPrice = minWarehousePriceInPharmacyArea ?: 0.0,
         totalQuantity = items.sumOf { it.quantity },
         totalPriceBeforeDiscount = items.sumOf { it.priceBeforeDiscount * it.quantity } ,
         totalPriceAfterDiscount = items.sumOf { it.priceAfterDiscount * it.quantity } ,
