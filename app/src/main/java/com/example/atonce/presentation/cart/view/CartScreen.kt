@@ -75,6 +75,10 @@ fun CartScreen(
             is Response.Success -> {
                 val stores = (items as Response.Success).data
 
+                if (selectedStoreIndex >= stores.size) {
+                    selectedStoreIndex = 0
+                }
+
                 if (stores.isEmpty()){
                     EmptyCart(messageInfo = stringResource(R.string.no_orders_yet_add_some_orders_to_your_cart))
                 }
@@ -117,11 +121,6 @@ fun CartScreen(
                                 onDelete = {
                                     selectedMedicineId = item.medicineId
                                     isDialogOpen = true
-
-                                    viewModel.deleteFromCart(
-                                        wareHouseId = stores[selectedStoreIndex].warehouseId,
-                                        medicineId = item.medicineId
-                                    )
                                 },
                                 onQuantityChange = { newQuantity ->
                                     viewModel.updateCartAndRefresh(
