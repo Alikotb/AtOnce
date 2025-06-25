@@ -107,8 +107,8 @@ fun SetUpNavHost(
                     onNavToSearch = {
                         navController.navigate(ScreenRoute.SearchScreen)
                     },
-                    onNavToStore = { warehouseId ->
-                        navController.navigate(ScreenRoute.StoreScreen(warehouseId))
+                    onNavToStore = { warehouseId,warehouseName ->
+                        navController.navigate(ScreenRoute.StoreScreen(warehouseId,warehouseName))
                     }
                 )
             } else {
@@ -118,6 +118,8 @@ fun SetUpNavHost(
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
             val warehouseId = it.toRoute<ScreenRoute.StoreScreen>().warehouseId
+            val warehouseName = it.toRoute<ScreenRoute.StoreScreen>().warehouseName
+
             if (isOnline) {
                 StoreScreen(
                     warehouseId = warehouseId,
@@ -125,7 +127,8 @@ fun SetUpNavHost(
                     modifier = paddingValues,
                     onBackClick = {
                         navController.popBackStack()
-                    }
+                    },
+                    warehouseName = warehouseName
                 )
             } else {
                 NoInternetScreen()
