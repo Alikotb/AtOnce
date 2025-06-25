@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
@@ -21,12 +24,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -42,6 +53,7 @@ fun AddToCartCard(
     cartItem: CartItemEntity,
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
+    onQuantityChange: (Int) -> Unit,
     onDelete: () -> Unit,
     enapled: Boolean
 ) {
@@ -53,6 +65,10 @@ fun AddToCartCard(
     val costPerItem = cartItem.priceBeforeDiscount
     val discountPercent = cartItem.discount
     val quantity = cartItem.quantity
+
+    var quantityText by remember { mutableStateOf(cartItem.quantity.toString()) }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Card(
         modifier = Modifier
@@ -142,14 +158,40 @@ fun AddToCartCard(
                     onClick = onDecrease) {
                     Icon(Icons.Default.Remove, contentDescription = "Decrease")
                 }
-                Text(
-                    "$quantity",
-                    fontFamily = MediumFont,
-                    modifier = Modifier.padding(horizontal = 4.dp)
+                BasicTextField(
+                    value = quantityText,
+                    onValueChange = { newValue ->
+                        if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
+                            quantityText = newValue
+                        }
+                    },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            if(quantityText.isEmpty() || quantityText == "0") {
+                                keyboardController?.hide()
+                                quantityText = quantity.toString()
+                            }else {
+                                onQuantityChange(quantityText.toInt())
+                            }
+                        }
+                    ),
+                    textStyle = TextStyle.Default.copy(
+                        fontSize = 14.sp,
+                        color = colors.onSurface,
+                        fontFamily = MediumFont
+                    ),
+                    modifier = Modifier
+                        .width(15.dp)
                 )
                 IconButton(
                     enabled = enapled,
-                    onClick = onIncrease) {
+                    onClick = onIncrease
+                ) {
                     Icon(Icons.Default.Add, contentDescription = "Increase")
                 }
             }

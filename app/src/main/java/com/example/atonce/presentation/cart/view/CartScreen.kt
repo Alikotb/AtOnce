@@ -37,8 +37,10 @@ import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun CartScreen(modifier: PaddingValues ,
-               viewModel: CartViewModel = koinViewModel(), snackbarHostState: SnackbarHostState
+fun CartScreen(
+    modifier: PaddingValues ,
+    viewModel: CartViewModel = koinViewModel(),
+    snackbarHostState: SnackbarHostState
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -86,7 +88,7 @@ fun CartScreen(modifier: PaddingValues ,
                 val stores = (items as Response.Success).data
 
                 if (stores.isEmpty()){
-                    EmptyCart(messageInfo = "No orders yet ? \nAdd some orders to your cart!")
+                    EmptyCart(messageInfo = stringResource(R.string.no_orders_yet_add_some_orders_to_your_cart))
                 }
                 else{
                     StoreTabs(
@@ -131,7 +133,16 @@ fun CartScreen(modifier: PaddingValues ,
                                         wareHouseId = stores[selectedStoreIndex].warehouseId,
                                         medicineId = item.medicineId
                                     )
-                                }
+                                },
+                                onQuantityChange = { newQuantity ->
+                                    viewModel.updateCartAndRefresh(
+                                        UpdateCartRequest(
+                                            newQuantity = newQuantity,
+                                            medicineId = item.medicineId,
+                                            warehouseId = stores[selectedStoreIndex].warehouseId,
+                                        )
+                                    )
+                                },
                             )
                         }
                     }

@@ -89,7 +89,7 @@ class CartViewModel(
 
 
 
-    suspend fun updateCart(request: UpdateCartRequest): Boolean {
+    private suspend fun updateCart(request: UpdateCartRequest): Boolean {
         return try {
             if (request.newQuantity < 1) {
                 deleteFromCart(wareHouseId = request.warehouseId, medicineId = request.medicineId)
