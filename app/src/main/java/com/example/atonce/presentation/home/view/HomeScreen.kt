@@ -47,8 +47,9 @@ import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
-    val colors= MaterialTheme.colorScheme
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
+               onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+
 
     val ads = listOf(
         R.drawable.ads,
@@ -73,6 +74,8 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit, 
             }
     }
 
+    val context = LocalContext.current
+
     LazyColumn(
         state = listState,
         modifier = Modifier
@@ -88,6 +91,12 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit, 
                     onProfileClick()
                 },
                 onStartClick = {
+
+                    val phoneNumber =
+                        "+201234567890"
+                    val intent = Intent(Intent.ACTION_DIAL)
+                    intent.setData(Uri.parse("tel:" + phoneNumber))
+                    context.startActivity(intent)
                 },
                 headerTxt = stringResource(R.string.home_screen)
             )
