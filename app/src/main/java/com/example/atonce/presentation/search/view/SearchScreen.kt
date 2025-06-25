@@ -55,7 +55,7 @@ fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, 
     val currentLanguage by viewModel.currentLanguage
     val listState = rememberLazyListState()
 
-    val isLoading by viewModel.isLoadingState.collectAsStateWithLifecycle()
+    val isLoading by viewModel.loadingItemId.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getMedicinesByArea(3, search = "")
@@ -117,7 +117,7 @@ fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, 
                     items(medicines) { medicine ->
                         SearchCard(
                             medicine = medicine,
-                            btnEnabled = !isLoading,
+                            btnEnabled = isLoading != Pair(medicine.warehouseIdOfMaxDiscount,medicine.medicineId),
                             language = currentLanguage,
                             onCartClick = {
                                 viewModel.addToCart(
@@ -145,6 +145,7 @@ fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, 
     if (showBottomSheet) {
         ModelSheet(
             viewModel = viewModel,
+            snackbarHostState = snackbarHostState,
             medicine = selectedMedicine,
             areaId = areaId
         ) {

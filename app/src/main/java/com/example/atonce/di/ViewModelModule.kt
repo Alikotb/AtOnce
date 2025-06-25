@@ -7,7 +7,7 @@ import com.example.atonce.presentation.signup.SignUpViewModel
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
 import com.example.atonce.presentation.search.viewmodel.SearchViewModel
 import com.example.atonce.presentation.splash.viewmodel.SplashViewModel
-import com.example.atonce.presentation.store.view_model.WarehouseViewModel
+import com.example.atonce.presentation.store.viewmodel.WarehouseViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

@@ -29,7 +29,7 @@ import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCar
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 import com.example.atonce.presentation.store.view.component.MedicineCard
 import com.example.atonce.presentation.store.view.component.MedicineCardShimmer
-import com.example.atonce.presentation.store.view_model.WarehouseViewModel
+import com.example.atonce.presentation.store.viewmodel.WarehouseViewModel
 import org.koin.androidx.compose.koinViewModel
 
 

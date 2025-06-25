@@ -18,6 +18,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,20 +33,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
 import com.example.atonce.presentation.common.component.CustomCartBtn
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
 fun BottomSheetCard(
     modifier: Modifier = Modifier,
+    loadingItemId:  StateFlow<Pair<Int?,Int?>?>,
     supplier : SupplierEntity,
     onAddToCartClick: () -> Unit = {}
 ) {
     val colors =MaterialTheme.colorScheme
+    val isLoading by loadingItemId.collectAsStateWithLifecycle()
 
     Card(
         modifier = Modifier
@@ -110,7 +118,11 @@ fun BottomSheetCard(
                         .fillMaxWidth()
                 ) {
                     Spacer(Modifier.weight(1f))
-                    CustomCartBtn(onClick = {})
+                    CustomCartBtn(
+                        enabled = isLoading != Pair(supplier.warehouseId,supplier.medicineId),
+                        onClick = {
+                            onAddToCartClick()
+                    })
                 }
             }
         }
