@@ -1,5 +1,6 @@
 package com.example.atonce.di
 
+import com.example.atonce.domain.usecase.AddToCartUseCase
 import com.example.atonce.domain.usecase.FreePharmacyUseCase
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
 import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
@@ -41,4 +42,5 @@ val useCaseModule = module {
     factory { GetAllSuppliersByAreaIdAndMedicine(get()) }
 
     factory { GetCartDetailsByIdUseCase(get()) }
+    factory { AddToCartUseCase(get()) }
 }

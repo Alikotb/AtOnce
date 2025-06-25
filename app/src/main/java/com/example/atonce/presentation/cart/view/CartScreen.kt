@@ -1,7 +1,6 @@
-package com.example.atonce.presentation.cart.veiw
+package com.example.atonce.presentation.cart.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,14 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
-import com.example.atonce.presentation.cart.veiw.components.AddToCartCard
-import com.example.atonce.presentation.cart.veiw.components.OrderInfo
-import com.example.atonce.presentation.cart.veiw.components.ShimmerCartCard
-import com.example.atonce.presentation.cart.veiw.components.StoreTabs
+import com.example.atonce.presentation.cart.view.components.AddToCartCard
+import com.example.atonce.presentation.cart.view.components.OrderInfo
+import com.example.atonce.presentation.cart.view.components.ShimmerCartCard
+import com.example.atonce.presentation.cart.view.components.StoreTabs
 import com.example.atonce.presentation.cart.viewModel.CartViewModel
 import com.example.atonce.presentation.common.component.EmptyCart
-import com.example.atonce.presentation.common.component.NoInternet
-import com.example.atonce.presentation.common.component.ProgressIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
 import org.koin.androidx.compose.koinViewModel
 
