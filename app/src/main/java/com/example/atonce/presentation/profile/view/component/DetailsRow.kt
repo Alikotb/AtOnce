@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Phone
@@ -34,13 +35,14 @@ fun DetailsRow(
     ){
         Box (
             modifier = Modifier.size(32.dp)
-                .background(color = colors.primary.copy(alpha = 0.25f)),
+                .background(color = colors.primary.copy(alpha = 0.25f) , shape = RoundedCornerShape(8.dp)),
             contentAlignment = Alignment.Center
         ){
             Icon(
                 imageVector = icon,
                 contentDescription = "",
                 tint = colors.primary,
+                modifier = Modifier.size(24.dp)
 
             )
 
