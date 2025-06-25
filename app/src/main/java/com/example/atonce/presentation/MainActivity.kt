@@ -8,34 +8,30 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.atonce.core.enums.LanguageEnum
 import com.example.atonce.core.extensions.applyLanguage
-import com.example.atonce.domain.internet.ConnectivityObserver
 import com.example.atonce.domain.usecase.GetLanguageUseCase
-import com.example.atonce.presentation.common.navigation.SetUpNavHost
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
+import com.example.atonce.presentation.common.navigation.SetUpNavHost
 import com.example.atonce.presentation.common.theme.AtOnceTheme
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
-import com.example.atonce.presentation.no_internet.NoInternetScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.android.ext.android.inject
 
@@ -57,10 +53,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         val connectivityObserver: ConnectivityObserver by inject()
 
         setContent {
-            val isOnline by connectivityObserver.isOnline.observeAsState(initial = true)
             HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
@@ -87,17 +81,13 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
 
-                    if(isOnline) {
                         SetUpNavHost(
                             navController = navController,
                             bottomBarState = bottomBarState,
                             snackbarState = snackbarHostState,
                             paddingValues = innerPadding
                         )
-                    }else{
-                        bottomBarState.value=false
-                        NoInternetScreen()
-                    }
+
 
                 }
 
