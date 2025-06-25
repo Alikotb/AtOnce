@@ -47,7 +47,7 @@ import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
 
     val ads = listOf(
@@ -131,7 +131,7 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
                     item { EmptyCart(R.raw.no_data, "No warehouses found in this area") }
                 }else {
                     items(warehouses) { warehouse ->
-                        WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
+                        WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id,warehouse.name) }
                     }
                 }
             }

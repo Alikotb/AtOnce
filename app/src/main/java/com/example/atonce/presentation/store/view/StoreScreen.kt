@@ -40,7 +40,8 @@ fun StoreScreen(
     snackbarHostState: SnackbarHostState,
     modifier: PaddingValues,
     onBackClick: () -> Unit = {},
-    viewModel: WarehouseViewModel = koinViewModel()
+    viewModel: WarehouseViewModel = koinViewModel(),
+    warehouseName: String
 ) {
     val colors = MaterialTheme.colorScheme
     var expanded = remember { mutableStateOf(false) }
@@ -81,7 +82,7 @@ fun StoreScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OneIconCard(
-
+            headerTxt = warehouseName,
             onClick = { onBackClick() }
         )
         SearchComponent(
