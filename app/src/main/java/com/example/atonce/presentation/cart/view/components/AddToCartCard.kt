@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.domain.entity.CartItemEntity
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.RedColor
@@ -121,13 +122,13 @@ fun AddToCartCard(
                 }
 
                 Text(
-                    text = stringResource(R.string.cart_discount, discountPercent),
+                    text = stringResource(R.string.cart_discount, discountPercent.toString().convertNumbersToArabic()),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
                     color = colors.primary
                 )
                 Text(
-                    text = stringResource(R.string.cost_per_item_egp, costPerItem),
+                    text = stringResource(R.string.cost_per_item_egp, costPerItem.toString().convertNumbersToArabic()),
                     fontFamily = RegularFont,
                     fontSize = 13.sp,
                     color = colors.onSurfaceVariant
