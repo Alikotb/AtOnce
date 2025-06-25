@@ -104,6 +104,9 @@ fun SetUpNavHost(
                     onProfileClick = {
                         navController.navigate(ScreenRoute.ProfileScreen)
                     },
+                    onNavToSearch = {
+                        navController.navigate(ScreenRoute.SearchScreen)
+                    },
                     onNavToStore = { warehouseId ->
                         navController.navigate(ScreenRoute.StoreScreen(warehouseId))
                     }
@@ -111,18 +114,6 @@ fun SetUpNavHost(
             } else {
                 NoInternetScreen()
             }
-            HomeScreen(
-                modifier =paddingValues,
-                onProfileClick = {
-                    navController.navigate(ScreenRoute.ProfileScreen)
-                },
-                onNavToSearch = {
-                    navController.navigate(ScreenRoute.SearchScreen)
-                },
-                onNavToStore = { warehouseId ->
-                    navController.navigate(ScreenRoute.StoreScreen(warehouseId))
-                }
-            )
         }
         composable<ScreenRoute.StoreScreen> {
             bottomBarState.value = false
