@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.home.view
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -57,14 +58,15 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
     val listState = rememberLazyListState()
 
     LaunchedEffect(Unit) {
-        viewModel.getWarehousesByArea(3)
+        viewModel.getWarehousesByArea(viewModel.getPharmacyId())
+        Log.d("TAG", "HomeScreen: ${viewModel.getPharmacyId()}")
     }
     LaunchedEffect(listState){
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
                 val totalItems = listState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getWarehousesByArea(areaId = 3)
+                    viewModel.getWarehousesByArea(areaId = viewModel.getPharmacyId())
                 }
             }
     }

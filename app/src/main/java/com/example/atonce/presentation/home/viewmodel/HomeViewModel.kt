@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
+import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.home.model.WarehouseUiModel
 import com.example.atonce.presentation.home.model.toUiModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAreaUseCase) : ViewModel() {
+class HomeViewModel(
+    private val getWarehousesByAreaUseCase: GetAllWarehousesByAreaUseCase,
+    private val getPharmacyUseCase: GetPharmacyUseCase
+) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<WarehouseUiModel>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
 
@@ -48,5 +52,9 @@ class HomeViewModel(private val getWarehousesByAreaUseCase: GetAllWarehousesByAr
                     isLoading = false
             }
         }
+    }
+
+    fun getPharmacyId() : Int {
+        return getPharmacyUseCase().areaId!!
     }
 }
