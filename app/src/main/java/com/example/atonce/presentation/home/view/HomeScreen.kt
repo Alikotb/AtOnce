@@ -40,12 +40,13 @@ import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCar
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
+import com.example.atonce.presentation.home.view.component.TappableSearchBar
 import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
     val colors= MaterialTheme.colorScheme
 
     val ads = listOf(
@@ -103,13 +104,9 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
         }
 
         item {
-            MySearchBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .shadow(4.dp, RoundedCornerShape(12.dp))
-            )
-
+            TappableSearchBar {
+                onNavToSearch()
+            }
         }
 
         item {
@@ -133,7 +130,7 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, modifier:
                 }
             }
             is Response.Error -> {
-               item {   NoInternet()}
+               item { NoInternet() }
             }
         }
 
