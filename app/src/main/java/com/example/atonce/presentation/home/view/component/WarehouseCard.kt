@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
@@ -81,14 +82,14 @@ fun WarehouseCard(warehouse: WarehouseUiModel, onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = stringResource(R.string.min) +warehouse.minOrder+ stringResource(R.string.egp),
+                    text = stringResource(R.string.min) + warehouse.minOrder.toString().convertNumbersToArabic() + stringResource(R.string.egp),
                     fontFamily = MediumFont,
                     fontSize = 14.sp,
                     color = Color(0xFF1A998E)
                 )
 
                 Text(
-                    text = "Delivery Daily",
+                    text = stringResource(R.string.delivery_daily),
                     fontFamily = RegularFont,
                     fontSize = 12.sp,
                     color =colors.onBackground

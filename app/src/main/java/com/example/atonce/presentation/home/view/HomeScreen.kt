@@ -61,8 +61,11 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
     )
 
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val isPaginationLoading = viewModel.isPaginationLoading.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
+
     val colors = MaterialTheme.colorScheme
+
     LaunchedEffect(Unit) {
         viewModel.getWarehousesByArea(viewModel.getPharmacyId())
         Log.d("TAG", "HomeScreen: ${viewModel.getPharmacyId()}")
@@ -152,7 +155,11 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                item { NoInternet() }
             }
         }
-
+        if (isPaginationLoading.value) {
+            items(3) {
+                ShimmerWarehouseCard()
+            }
+        }
         item {
             Spacer(modifier = Modifier.height(150.dp))
         }

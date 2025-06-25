@@ -21,6 +21,9 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow<Response<List<WarehouseUiModel>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
 
+    private val _isPaginationLoading = MutableStateFlow(false)
+    val isPaginationLoading = _isPaginationLoading.asStateFlow()
+
     private var currentPage = 1
     private var pageSize = 10
     private var isLastPage = false
@@ -29,13 +32,14 @@ class HomeViewModel(
      fun getWarehousesByArea(areaId: Int, search: String = "") {
         if (isLoading || isLastPage) return
         isLoading = true
+         _isPaginationLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
             getWarehousesByAreaUseCase(areaId, currentPage, pageSize, search)
                 .catch { e ->
                     _uiState.value = Response.Error("")
                     isLoading = false
-                    Log.d("TAG", "getWarehousesByArea: ${e.message}")
+                    _isPaginationLoading.value = false
                 }
                 .collect { list ->
                     val items = list.map { it.toUiModel() }
@@ -44,12 +48,12 @@ class HomeViewModel(
                     val newList = currentItems + items
 
                     _uiState.value = Response.Success(newList)
-                    Log.d("TAG", "getWarehousesByArea: $newList")
 
                     if (items.size < pageSize) isLastPage = true
                     else currentPage++
 
                     isLoading = false
+                    _isPaginationLoading.value = false
             }
         }
     }
