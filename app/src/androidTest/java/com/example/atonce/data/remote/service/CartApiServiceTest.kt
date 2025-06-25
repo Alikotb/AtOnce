@@ -49,10 +49,10 @@ class CartApiServiceTest : KoinTest {
         runBlocking {
             //given
             val request = AddToCartRequestDto(
-                medicineId = 1,
-                pharmacyId = 1,
+                medicineId = 2,
+                pharmacyId = 45,
                 quantity = 1,
-                warehouseId = 1,
+                warehouseId = 5,
                 englishMedicineName = "",
                 arabicMedicineName = "",
                 medicineUrl = "",
@@ -61,5 +61,11 @@ class CartApiServiceTest : KoinTest {
                 discount = 0.0,
             )
 
+            val response = apiService.addToCart(request)
+
+            assertEquals(response.success, true)
+            assertEquals(response.message, "Item added to cart successfully")
+            assertEquals(response.data, true)
+        }
     }
 }
