@@ -104,6 +104,9 @@ fun SetUpNavHost(
                     onProfileClick = {
                         navController.navigate(ScreenRoute.ProfileScreen)
                     },
+                    onNavToSearch = {
+                        navController.navigate(ScreenRoute.SearchScreen)
+                    },
                     onNavToStore = { warehouseId ->
                         navController.navigate(ScreenRoute.StoreScreen(warehouseId))
                     }
