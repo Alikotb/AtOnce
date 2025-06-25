@@ -73,7 +73,7 @@ fun CartScreen(modifier: PaddingValues , viewModel: CartViewModel = koinViewMode
                 val stores = (items as Response.Success).data
 
                 if (stores.isEmpty()){
-                    EmptyCart()
+                    EmptyCart(messageInfo = "No orders yet ? \nAdd some orders to your cart!")
                 }
                 else{
                     StoreTabs(

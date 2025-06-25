@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
+import com.example.atonce.presentation.common.component.EmptyCart
 import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
@@ -125,8 +126,13 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit, onNavToSe
             }
             is Response.Success -> {
                 val warehouses = state.data
-                items(warehouses) { warehouse ->
-                    WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
+
+                if(warehouses.isEmpty()) {
+                    item { EmptyCart(R.raw.no_data, "No warehouses found in this area") }
+                }else {
+                    items(warehouses) { warehouse ->
+                        WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id) }
+                    }
                 }
             }
             is Response.Error -> {
