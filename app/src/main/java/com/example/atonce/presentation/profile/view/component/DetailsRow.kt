@@ -40,7 +40,8 @@ fun DetailsRow(
             Icon(
                 imageVector = icon,
                 contentDescription = "",
-                tint = colors.primary
+                tint = colors.primary,
+
             )
 
         }
