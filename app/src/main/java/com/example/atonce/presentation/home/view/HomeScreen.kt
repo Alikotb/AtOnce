@@ -47,7 +47,7 @@ import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
+fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int, String) -> Unit,
                onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
 
 
