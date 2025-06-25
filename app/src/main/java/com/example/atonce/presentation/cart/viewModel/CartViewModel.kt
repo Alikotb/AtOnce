@@ -3,19 +3,16 @@ package com.example.atonce.presentation.cart.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
-import com.example.atonce.data.remote.dto.cart.UpdateCartResponse
+import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.domain.entity.CartWarehouseEntity
 import com.example.atonce.domain.usecase.DeleteFromCartUseCase
 import com.example.atonce.domain.usecase.GetCartDetailsByIdUseCase
-import com.example.atonce.domain.usecase.UpdateCartUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
+import com.example.atonce.domain.usecase.UpdateCartUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -95,7 +92,7 @@ class CartViewModel(
     suspend fun updateCart(request: UpdateCartRequest): Boolean {
         return try {
             if (request.newQuantity < 1) {
-                _message.emit("deleted successfully")
+                deleteFromCart(wareHouseId = request.warehouseId, medicineId = request.medicineId)
                 return true
             }
 

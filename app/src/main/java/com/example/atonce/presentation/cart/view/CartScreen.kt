@@ -125,9 +125,6 @@ fun CartScreen(modifier: PaddingValues ,
                                     )
 
                                 },
-                                onDelete = { }
-                                onIncrease = {},
-                                onDecrease = {},
                                 onDelete = {
                                     viewModel.deleteFromCart(
                                         wareHouseId = stores[selectedStoreIndex].warehouseId,
