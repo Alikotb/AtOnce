@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.home.view
 
+import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,14 +29,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.EmptyCart
-import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.SemiBoldFont
@@ -47,7 +49,7 @@ import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
+fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
 
 
@@ -56,10 +58,9 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
         R.drawable.ads1,
         R.drawable.ads2
     )
-
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
-
+    val colors = MaterialTheme.colorScheme
     LaunchedEffect(Unit) {
         viewModel.getWarehousesByArea(viewModel.getPharmacyId())
         Log.d("TAG", "HomeScreen: ${viewModel.getPharmacyId()}")
@@ -95,7 +96,7 @@ fun HomeScreen(onProfileClick: () -> Unit,onNavToStore: (Int) -> Unit,
                     val phoneNumber =
                         "+201234567890"
                     val intent = Intent(Intent.ACTION_DIAL)
-                    intent.setData(Uri.parse("tel:" + phoneNumber))
+                    intent.setData(("tel:" + phoneNumber).toUri())
                     context.startActivity(intent)
                 },
                 headerTxt = stringResource(R.string.home_screen)

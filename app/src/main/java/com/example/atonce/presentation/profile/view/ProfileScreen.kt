@@ -3,8 +3,6 @@ package com.example.atonce.presentation.profile.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -24,15 +22,12 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -42,7 +37,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -51,8 +45,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.core.extensions.restartActivity
+import com.example.atonce.presentation.common.component.ShareApp
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
 import org.koin.compose.koinInject
@@ -93,7 +90,7 @@ fun ProfileScreen(
             },
             headerTxt = stringResource(R.string.profile),
             isProfile = true,
-            onLanguageClick = {code->
+            onLanguageClick = { code ->
                 viewmodel.changeLanguage(code)
                 ctx.restartActivity()
             }
@@ -184,7 +181,11 @@ fun ProfileScreen(
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Info, stringResource(R.string.about_us)) {}
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {}
+                ProfileItem(Icons.Default.Share, stringResource(R.string.share_app)) {
+
+                    startActivity(ctx, ShareApp(AppConstants.SHARE_APP_MESSAGE), null)
+
+                }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(
                     Icons.AutoMirrored.Filled.Logout,
