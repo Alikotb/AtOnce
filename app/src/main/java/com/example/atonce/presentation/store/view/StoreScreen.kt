@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -36,6 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun StoreScreen(
     warehouseId: Int,
+    snackbarHostState: SnackbarHostState,
     modifier: PaddingValues,
     onBackClick: () -> Unit = {},
     viewModel: WarehouseViewModel = koinViewModel()
@@ -47,10 +49,14 @@ fun StoreScreen(
 
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val loadingItemId by viewModel.loadingItemId.collectAsStateWithLifecycle()
     val gState = rememberLazyGridState()
-    LaunchedEffect(Unit) {
-        viewModel.getAllMedicinesByStoreId(warehouseId = 2,searchText)
 
+    LaunchedEffect(Unit) {
+        viewModel.getAllMedicinesByStoreId(warehouseId = warehouseId,searchText)
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
     }
 
     LaunchedEffect(gState) {
@@ -58,7 +64,7 @@ fun StoreScreen(
             .collect { lastVisible ->
                 val totalItems = gState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getAllMedicinesByStoreId(warehouseId = 2,search=viewModel.searchQuery.value)
+                    viewModel.getAllMedicinesByStoreId(warehouseId = warehouseId, search=viewModel.searchQuery.value)
                 }
             }
     }
@@ -113,7 +119,13 @@ fun StoreScreen(
                 is Response.Success -> {
                     val list = (uiState as Response.Success<List<WarehouseMedicines>>).data
                     items(list) {
-                        MedicineCard(obj = it)
+                        MedicineCard(
+                            obj = it,
+                            onClick = {
+                                viewModel.addToCart(warehouseId, it.medicineId)
+                            },
+                            enabled = loadingItemId != it.medicineId
+                        )
                     }
                 }
 

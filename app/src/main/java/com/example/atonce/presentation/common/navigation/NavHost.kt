@@ -102,6 +102,7 @@ fun SetUpNavHost(
             val warehouseId = it.toRoute<ScreenRoute.StoreScreen>().warehouseId
             StoreScreen(
                 warehouseId = warehouseId,
+                snackbarHostState = snackbarState,
                 modifier =paddingValues,
                 onBackClick = {
                     navController.popBackStack()
