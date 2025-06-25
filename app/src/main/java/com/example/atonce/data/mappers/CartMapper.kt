@@ -22,11 +22,11 @@ fun CartWarehouseDto.toEntity(): CartWarehouseEntity {
     return CartWarehouseEntity(
         warehouseId = warehouseId,
         warehouseUrl = warehouseUrl,
-        warehouseName = "Warehouse #$warehouseId",
-        minimumPrice = 1000.0,
+        warehouseName = name,
+        minimumPrice = minWarehousePriceInPharmacyArea,
         totalQuantity = items.sumOf { it.quantity },
-        totalPriceBeforeDiscount = items.sumOf { it.priceBeforeDiscount },
-        totalPriceAfterDiscount = items.sumOf { it.priceAfterDiscount },
+        totalPriceBeforeDiscount = items.sumOf { it.priceBeforeDiscount * it.quantity } ,
+        totalPriceAfterDiscount = items.sumOf { it.priceAfterDiscount * it.quantity } ,
         items = items.map { it.toEntity() }
     )
 }
