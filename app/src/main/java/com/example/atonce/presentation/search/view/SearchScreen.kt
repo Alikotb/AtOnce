@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.search.view
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,10 +28,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.Medicine
+import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
-import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.search.view.component.ModelSheet
 import com.example.atonce.presentation.search.view.component.SearchCard
 import com.example.atonce.presentation.search.view.component.ShimmerSearchCard
@@ -40,7 +40,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewModel()) {
+fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, viewModel: SearchViewModel = koinViewModel()) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -55,9 +55,15 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
     val currentLanguage by viewModel.currentLanguage
     val listState = rememberLazyListState()
 
+    val isLoading by viewModel.isLoadingState.collectAsStateWithLifecycle()
+
     LaunchedEffect(Unit) {
         viewModel.getMedicinesByArea(3, search = "")
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
     }
+
     LaunchedEffect(listState, searchText) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
@@ -111,7 +117,14 @@ fun SearchScreen(modifier: PaddingValues, viewModel: SearchViewModel = koinViewM
                     items(medicines) { medicine ->
                         SearchCard(
                             medicine = medicine,
+                            btnEnabled = !isLoading,
                             language = currentLanguage,
+                            onCartClick = {
+                                viewModel.addToCart(
+                                    medicine.warehouseIdOfMaxDiscount,
+                                    medicine.medicineId
+                                )
+                            },
                             onSuppliersClick = {
                                 selectedMedicine = it
                                 showBottomSheet = true

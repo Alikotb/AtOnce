@@ -1,4 +1,4 @@
-package com.example.atonce.presentation.cart.veiw.components
+package com.example.atonce.presentation.cart.view.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.atonce.presentation.cart.veiw.Store
+import com.example.atonce.domain.entity.CartWarehouseEntity
 import com.example.atonce.presentation.common.theme.MediumFont
 
 @Composable
 fun StoreTabs(
-    stores: List<Store>,
+    stores: List<CartWarehouseEntity>,
     selectedIndex: Int,
     onTabSelected: (Int) -> Unit
 ) {
@@ -37,7 +37,7 @@ fun StoreTabs(
                 onClick = { onTabSelected(index) },
                 text = {
                     Text(
-                        store.name,
+                        store.warehouseName ?: "store ${store.warehouseId}",
                         fontFamily = MediumFont,
                         fontSize = 14.sp
                     )

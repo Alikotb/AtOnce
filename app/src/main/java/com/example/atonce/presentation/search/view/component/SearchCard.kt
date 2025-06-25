@@ -40,6 +40,7 @@ import com.example.atonce.presentation.common.component.CustomCartBtn
 @Composable
 fun SearchCard(medicine: Medicine,
                language: String,
+               btnEnabled: Boolean = true,
                onCartClick: () -> Unit = {},
                onSuppliersClick: (Medicine) -> Unit = {}) {
     val colors = MaterialTheme.colorScheme
@@ -119,6 +120,7 @@ fun SearchCard(medicine: Medicine,
 
                 CustomCartBtn(
                     color = colors.primary,
+                    enabled = btnEnabled,
                     onClick = {
                     onCartClick()
                 })

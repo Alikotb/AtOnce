@@ -16,6 +16,8 @@ data class CartDataDto(
 data class CartWarehouseDto(
     val warehouseId: Int,
     val warehouseUrl: String?,
+    val name : String,
+    val minWarehousePriceInPharmacyArea : Double,
     val items: List<CartItemDto>
 )
 
