@@ -71,4 +71,10 @@
     <string name="welcome_back">مرحبا بك !</string>
     <string name="please_check_your_internet_connection">"يرجى التحقق من اتصالك بالإنترنت</string>
     <string name="no_orders_yet_add_some_orders_to_your_cart">لا توجد طلبات بعد!\nأضف بعض الطلبات إلى سلة التسوق.</string>
+
+    <string name="delete">حذف</string>
+    <string name="cancel">إلغاء</string>
+    <string name="are_you_sure_you_want_to_delete_this_item">هل أنت متأكد أنك تريد حذف هذا العنصر؟</string>
+    <string name="delete_item">حذف العنصر</string>
+
 </resources>
