@@ -77,7 +77,7 @@ fun BottomSheetCard(
                     painter = painterResource(R.drawable.pharmacy),
                     contentDescription = "Medicine name",
                     modifier = Modifier
-                        .size(85.dp)
+                        .size(80.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.FillBounds
                 )
