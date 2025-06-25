@@ -3,6 +3,7 @@ package com.example.atonce.presentation.profile.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,6 +28,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,11 +39,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.common.theme.DarkWhiteColor
+import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.profile.view.component.DetailsRow
 import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.koinViewModel
 
 @Preview(showBackground = true)
@@ -56,6 +61,16 @@ fun ProfileDetails(
     val screenHeight = config.screenHeightDp
     val user = viewModel.userData
     Column {
+        val darkTheme = isSystemInDarkTheme()
+        val systemUiController = rememberSystemUiController()
+
+        SideEffect {
+            systemUiController.setStatusBarColor(
+                color = if (darkTheme) colors.onSecondary else PrimaryColor,
+                darkIcons = false
+            )
+        }
+
         Box(
             modifier = Modifier
                 .background(colors.onSecondary)
@@ -108,7 +123,7 @@ fun ProfileDetails(
                 ) {
                     Text(
                         text = user.userName,
-                        fontFamily = RegularFont,
+                        fontFamily = SemiBoldFont,
                         fontSize = 16.sp,
                         color = colors.primary,
                         modifier = Modifier
