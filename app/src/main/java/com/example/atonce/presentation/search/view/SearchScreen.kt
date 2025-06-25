@@ -40,7 +40,11 @@ import org.koin.androidx.compose.koinViewModel
 
 @ExperimentalMaterial3Api
 @Composable
-fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, viewModel: SearchViewModel = koinViewModel()) {
+fun SearchScreen(
+    modifier: PaddingValues,
+    snackbarHostState: SnackbarHostState,
+    viewModel: SearchViewModel = koinViewModel())
+{
     var showBottomSheet by remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -58,7 +62,7 @@ fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, 
     val isLoading by viewModel.loadingItemId.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.getMedicinesByArea(3, search = "")
+        viewModel.getMedicinesByArea(areaId, search = "")
         viewModel.message.collect { message ->
             snackbarHostState.showSnackbar(message)
         }
@@ -69,7 +73,7 @@ fun SearchScreen(modifier: PaddingValues, snackbarHostState: SnackbarHostState, 
             .collect { lastVisible ->
                 val totalItems = listState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getMedicinesByArea(areaId = 3, search = viewModel.searchQuery.value)
+                    viewModel.getMedicinesByArea(areaId = areaId, search = viewModel.searchQuery.value)
                 }
             }
     }

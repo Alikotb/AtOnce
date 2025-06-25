@@ -1,6 +1,7 @@
 package com.example.atonce.presentation.store.model
 
 data class WarehouseMedicines(
+    val medicineId: Int,
     val arabicMedicineName: String,
     val type: Int,
     val englishMedicineName: String,
