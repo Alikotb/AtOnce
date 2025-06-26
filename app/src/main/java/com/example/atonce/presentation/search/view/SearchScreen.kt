@@ -52,7 +52,6 @@ fun SearchScreen(
     var showBottomSheet by remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
-    var filterSearch by remember { mutableStateOf("") }
 
     var selectedMedicine by remember { mutableStateOf<Medicine?>(null) }
     val areaId by viewModel.areaId
@@ -65,20 +64,21 @@ fun SearchScreen(
 
     val isLoading by viewModel.loadingItemId.collectAsStateWithLifecycle()
     val isPaginationLoading = viewModel.isPaginationLoading.collectAsStateWithLifecycle()
+    val selectedType by viewModel.selectedType.collectAsStateWithLifecycle()
+
 
     LaunchedEffect(Unit) {
-        viewModel.getMedicinesByArea(areaId, search = "")
         viewModel.message.collect { message ->
             snackbarHostState.showSnackbar(message)
         }
     }
 
-    LaunchedEffect(listState, searchText) {
+    LaunchedEffect(listState, searchText, selectedType) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
                 val totalItems = listState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getMedicinesByArea(areaId = areaId, search = viewModel.searchQuery.value)
+                    viewModel.getMedicinesByArea(areaId = areaId, type = selectedType, search = viewModel.searchQuery.value)
                 }
             }
     }
@@ -101,10 +101,9 @@ fun SearchScreen(
             },
             listOfFiltration = listOf(stringResource(R.string.drug), stringResource(R.string.cosmetic)),
             onFilterClick = {
-                filterSearch = it
                 when (it) {
-                    context.getString(R.string.drug)-> viewModel.setSelectedType(1)
-                    context.getString(R.string.cosmetic) -> viewModel.setSelectedType(2)
+                    context.getString(R.string.drug)-> viewModel.setSelectedType(0)
+                    context.getString(R.string.cosmetic) -> viewModel.setSelectedType(1)
                     else -> viewModel.setSelectedType(-1)
                 }
             }
