@@ -62,6 +62,9 @@ class SearchViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
+    private val _selectedType = MutableStateFlow(-1)
+    val selectedType = _selectedType.asStateFlow()
+
     init {
         getLanguage()
         viewModelScope.launch {
@@ -70,13 +73,19 @@ class SearchViewModel(
                 .distinctUntilChanged()
                 .collectLatest { query ->
                     resetPagination()
-                    getMedicinesByArea(getPharmacyUseCase().areaId!!, query)
+                    getMedicinesByArea(getPharmacyUseCase().areaId!!,_selectedType.value, query)
                 }
         }
     }
 
     fun onSearchChanged(query: String) {
         _searchQuery.value = query
+    }
+
+    fun setSelectedType(type: Int) {
+        _selectedType.value = type
+        resetPagination()
+        getMedicinesByArea(getPharmacyUseCase().areaId!!, type, _searchQuery.value)
     }
 
     val handler = CoroutineExceptionHandler { _, exception ->

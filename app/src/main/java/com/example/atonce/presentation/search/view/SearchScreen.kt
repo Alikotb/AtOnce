@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -46,6 +47,8 @@ fun SearchScreen(
     snackbarHostState: SnackbarHostState,
     viewModel: SearchViewModel = koinViewModel())
 {
+    val context = LocalContext.current
+
     var showBottomSheet by remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
@@ -99,8 +102,12 @@ fun SearchScreen(
             listOfFiltration = listOf(stringResource(R.string.drug), stringResource(R.string.cosmetic)),
             onFilterClick = {
                 filterSearch = it
+                when (it) {
+                    context.getString(R.string.drug)-> viewModel.setSelectedType(1)
+                    context.getString(R.string.cosmetic) -> viewModel.setSelectedType(2)
+                    else -> viewModel.setSelectedType(-1)
+                }
             }
-
         )
 
         LazyColumn(
