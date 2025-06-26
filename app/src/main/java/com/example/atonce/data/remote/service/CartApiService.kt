@@ -1,5 +1,6 @@
 package com.example.atonce.data.remote.service
 
+import com.example.atonce.data.remote.dto.PlaceOrderResponse
 import com.example.atonce.data.remote.dto.cart.AddToCartRequestDto
 import com.example.atonce.data.remote.dto.cart.AddToCartResponseDto
 import com.example.atonce.data.remote.dto.cart.CartResponseDto
@@ -39,6 +40,12 @@ interface CartApiService {
         @Query("warehouseId") warehouseId: Int,
         @Query("medicineId") medicineId: Int,
     ): DeleteFromCartResponse
+
+    @POST("api/Cart/place-order")
+    suspend fun placeOrder(
+        @Query("pharmacyId") pharmacyId: Int,
+        @Query("warehouseId") warehouseId: Int,
+    ):PlaceOrderResponse
 
 
 }
