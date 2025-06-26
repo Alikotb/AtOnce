@@ -5,11 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
+import com.example.atonce.data.remote.dto.PlaceOrderResponse
 import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.domain.entity.CartWarehouseEntity
 import com.example.atonce.domain.usecase.DeleteFromCartUseCase
 import com.example.atonce.domain.usecase.GetCartDetailsByIdUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
+import com.example.atonce.domain.usecase.PlaceOrderUseCase
 import com.example.atonce.domain.usecase.UpdateCartUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -18,13 +20,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CartViewModel(
     private val getCartDetailsByIdUseCase: GetCartDetailsByIdUseCase,
     private val getPharmacyUseCase: GetPharmacyUseCase,
     private val deleteFromCartUseCase: DeleteFromCartUseCase,
     private val updateCartUseCase: UpdateCartUseCase,
-
+    private val placeOrderUseCase: PlaceOrderUseCase
     ) : ViewModel()  {
 
     private val _cartItems = MutableStateFlow<Response<List<CartWarehouseEntity>>>(Response.Loading)
@@ -117,5 +120,30 @@ class CartViewModel(
         }
     }
 
+    private suspend fun placeOrder(wareHouseId: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                var result = false
+                placeOrderUseCase(wareHouseId, getPharmacyUseCase().id ?: 0).collect { res: PlaceOrderResponse ->
+                    _message.emit("order done successfully")
+                    result = res.success
+                }
+                result
+            } catch (e: Exception) {
+                _message.emit(e.message ?: "can't update cart")
+                false
+            }
+        }
+    }
+
+    fun placeCartAndRefresh(wareHouseId:Int) {
+        viewModelScope.launch {
+            _isUpdated.emit(false)
+            val success = placeOrder(wareHouseId)
+            if (success) getCartDetails()
+            _isUpdated.emit(true)
+
+        }
+    }
 
 }
