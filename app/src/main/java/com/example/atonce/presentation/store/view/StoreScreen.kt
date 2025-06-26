@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.atonce.core.enums.FilterOptions
 import com.example.atonce.data.remote.Response
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
@@ -54,21 +55,26 @@ fun StoreScreen(
     val gState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
-        viewModel.getAllMedicinesByStoreId(warehouseId = warehouseId,searchText)
         viewModel.message.collect { message ->
             snackbarHostState.showSnackbar(message)
         }
     }
+
 
     LaunchedEffect(gState) {
         snapshotFlow { gState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { lastVisible ->
                 val totalItems = gState.layoutInfo.totalItemsCount
                 if (lastVisible == totalItems - 1) {
-                    viewModel.getAllMedicinesByStoreId(warehouseId = warehouseId, search=viewModel.searchQuery.value)
+                    viewModel.getAllMedicinesByStoreId(
+                        warehouseId = warehouseId,
+                        search = viewModel.searchQuery.value,
+                        type = viewModel.filterType.value
+                    )
                 }
             }
     }
+
 
 
     Column(
@@ -92,8 +98,10 @@ fun StoreScreen(
                 viewModel.onSearchChanged(it)
             },
             onFilterClick = {
-                filterSearch = it
-            }
+                filterSearch = FilterOptions.geValue(it)
+                viewModel.onFilterChanged(filterSearch)
+            },
+            listOfFiltration = FilterOptions.getAllLocalizedNames()
 
         )
 

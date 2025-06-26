@@ -21,7 +21,8 @@ interface WarehouseApiService {
         @Path("warehouseId") warehouseId: Int,
         @Query("page") pageNum: Int,
         @Query("pageSize") pageSize: Int,
-        @Query("search") search: String
+        @Query("search") search: String,
+        @Query("type") type: String
     ): WarehouseMedicinesDto
 
     @GET("api/warehouse/area/{areaId}/medicine/{medicineId}")

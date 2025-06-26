@@ -25,9 +25,10 @@ class WarehouseRepositoryImpl(private val remoteDataSource: RemoteDataSource) :
         warehouseId: Int,
         pageNum: Int,
         pageSize: Int,
-        search: String
+        search: String,
+        type: String
     ): Flow<WarehouseMedicinesDto> {
-        return remoteDataSource.getAllMedicinesByWarehousesId(warehouseId, pageNum, pageSize,search)
+        return remoteDataSource.getAllMedicinesByWarehousesId(warehouseId, pageNum, pageSize,search, type = type)
     }
 
     override suspend fun getAllSuppliersByAreaAndMedicine(

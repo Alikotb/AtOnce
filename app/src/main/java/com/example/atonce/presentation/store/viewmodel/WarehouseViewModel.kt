@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -40,6 +41,10 @@ class WarehouseViewModel(
     private val _loadingItemId = MutableStateFlow<Int?>(null)
     val loadingItemId = _loadingItemId.asStateFlow()
 
+    private val _filterType = MutableStateFlow("")
+    val filterType = _filterType.asStateFlow()
+
+
     private var currentPage = 1
     private var pageSize = 10
     private var isLastPage = false
@@ -48,21 +53,23 @@ class WarehouseViewModel(
 
     init {
         viewModelScope.launch {
-            _searchQuery
-                .debounce(500)
-                .distinctUntilChanged()
-                .collectLatest { query ->
+            combine(_searchQuery.debounce(500), _filterType) { search, filter ->
+                search to filter
+            }.distinctUntilChanged()
+                .collectLatest { (search, filter) ->
                     resetPagination()
-                    getAllMedicinesByStoreId(2, query)
+                    getAllMedicinesByStoreId(2, search, filter)
                 }
         }
     }
-
+    fun onFilterChanged(type: String) {
+        _filterType.value = type
+    }
     fun onSearchChanged(query: String) {
         _searchQuery.value = query
     }
 
-    fun getAllMedicinesByStoreId(warehouseId: Int,search: String) {
+    fun getAllMedicinesByStoreId(warehouseId: Int, search: String, type: String) {
         if (isLoading || isLastPage) return
         isLoading = true
 
@@ -71,28 +78,61 @@ class WarehouseViewModel(
                 warehouseId = warehouseId,
                 pageNum = currentPage,
                 pageSize = pageSize,
-                search=search
-            )
-                .catch {
-                    _uiState.value = Response.Error("")
-                    isLoading = false
-                }.collect { result: WarehouseMedicinesDto ->
-                    val items = result.items.map { it.toEntity() }
-                    fullList.addAll(items)
-                    val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
-                    val newList = currentItems + items
+                search = search,
+                type = type
+            ).catch {
+                _uiState.value = Response.Error("")
+                isLoading = false
+            }.collect { result: WarehouseMedicinesDto ->
+                val items = result.items.map { it.toEntity() }
+                fullList.addAll(items)
+                val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
+                val newList = currentItems + items
 
-                    _uiState.value = Response.Success(newList)
-                    if (items.size < pageSize) {
-                        isLastPage = true
-                    } else {
-                        currentPage++
-                    }
-                    isLoading = false
+                _uiState.value = Response.Success(newList)
+                if (items.size < pageSize) {
+                    isLastPage = true
+                } else {
+                    currentPage++
                 }
+                isLoading = false
+            }
         }
-
     }
+
+
+//    fun getAllMedicinesByStoreId(warehouseId: Int,search: String,type: String) {
+//        if (isLoading || isLastPage) return
+//        isLoading = true
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//            getAllMedicinesByWarehousesId(
+//                warehouseId = warehouseId,
+//                pageNum = currentPage,
+//                pageSize = pageSize,
+//                search=search,
+//                type = ""
+//            )
+//                .catch {
+//                    _uiState.value = Response.Error("")
+//                    isLoading = false
+//                }.collect { result: WarehouseMedicinesDto ->
+//                    val items = result.items.map { it.toEntity() }
+//                    fullList.addAll(items)
+//                    val currentItems = (_uiState.value as? Response.Success)?.data.orEmpty()
+//                    val newList = currentItems + items
+//
+//                    _uiState.value = Response.Success(newList)
+//                    if (items.size < pageSize) {
+//                        isLastPage = true
+//                    } else {
+//                        currentPage++
+//                    }
+//                    isLoading = false
+//                }
+//        }
+//
+//    }
 
     fun addToCart(warehouseId: Int, medicineId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
