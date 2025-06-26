@@ -9,6 +9,7 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4::class)
@@ -68,4 +69,21 @@ class CartApiServiceTest : KoinTest {
             assertEquals(response.data, true)
         }
     }
+
+    @Test
+    fun getCartWithId() {
+        runBlocking {
+            //given
+            val pharmacyId = 45
+
+            //when
+            val response = apiService.getCartItems(pharmacyId)
+
+            //then
+            assertNotNull(response.success)
+            assertNotNull(response.message)
+        }
+    }
+
+
 }
