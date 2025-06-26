@@ -62,7 +62,7 @@ class SearchViewModel(
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
 
-    private val _selectedType = MutableStateFlow(-1)
+    private val _selectedType = MutableStateFlow("")
     val selectedType = _selectedType.asStateFlow()
 
     init {
@@ -82,7 +82,7 @@ class SearchViewModel(
         _searchQuery.value = query
     }
 
-    fun setSelectedType(type: Int) {
+    fun setSelectedType(type: String) {
         _selectedType.value = type
         resetPagination()
         getMedicinesByArea(getPharmacyUseCase().areaId!!, type, _searchQuery.value)
@@ -92,7 +92,7 @@ class SearchViewModel(
 
     }
 
-    fun getMedicinesByArea(areaId: Int, type: Int = -1, search: String) {
+    fun getMedicinesByArea(areaId: Int, type: String = "", search: String) {
         if (isLoading || isLastPage) return
         isLoading = true
         _isPaginationLoading.value = true

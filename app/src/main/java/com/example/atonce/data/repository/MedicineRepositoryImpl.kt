@@ -15,7 +15,7 @@ class MedicineRepositoryImpl(
         areaId: Int,
         page: Int,
         pageSize: Int,
-        type: Int,
+        type: String,
         search: String): Flow<List<Medicine>> {
         return flowOf(service.searchMedicinesByNameAndArea(areaId,
             page,

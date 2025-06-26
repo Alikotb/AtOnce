@@ -102,9 +102,9 @@ fun SearchScreen(
             listOfFiltration = listOf(stringResource(R.string.drug), stringResource(R.string.cosmetic)),
             onFilterClick = {
                 when (it) {
-                    context.getString(R.string.drug)-> viewModel.setSelectedType(0)
-                    context.getString(R.string.cosmetic) -> viewModel.setSelectedType(1)
-                    else -> viewModel.setSelectedType(-1)
+                    context.getString(R.string.drug)-> viewModel.setSelectedType("0")
+                    context.getString(R.string.cosmetic) -> viewModel.setSelectedType("1")
+                    else -> viewModel.setSelectedType("")
                 }
             }
         )
