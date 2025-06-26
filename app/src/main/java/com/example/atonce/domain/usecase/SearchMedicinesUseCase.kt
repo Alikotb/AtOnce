@@ -7,5 +7,6 @@ class SearchMedicinesUseCase(private val repo: MedicineRepository) {
         areaId: Int,
         page: Int,
         pageSize: Int,
-        search: String) = repo.searchMedicinesByNameAndArea(areaId, page, pageSize, search)
+        type: Int,
+        search: String) = repo.searchMedicinesByNameAndArea(areaId, page, pageSize, type, search)
 }
