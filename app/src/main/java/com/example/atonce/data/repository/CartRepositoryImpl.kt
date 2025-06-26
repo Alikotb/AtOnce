@@ -3,6 +3,7 @@ package com.example.atonce.data.repository
 import com.example.atonce.data.mappers.toDto
 import com.example.atonce.data.remote.dto.cart.UpdateCartResponse
 import com.example.atonce.data.mappers.toEntity
+import com.example.atonce.data.remote.dto.PlaceOrderResponse
 import com.example.atonce.data.remote.service.CartApiService
 import com.example.atonce.domain.entity.AddToCartParams
 import com.example.atonce.domain.entity.AddToCartResult
@@ -40,6 +41,7 @@ class CartRepositoryImpl(
             apiService.deleteFromCart(pharmacyId = pharmacyId, warehouseId = wareHouseId, medicineId = medicineId).toEntity()
         )
     }
+    override suspend fun placeOrder( pharmacyId: Int, warehouseId: Int)=flowOf(apiService.placeOrder(pharmacyId,warehouseId))
 
 
 }
