@@ -13,6 +13,7 @@ import com.example.atonce.presentation.search.model.AddToCartUiModel
 import com.example.atonce.presentation.search.model.toEntity
 import com.example.atonce.presentation.store.model.WarehouseMedicines
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
+@FlowPreview
 class WarehouseViewModel(
     private val getAllMedicinesByWarehousesId: GetAllMedicinesByWarehousesId,
     private val addToCartUseCase: AddToCartUseCase,
