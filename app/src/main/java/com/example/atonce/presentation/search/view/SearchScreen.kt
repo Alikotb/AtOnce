@@ -52,6 +52,8 @@ fun SearchScreen(
     var showBottomSheet by remember { mutableStateOf(false) }
     val expanded = remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf("") }
+    val selectedOption = remember { mutableStateOf(context.getString(R.string.all)) }
+
 
     var selectedMedicine by remember { mutableStateOf<Medicine?>(null) }
     val areaId by viewModel.areaId
@@ -98,14 +100,19 @@ fun SearchScreen(
             expanded = expanded, onSearch = {
                 viewModel.onSearchChanged(it)
             },
-            listOfFiltration = listOf(stringResource(R.string.drug), stringResource(R.string.cosmetic)),
+            listOfFiltration = listOf(
+                stringResource(R.string.all),
+                stringResource(R.string.drug),
+                stringResource(R.string.cosmetic)
+            ),
             onFilterClick = {
                 when (it) {
-                    context.getString(R.string.drug)-> viewModel.setSelectedType("0")
+                    context.getString(R.string.drug) -> viewModel.setSelectedType("0")
                     context.getString(R.string.cosmetic) -> viewModel.setSelectedType("1")
                     else -> viewModel.setSelectedType("")
                 }
-            }
+            },
+            selectedOption = selectedOption
         )
 
         LazyColumn(

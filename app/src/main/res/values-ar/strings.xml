@@ -79,5 +79,6 @@
     <string name="delete_item">حذف العنصر</string>
     <string name="cosmetic">مستحضر تجميلي</string>
     <string name="drug">دواء</string>
+    <string name="all">الكل</string>
 
 </resources>

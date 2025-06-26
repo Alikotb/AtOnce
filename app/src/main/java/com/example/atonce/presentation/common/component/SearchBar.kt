@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.DropdownMenu
@@ -32,6 +34,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
 
@@ -74,7 +77,13 @@ fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
 }
 
 @Composable
-fun SearchComponent(expanded: MutableState<Boolean>, onFilterClick : (String) -> Unit ={}, onSearch : (String) -> Unit ={}, listOfFiltration: List<String> = listOf("Option 1", "Option 2")){
+fun SearchComponent(
+    expanded: MutableState<Boolean>,
+    selectedOption: MutableState<String> = mutableStateOf(""),
+    onFilterClick : (String) -> Unit ={},
+    onSearch : (String) -> Unit ={},
+    listOfFiltration: List<String> = listOf("Option 1", "Option 2")
+){
     Row {
         MySearchBar(
             modifier = Modifier
@@ -105,10 +114,14 @@ fun SearchComponent(expanded: MutableState<Boolean>, onFilterClick : (String) ->
                         text = { Text(
                             option,
                             fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = if (selectedOption.value == option)
+                                PrimaryColor
+                            else
+                                MaterialTheme.colorScheme.onBackground
                         )},
                         onClick = {
                             expanded.value = false
+                            selectedOption.value = option
                             onFilterClick(option)
                         }
                     )

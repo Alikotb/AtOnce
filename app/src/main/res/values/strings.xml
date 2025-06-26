@@ -79,4 +79,5 @@
     <string name="delete_item">Delete Item</string>
     <string name="cosmetic">Cosmetic</string>
     <string name="drug">Drug</string>
+    <string name="all">all</string>
 </resources>
