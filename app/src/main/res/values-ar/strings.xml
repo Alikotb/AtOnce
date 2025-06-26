@@ -12,7 +12,7 @@
     <string name="price">"السعر : "</string>
     <string name="egp">" جنيه"</string>
     <string name="add_to_cart">أضف إلى السلة !!</string>
-    <string name="search_screen">شاشة البحث</string>
+    <string name="search_screen">المنتجات</string>
     <string name="all_suppliers">جميع المورّدين</string>
     <string name="search_for_medecin">ابحث عن دواء</string>
     <string name="ordered">تم الطلب</string>
@@ -25,8 +25,8 @@
     <string name="pm">م</string>
     <string name="total">"الإجمالي : "</string>
     <string name="items">" عناصر"</string>
-    <string name="orders_screen">شاشة الطلبات</string>
-    <string name="home_screen">الشاشة الرئيسية</string>
+    <string name="orders_screen">" الطلبات"</string>
+    <string name="home_screen">الصفحه الرئيسية</string>
     <string name="warehouses_nearby">المخازن القريبة</string>
     <string name="min">"الحد الأدنى: "</string>
     <string name="profile">الملف الشخصي</string>
