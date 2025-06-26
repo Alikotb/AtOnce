@@ -18,8 +18,8 @@ class RemoteDataSourceImpl(
     ): Flow<List<WarehouseDto>> {
         return flowOf(apiService.getAllWarehousesByArea(areaId, page, pageSize, search).items)
     }
-    override  suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int,search: String): Flow<WarehouseMedicinesDto>{
-        return flowOf(apiService.getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageNum = pageNum,pageSize=pageSize, search = search))
+    override  suspend fun getAllMedicinesByWarehousesId(warehouseId: Int, pageNum: Int, pageSize: Int,search: String,type: String): Flow<WarehouseMedicinesDto>{
+        return flowOf(apiService.getAllMedicinesByWarehousesId(warehouseId = warehouseId, pageNum = pageNum,pageSize=pageSize, search = search, type = type))
     }
 
     override suspend fun getAllSuppliersByAreaAndMedicine(
