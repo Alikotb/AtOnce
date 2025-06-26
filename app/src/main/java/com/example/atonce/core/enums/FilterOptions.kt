@@ -20,6 +20,13 @@ enum class FilterOptions(val arabic: String, val english: String, val value: Str
             }
         }
 
+        fun getName(value: String): String {
+            val lang = Locale.getDefault().language
+            return when (lang) {
+                "ar" -> entries.find { it.value == value }?.arabic ?: ALL.arabic
+                else -> entries.find { it.value == value }?.english ?: ALL.english
+            }
+        }
         fun getAllLocalizedNames(): List<String> {
             return entries.map { it.getLocalizedName() }
         }

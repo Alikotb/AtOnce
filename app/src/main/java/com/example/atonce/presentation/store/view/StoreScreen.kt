@@ -32,9 +32,11 @@ import com.example.atonce.presentation.store.model.WarehouseMedicines
 import com.example.atonce.presentation.store.view.component.MedicineCard
 import com.example.atonce.presentation.store.view.component.MedicineCardShimmer
 import com.example.atonce.presentation.store.viewmodel.WarehouseViewModel
+import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.compose.koinViewModel
 
 
+@FlowPreview
 @Composable
 fun StoreScreen(
     warehouseId: Int,
@@ -101,7 +103,8 @@ fun StoreScreen(
                 filterSearch = FilterOptions.geValue(it)
                 viewModel.onFilterChanged(filterSearch)
             },
-            listOfFiltration = FilterOptions.getAllLocalizedNames()
+            listOfFiltration = FilterOptions.getAllLocalizedNames(),
+            selectedOption = remember { mutableStateOf(FilterOptions.getName(filterSearch)) }
 
         )
 
