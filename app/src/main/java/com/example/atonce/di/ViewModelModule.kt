@@ -20,6 +20,6 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get() , get(), get(), get(), get()) }
     viewModel { ProfileViewModel(get(),get(),get()) }
     viewModel { SplashViewModel(get()) }
-    viewModel { CartViewModel(get(),get(),get(),get()) }
+    viewModel { CartViewModel(get(),get(),get(),get(),get()) }
 
 }

@@ -13,6 +13,7 @@ import com.example.atonce.domain.usecase.GetLanguageUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.IsLoggedInUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
+import com.example.atonce.domain.usecase.PlaceOrderUseCase
 import com.example.atonce.domain.usecase.RegisterUseCase
 import com.example.atonce.domain.usecase.SaveLanguageUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
@@ -47,4 +48,5 @@ val useCaseModule = module {
     factory { AddToCartUseCase(get()) }
 
     factory { DeleteFromCartUseCase(get()) }
+    factory { PlaceOrderUseCase(get()) }
 }
