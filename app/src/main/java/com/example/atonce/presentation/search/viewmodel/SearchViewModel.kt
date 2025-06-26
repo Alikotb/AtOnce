@@ -14,6 +14,7 @@ import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
 import com.example.atonce.presentation.search.model.AddToCartUiModel
 import com.example.atonce.presentation.search.model.toEntity
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,6 +42,9 @@ class SearchViewModel(
     private val _currentLanguage = mutableStateOf("")
     val currentLanguage = _currentLanguage
 
+    private val _areaId = mutableStateOf(getPharmacyUseCase().areaId!!)
+    val areaId = _areaId
+
     private val _message = MutableSharedFlow<String>()
     val message = _message.asSharedFlow()
 
@@ -66,7 +70,7 @@ class SearchViewModel(
                 .distinctUntilChanged()
                 .collectLatest { query ->
                     resetPagination()
-                    getMedicinesByArea(3, query)
+                    getMedicinesByArea(getPharmacyUseCase().areaId!!, query)
                 }
         }
     }
@@ -75,13 +79,17 @@ class SearchViewModel(
         _searchQuery.value = query
     }
 
-    fun getMedicinesByArea(areaId: Int, search: String) {
+    val handler = CoroutineExceptionHandler { _, exception ->
+
+    }
+
+    fun getMedicinesByArea(areaId: Int, type: Int = -1, search: String) {
         if (isLoading || isLastPage) return
         isLoading = true
         _isPaginationLoading.value = true
 
-        viewModelScope.launch(Dispatchers.IO) {
-            searchMedicinesUseCase(areaId, currentPage, pageSize, search)
+        viewModelScope.launch(Dispatchers.IO + handler) {
+            searchMedicinesUseCase(areaId, currentPage, pageSize, type, search)
                 .catch { e ->
                     _uiState.value = Response.Error("")
                     isLoading = false
@@ -109,7 +117,7 @@ class SearchViewModel(
     }
 
     fun getAllSuppliers(medicineId: Int, areaId: Int){
-        viewModelScope.launch (Dispatchers.IO){
+        viewModelScope.launch (Dispatchers.IO + handler){
             getAllSuppliersByAreaIdAndMedicine(areaId, medicineId)
                 .catch { e ->
                     _uiStateSuppliers.value = Response.Error(e.message.toString())
@@ -129,7 +137,7 @@ class SearchViewModel(
     }
 
     fun addToCart(warehouseId: Int, medicineId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + handler) {
             _loadingItemId.value = Pair(warehouseId,medicineId)
             val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().id!!, medicineId = medicineId, quantity = 1).toEntity())
             _loadingItemId.value = null

@@ -11,6 +11,7 @@ interface MedicineApiService {
         @Path("areaId") areaId: Int,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int,
+        @Query("type") type: Int,
         @Query("search") search: String
     ) : MedicineSearchResponseDto
 }

@@ -52,7 +52,7 @@ fun SearchScreen(
     var filterSearch by remember { mutableStateOf("") }
 
     var selectedMedicine by remember { mutableStateOf<Medicine?>(null) }
-    var areaId by remember { mutableStateOf(3) }
+    val areaId by viewModel.areaId
 
     val colors = MaterialTheme.colorScheme
 
@@ -96,6 +96,7 @@ fun SearchScreen(
             expanded = expanded, onSearch = {
                 viewModel.onSearchChanged(it)
             },
+            listOfFiltration = listOf(stringResource(R.string.drug), stringResource(R.string.cosmetic)),
             onFilterClick = {
                 filterSearch = it
             }

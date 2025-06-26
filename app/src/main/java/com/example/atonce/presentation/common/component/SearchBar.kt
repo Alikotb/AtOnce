@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.common.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -66,7 +68,6 @@ fun MySearchBar(modifier: Modifier, onValueChange : (String)-> Unit={}){
             unfocusedIndicatorColor = Color.Transparent,
             focusedTextColor = colors.onBackground,
             unfocusedTextColor = colors.onBackground
-
         )
 
     )
@@ -94,11 +95,18 @@ fun SearchComponent(expanded: MutableState<Boolean>, onFilterClick : (String) ->
             )
             DropdownMenu(
                 expanded = expanded.value,
-                onDismissRequest = { expanded.value = false }
+                onDismissRequest = { expanded.value = false },
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .clip(RoundedCornerShape(12.dp))
             ) {
                 listOfFiltration.forEach { option ->
                     DropdownMenuItem(
-                        text = { Text(option) },
+                        text = { Text(
+                            option,
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )},
                         onClick = {
                             expanded.value = false
                             onFilterClick(option)

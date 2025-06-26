@@ -15,10 +15,12 @@ class MedicineRepositoryImpl(
         areaId: Int,
         page: Int,
         pageSize: Int,
+        type: Int,
         search: String): Flow<List<Medicine>> {
         return flowOf(service.searchMedicinesByNameAndArea(areaId,
             page,
             pageSize,
+            type,
             search).items.map {
                 it.toEntity()
             })
