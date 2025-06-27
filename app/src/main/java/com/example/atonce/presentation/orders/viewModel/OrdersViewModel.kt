@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.orders.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
@@ -31,11 +32,13 @@ class OrdersViewModel(
     private val userData = getPharmacyUseCase()
 
     val errorExpectionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
         _orders.value = Response.Error(ErrorMessagesEnum.NETWORKERROR.getLocalizedMessage())
         isLoading = false
     }
 
-    fun getOrdersByStatus(pharmacyID: Int = userData.id ?: 0 , status: Int, pageSize: Int = 15) {
+    fun getOrdersByStatus(pharmacyID: Int = userData.id ?: 0, status: Int, pageSize: Int = 15) {
+        Log.d("TAG1", "getOrdersByStatus: $pharmacyID $status")
         if (isLoading || currentPage > totalPages) return
 
         isLoading = true
@@ -45,19 +48,21 @@ class OrdersViewModel(
             getOrdersUseCase(pharmacyID, status, currentPage, pageSize)
                 .collect { response ->
 
-                totalPages = response.totalPages
+                    totalPages = response.totalPages
 
-                if (currentPage == 1) {
-                    loadedOrders.clear()
+                    if (currentPage == 1) {
+                        loadedOrders.clear()
+                    }
+
+                    loadedOrders.addAll(response.items)
+
+                    _orders.value = Response.Success(loadedOrders.toList())
+
+                    Log.d("TAG1", "getOrdersByStatus: $loadedOrders")
+
+                    currentPage++
+                    isLoading = false
                 }
-
-                loadedOrders.addAll(response.items)
-
-                _orders.value = Response.Success(loadedOrders.toList())
-
-                currentPage++
-                isLoading = false
-            }
         }
     }
 

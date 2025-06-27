@@ -27,7 +27,7 @@ data class OrderDto(
 data class OrderDetailsDto(
     val arabicMedicineName: String,
     val discountAmount: Double,
-    val discountPercentage: Int,
+    val discountPercentage: Double,
     val medicineImage: String,
     val medicineName: String,
     val medicinePrice: Double,

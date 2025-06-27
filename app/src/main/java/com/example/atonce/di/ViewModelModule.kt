@@ -22,7 +22,7 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get(),get(),get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { CartViewModel(get(),get(),get(),get(),get()) }
-    viewModel { OrdersViewModel(get()) }
+    viewModel { OrdersViewModel(get() , get()) }
 
 
 }
