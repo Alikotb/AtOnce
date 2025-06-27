@@ -27,11 +27,11 @@ class ForgotPasswordViewModel(
         _uiState.value = ForgotPasswordState.EnterEmail(email = email, isLoading = true)
         viewModelScope.launch {
             try {
-                val response = forgotPasswordUseCase(ForgotPasswordRequest(email, "12345"))
+                val response = forgotPasswordUseCase(ForgotPasswordRequest(email, generatedOtp))
                 if (response.success) {
                     _uiState.value = ForgotPasswordState.EnterOtp(email)
                 } else {
-                    _uiState.value = ForgotPasswordState.EnterEmail(error = response.message)
+                    _uiState.value = ForgotPasswordState.EnterEmail(isLoading = false, error = response.message)
                 }
             }catch(e: Exception) {
 
@@ -40,10 +40,11 @@ class ForgotPasswordViewModel(
     }
 
     fun submitOtp(email: String, otp: String) {
+        _uiState.value = ForgotPasswordState.EnterOtp(email, isLoading = true)
         if (otp == generatedOtp) {
             _uiState.value = ForgotPasswordState.ConfirmReset(email, otp)
         } else {
-            _uiState.value = ForgotPasswordState.EnterOtp(email, error = "Invalid OTP")
+            _uiState.value = ForgotPasswordState.EnterOtp(email, isLoading = false, error = "Invalid OTP")
         }
     }
 

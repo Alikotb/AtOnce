@@ -15,13 +15,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.common.FontSizes.LOGINBTN
@@ -31,13 +25,14 @@ import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
-import com.example.atonce.presentation.signup.components.CustomTextField
 
-@Preview(showBackground = true)
 @Composable
-fun ConfirmResetScreen() {
+fun ConfirmResetScreen(
+    isLoading: Boolean = false,
+    onBackClick: () -> Unit = {},
+    onSubmitClick: () -> Unit = {}
+) {
     val colors = MaterialTheme.colorScheme
-    var email by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -49,7 +44,7 @@ fun ConfirmResetScreen() {
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             headerTxt = "",
             onClick = {
-                //onBackClick()
+                onBackClick()
             },
             titleSize = 14
         )
@@ -73,10 +68,11 @@ fun ConfirmResetScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        val isLoading = false
         Button(
             shape = RoundedCornerShape(8.dp),
-            onClick = {},
+            onClick = {
+                onSubmitClick()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),

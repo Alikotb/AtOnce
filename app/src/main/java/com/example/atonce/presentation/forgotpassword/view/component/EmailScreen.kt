@@ -38,10 +38,11 @@ import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.signup.components.CustomTextField
 
-@Preview(showBackground = true)
 @Composable
 fun EmailScreen(
-    //onBackClick: () -> Unit = {},
+    isLoading: Boolean = false,
+    onBackClick: () -> Unit = {},
+    onSubmitClick: (String) -> Unit = {}
 ) {
     val colors = MaterialTheme.colorScheme
     var email by remember { mutableStateOf("") }
@@ -56,7 +57,7 @@ fun EmailScreen(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             headerTxt = "",
             onClick = {
-                //onBackClick()
+                onBackClick()
             },
             titleSize = 14
         )
@@ -90,11 +91,11 @@ fun EmailScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        val isLoading = false
-
         Button(
             shape = RoundedCornerShape(8.dp),
-            onClick = {},
+            onClick = {
+                onSubmitClick(email)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
@@ -106,12 +107,13 @@ fun EmailScreen(
         ) {
             if (isLoading) {
                 DotLoadingIndicator()
+            }else {
+                Text(
+                    text = "Reset Password",
+                    fontFamily = MediumFont,
+                    fontSize = LOGINBTN.sp
+                )
             }
-            Text(
-                text = "Reset Password",
-                fontFamily = MediumFont,
-                fontSize = LOGINBTN.sp
-            )
         }
     }
 }

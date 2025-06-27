@@ -52,8 +52,10 @@ import com.example.atonce.presentation.common.theme.RegularFont
 
 @Composable
 fun OtpScreen(
+    isLoading: Boolean = false,
     email: String = "example@otp.com",
     onBackClick: () -> Unit = {},
+    onSubmitClick: (String) -> Unit = {}
 ) {
     val colors = MaterialTheme.colorScheme
     var code by remember { mutableStateOf(List(5) { "" }) }
@@ -80,7 +82,7 @@ fun OtpScreen(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             headerTxt = "",
             onClick = {
-                //onBackClick()
+                onBackClick()
             },
             titleSize = 14
         )
@@ -145,12 +147,11 @@ fun OtpScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-
-
-        val isLoading = false
         Button(
             shape = RoundedCornerShape(8.dp),
-            onClick = {},
+            onClick = {
+                onSubmitClick(code.joinToString(""))
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -193,9 +194,4 @@ fun OtpScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OtpScreenPreview() {
-    OtpScreen()
-}
 
