@@ -175,12 +175,13 @@ fun LoginScreen(
         ) {
             if (isLoading) {
                 DotLoadingIndicator()
+            }else {
+                Text(
+                    text = stringResource(R.string.login),
+                    fontFamily = MediumFont,
+                    fontSize = LOGINBTN.sp
+                )
             }
-            Text(
-                text = stringResource(R.string.login),
-                fontFamily = MediumFont,
-                fontSize = LOGINBTN.sp
-            )
         }
         Spacer(
             Modifier.height((screenHeight * 0.01).dp)

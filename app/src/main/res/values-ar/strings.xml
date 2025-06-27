@@ -82,4 +82,24 @@
     <string name="all">الكل</string>
     <string name="quantity">"الكمية: "</string>
     <string name="no_order_found">لم يتم العثور على طلبات</string>
+    <string name="password_reset">إعادة تعيين كلمة المرور</string>
+    <string name="reset_success">تمت إعادة تعيين كلمة المرور بنجاح. اضغط تأكيد لتعيين كلمة مرور جديدة</string>
+    <string name="confirm">تأكيد</string>
+    <string name="please_enter_your_email_to_reset_the_password">من فضلك أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور</string>
+    <string name="your_email">بريدك الإلكتروني</string>
+    <string name="reset_password">إعادة تعيين كلمة المرور</string>
+    <string name="set_a_new_password">تعيين كلمة مرور جديدة</string>
+    <string name="create_new_password">أنشئ كلمة مرور جديدة. تأكد أن تكون مختلفة عن السابقة لضمان الأمان</string>
+    <string name="enter_your_new_password">أدخل كلمة المرور الجديدة</string>
+    <string name="re_enter_password">أعد إدخال كلمة المرور</string>
+    <string name="update_password">تحديث كلمة المرور</string>
+    <string name="check_your_email">تحقق من بريدك الإلكتروني</string>
+    <string name="reset_link">أرسلنا رابط إعادة التعيين إلى %1$s\nأدخل رمز التحقق المكون من 5 أرقام المذكور في البريد</string>
+    <string name="verify_code">تحقق من الرمز</string>
+    <string name="haven_t_got_the_email_yet">لم يصلك البريد بعد؟ </string>
+    <string name="resend_email">إعادة إرسال البريد</string>
+    <string name="successful">تم بنجاح</string>
+    <string name="success_login_now">تهانينا! تم تغيير كلمة المرور. اضغط متابعة لتسجيل الدخول</string>
+    <string name="continue_to_login">متابعة</string>
+
 </resources>

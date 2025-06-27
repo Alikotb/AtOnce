@@ -20,10 +20,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.common.FontSizes.LOGINBTN
 import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
@@ -67,7 +69,7 @@ fun NewPasswordScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Set a new password",
+            text = stringResource(R.string.set_a_new_password),
             fontFamily = MediumFont,
             fontSize = 18.sp,
             color = colors.onSurface
@@ -76,7 +78,7 @@ fun NewPasswordScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Create a new password.Ensure it differs from\nprevious ones for security",
+            text = stringResource(R.string.create_new_password),
             fontFamily = RegularFont,
             fontSize = 12.sp,
             color = colors.onSurfaceVariant
@@ -87,8 +89,8 @@ fun NewPasswordScreen(
         CustomPasswordField(
             value = password,
             onValueChange = { password = it },
-            label = "password",
-            placeholder = "Enter your new password",
+            label = stringResource(R.string.password),
+            placeholder = stringResource(R.string.enter_your_new_password),
             visible = passwordVisible,
             onVisibilityChange = { passwordVisible = it }
         )
@@ -98,8 +100,8 @@ fun NewPasswordScreen(
         CustomPasswordField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = "Confirm password",
-            placeholder = "Re-enter password",
+            label = stringResource(R.string.confirm_password),
+            placeholder = stringResource(R.string.re_enter_password),
             visible = confirmPasswordVisible,
             onVisibilityChange = { confirmPasswordVisible = it }
         )
@@ -122,12 +124,14 @@ fun NewPasswordScreen(
         ) {
             if (isLoading) {
                 DotLoadingIndicator()
+            }else {
+                Text(
+                    text = stringResource(R.string.update_password),
+                    fontFamily = MediumFont,
+                    fontSize = LOGINBTN.sp
+                )
             }
-            Text(
-                text = "Update Password",
-                fontFamily = MediumFont,
-                fontSize = LOGINBTN.sp
-            )
+
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.atonce.presentation.forgotpassword.view
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.domain.entity.ForgotPasswordState
 import com.example.atonce.presentation.forgotpassword.view.component.ConfirmResetScreen
@@ -14,10 +16,17 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ForgotPasswordScreen(
     viewModel: ForgotPasswordViewModel = koinViewModel(),
+    snackbarHostState: SnackbarHostState,
     onBackClick: () -> Unit,
     onContinueClick: () -> Unit
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.message.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
+    }
 
     when (val state = uiState.value) {
         is ForgotPasswordState.EnterEmail -> {
@@ -36,15 +45,6 @@ fun ForgotPasswordScreen(
                 onBackClick = onBackClick,
                 onSubmitClick = { otp ->
                     viewModel.submitOtp(state.email, otp)
-                }
-            )
-        }
-        is ForgotPasswordState.ConfirmReset -> {
-            ConfirmResetScreen(
-                isLoading = state.isLoading,
-                onBackClick = onBackClick,
-                onSubmitClick = {
-                    viewModel.confirmReset(state.email, state.otp)
                 }
             )
         }

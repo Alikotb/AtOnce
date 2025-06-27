@@ -219,6 +219,7 @@ fun SetUpNavHost(
         composable<ScreenRoute.ForgotPasswordScreen> {
             bottomBarState.value = false
             ForgotPasswordScreen(
+                snackbarHostState = snackbarState,
                 onBackClick = {
                     navController.popBackStack()
                 },
@@ -248,8 +249,6 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.ResetPasswordScreen> {
             bottomBarState.value = false
-            val email = it.toRoute<ScreenRoute.ResetPasswordScreen>().email
-            val otp = it.toRoute<ScreenRoute.ResetPasswordScreen>().otp
             NewPasswordScreen(
                 onBackClick = {
                     navController.popBackStack()

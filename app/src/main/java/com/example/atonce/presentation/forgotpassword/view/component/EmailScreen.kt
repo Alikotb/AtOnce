@@ -72,7 +72,7 @@ fun EmailScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Forgot password",
+            text = stringResource(R.string.forgot_password),
             fontFamily = MediumFont,
             fontSize = 18.sp,
             color = colors.onSurface
@@ -81,7 +81,7 @@ fun EmailScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Please enter your email to reset the password",
+            text = stringResource(R.string.please_enter_your_email_to_reset_the_password),
             fontFamily = RegularFont,
             fontSize = 12.sp,
             color = colors.onSurfaceVariant
@@ -92,8 +92,8 @@ fun EmailScreen(
         CustomTextField(
             value = email,
             onValueChange = { email = it },
-            label = "Your Email",
-            placeholder = "Enter your email",
+            label = stringResource(R.string.your_email),
+            placeholder = stringResource(R.string.your_email),
             keyboardType = KeyboardType.Email
         )
 
@@ -117,7 +117,7 @@ fun EmailScreen(
                 DotLoadingIndicator()
             }else {
                 Text(
-                    text = "Reset Password",
+                    text = stringResource(R.string.reset_password),
                     fontFamily = MediumFont,
                     fontSize = LOGINBTN.sp
                 )

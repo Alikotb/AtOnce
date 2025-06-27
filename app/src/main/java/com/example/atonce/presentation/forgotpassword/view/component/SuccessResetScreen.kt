@@ -22,14 +22,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.atonce.R
 import com.example.atonce.presentation.common.FontSizes.LOGINBTN
 import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
+import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
 
 @Preview(showBackground = true)
@@ -71,16 +74,18 @@ fun SuccessResetScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
-            text = "Successful",
-            style = MaterialTheme.typography.titleLarge,
+            text = stringResource(R.string.successful),
+            fontFamily = MediumFont,
+            fontSize = 18.sp,
             color = colors.onSurface
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = "Congratulations! Your password has been changed. Click continue to login",
-            style = MaterialTheme.typography.bodyMedium,
+            text = stringResource(R.string.success_login_now),
+            fontFamily = RegularFont,
+            fontSize = 12.sp,
             color = colors.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 16.dp)
@@ -104,12 +109,14 @@ fun SuccessResetScreen(
         ) {
             if (isLoading) {
                 DotLoadingIndicator()
+            }else {
+                Text(
+                    text = stringResource(R.string.continue_to_login),
+                    fontFamily = MediumFont,
+                    fontSize = LOGINBTN.sp
+                )
             }
-            Text(
-                text = "Continue",
-                fontFamily = MediumFont,
-                fontSize = LOGINBTN.sp
-            )
+
         }
     }
 }
