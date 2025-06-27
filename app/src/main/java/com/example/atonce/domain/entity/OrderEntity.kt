@@ -1,5 +1,12 @@
 package com.example.atonce.domain.entity
 
+data class OrderResultEntity(
+    val items: List<OrderEntity>,
+    val pageNumber: Int,
+    val pageSize: Int,
+    val totalCount: Int,
+    val totalPages: Int
+)
 
 data class OrderEntity(
     val orderID: String,
