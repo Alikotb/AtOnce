@@ -32,7 +32,7 @@ fun OrderDto.toEntity(): OrderEntity {
         orderID = orderId.toString(),
         wareHouseName = wareHouseName,
         orderDate = createdAt.toLocalizedDateTime(),
-        address = "",
+        address = "${quantity}",
         total = totalPrice,
         orderList = details.map { it.toEntity() }
     )

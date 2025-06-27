@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.orders.view.component
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -34,24 +35,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.atonce.R
+import com.example.atonce.core.enums.OrderState
 import com.example.atonce.presentation.common.theme.Til
 import com.example.atonce.presentation.common.theme.WhiteColor
 
 
 @Preview(showBackground = true)
 @Composable
-fun OrdersChips() {
-    val list = listOf<Pair<String, ImageVector>>(
-        Pair(stringResource(R.string.ordered),Icons.Filled.Loop),
-        Pair(stringResource(R.string.preparing),Icons.Filled.Upcoming),
-        Pair(stringResource(R.string.delivering),Icons.Filled.DeliveryDining),
-        Pair(stringResource(R.string.delivered),Icons.Filled.ShoppingBasket),
-        Pair(stringResource(R.string.canceled),Icons.Filled.Cancel),
-        Pair(stringResource(R.string.returned),Icons.Filled.CancelPresentation),
-
-        )
-    val defaultOption = stringResource(R.string.ordered)
+fun OrdersChips(onStateChange:(Int)-> Unit={}) {
+    val list = OrderState.entries
+    val defaultOption = OrderState.getName(OrderState.ORDERED.value)
     var selectedOption by remember { mutableStateOf(defaultOption) }
+
     Row(
         Modifier
             .padding(horizontal = 8.dp)
@@ -61,16 +56,17 @@ fun OrdersChips() {
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         list.forEach {
-            var isSelected = it.first == selectedOption
+            var isSelected = OrderState.getName(it.value)  == selectedOption
             val chipColor = if (isSelected) Til else WhiteColor
             FilterChip(
                 selected = isSelected,
                 onClick = {
-                    selectedOption = it.first
-                    //isSelected = !isSelected
+                    selectedOption = OrderState.getName(it.value)
+                    Log.d("ali", "OrdersChips: ${it.value}")
+                    onStateChange(it.value)
                 },
                 label = {
-                    Text(it.first)
+                    Text( OrderState.getName(it.value))
                 },
                 leadingIcon = if (isSelected) {
                     {
@@ -83,7 +79,7 @@ fun OrdersChips() {
                 } else {
                     {
                         Icon(
-                            imageVector = it.second,
+                            imageVector = it.icon,
                             contentDescription = "Done icon",
                             modifier = Modifier.size(FilterChipDefaults.IconSize),
                             tint = Til
