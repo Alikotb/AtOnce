@@ -31,19 +31,13 @@ import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
-import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
 
 @Preview(showBackground = true)
 @Composable
-fun NewPasswordScreen() {
+fun ConfirmResetScreen() {
     val colors = MaterialTheme.colorScheme
-
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-
-    var passwordVisible by remember { mutableStateOf(false) }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
+    var email by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -63,7 +57,7 @@ fun NewPasswordScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Set a new password",
+            text = "Password reset",
             fontFamily = MediumFont,
             fontSize = 24.sp,
             color = colors.onSurface
@@ -72,37 +66,14 @@ fun NewPasswordScreen() {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Create a new password.Ensure it differs from\nprevious ones for security",
+            text = "Your password has been successfully reset.click\nconfirm to set a new password",
             fontFamily = RegularFont,
             color = colors.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        CustomPasswordField(
-            value = password,
-            onValueChange = { password = it },
-            label = "password",
-            placeholder = "Enter your new password",
-            visible = passwordVisible,
-            onVisibilityChange = { passwordVisible = it }
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        CustomPasswordField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            label = "Confirm password",
-            placeholder = "Re-enter password",
-            visible = confirmPasswordVisible,
-            onVisibilityChange = { confirmPasswordVisible = it }
-        )
-
-        Spacer(modifier = Modifier.height(32.dp))
-
         val isLoading = false
-
         Button(
             shape = RoundedCornerShape(8.dp),
             onClick = {},
@@ -119,7 +90,7 @@ fun NewPasswordScreen() {
                 DotLoadingIndicator()
             }
             Text(
-                text = "Update Password",
+                text = "Confirm",
                 fontFamily = MediumFont,
                 fontSize = LOGINBTN.sp
             )
