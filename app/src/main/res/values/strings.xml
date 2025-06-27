@@ -82,4 +82,23 @@
     <string name="all">all</string>
     <string name="quantity">"Quantity: "</string>
     <string name="no_order_found">No order found</string>
+    <string name="password_reset">Password reset</string>
+    <string name="reset_success">Your password has been successfully reset.click\nconfirm to set a new password</string>
+    <string name="confirm">Confirm</string>
+    <string name="please_enter_your_email_to_reset_the_password">Please enter your email to reset the password</string>
+    <string name="your_email">Your Email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="set_a_new_password">Set a new password</string>
+    <string name="create_new_password">Create a new password.Ensure it differs from\nprevious ones for security</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="re_enter_password">Re-enter password</string>
+    <string name="update_password">Update Password</string>
+    <string name="check_your_email">Check your email</string>
+    <string name="reset_link">We sent a reset link to %1$s\nEnter 5 digit code that mentioned in the email</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="haven_t_got_the_email_yet">"Haven't got the email yet? "</string>
+    <string name="resend_email">Resend email</string>
+    <string name="successful">Successful</string>
+    <string name="success_login_now">Congratulations! Your password has been changed. Click continue to login</string>
+    <string name="continue_to_login">Continue</string>
 </resources>

@@ -14,12 +14,6 @@ sealed class ForgotPasswordState {
         val error: String? = null
     ) : ForgotPasswordState()
 
-    data class ConfirmReset(
-        val email: String,
-        val otp: String,
-        val isLoading: Boolean = false
-    ) : ForgotPasswordState()
-
     data class SetNewPassword(
         val email: String,
         val otp: String,

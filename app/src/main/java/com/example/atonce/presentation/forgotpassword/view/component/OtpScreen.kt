@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -52,6 +53,8 @@ import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 
 @Preview
 @Composable
@@ -86,7 +89,7 @@ fun OtpScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Check your email",
+            text = stringResource(R.string.check_your_email),
             fontFamily = MediumFont,
             fontSize = 18.sp,
             color = colors.onSurface
@@ -95,7 +98,7 @@ fun OtpScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "We sent a reset link to $email\nEnter 5 digit code that mentioned in the email",
+            text = stringResource(R.string.reset_link, email),
             fontFamily = RegularFont,
             fontSize = 12.sp,
             color = colors.onSurfaceVariant
@@ -139,6 +142,10 @@ fun OtpScreen(
                         textAlign = TextAlign.Center
                     ),
                     singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
                     shape = RoundedCornerShape(8.dp),
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = colors.onPrimary,
@@ -171,7 +178,7 @@ fun OtpScreen(
                 DotLoadingIndicator()
             } else {
                 Text(
-                    text = "Verify Code",
+                    text = stringResource(R.string.verify_code),
                     fontFamily = MediumFont,
                     fontSize = LOGINBTN.sp
                 )
@@ -185,13 +192,13 @@ fun OtpScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Haven't got the email yet? ",
+                text = stringResource(R.string.haven_t_got_the_email_yet),
                 fontFamily = RegularFont,
                 fontSize = 12.sp,
                 color = colors.onSurfaceVariant
             )
             Text(
-                text = "Resend email",
+                text = stringResource(R.string.resend_email),
                 fontFamily = RegularFont,
                 fontSize = 12.sp,
                 color = colors.primary,
