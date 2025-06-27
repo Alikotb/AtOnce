@@ -29,4 +29,14 @@ sealed class ScreenRoute(val route: String) {
     object ProfileDetailsScreen : ScreenRoute("profileDetails")
     @Serializable
     data class WebViewScreen(val title : String, val url : String) : ScreenRoute("webview")
+    @Serializable
+    data object ForgotPasswordScreen : ScreenRoute("forgotPassword")
+    @Serializable
+    data object EmailScreen : ScreenRoute("email")
+    @Serializable
+    data class OtpScreen(val email: String) : ScreenRoute("otp")
+    @Serializable
+    data class ResetPasswordScreen(val email: String, val otp: String) : ScreenRoute("resetPassword")
+    @Serializable
+    data object ResetSuccessScreen : ScreenRoute("resetSuccess")
 }

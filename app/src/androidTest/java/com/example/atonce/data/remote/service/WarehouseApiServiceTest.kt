@@ -52,6 +52,7 @@ class WarehouseApiServiceTest : KoinTest {
                 warehouseId = warehouseId,
                 pageSize = pageSize,
                 pageNum = page,
+                type = "0",
                 search = ""
             )
 

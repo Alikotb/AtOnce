@@ -1,6 +1,7 @@
 package com.example.atonce.di
 
 import com.example.atonce.presentation.cart.viewModel.CartViewModel
+import com.example.atonce.presentation.forgotpassword.viewmodel.ForgotPasswordViewModel
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import com.example.atonce.presentation.login.viewmodel.LoginViewModel
 import com.example.atonce.presentation.orders.viewModel.OrdersViewModel
@@ -22,6 +23,7 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get(),get(),get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { CartViewModel(get(),get(),get(),get(),get()) }
+    viewModel { ForgotPasswordViewModel(get(), get()) }
     viewModel { OrdersViewModel(get() , get()) }
 
 

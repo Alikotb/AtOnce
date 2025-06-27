@@ -2,14 +2,19 @@ package com.example.atonce.data.repository
 
 import com.example.atonce.core.constants.AppConstants.LANGUAGE
 import com.example.atonce.data.local.sharedpreference.SharedPreferences
+import com.example.atonce.data.mappers.toDto
 import com.example.atonce.data.mappers.toEntity
 import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.authentication.RegisterRequestDto
 import com.example.atonce.data.remote.dto.authentication.RegisterResponseDto
 import com.example.atonce.data.remote.dto.authentication.LoginRequestDto
 import com.example.atonce.data.remote.service.AuthApiService
+import com.example.atonce.domain.entity.ForgotPasswordRequest
+import com.example.atonce.domain.entity.ForgotPasswordResponse
 import com.example.atonce.domain.entity.LoginResult
 import com.example.atonce.domain.entity.Pharmacy
+import com.example.atonce.domain.entity.ResetPasswordRequest
+import com.example.atonce.domain.entity.ResetPasswordResponse
 import com.example.atonce.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -84,5 +89,13 @@ class AuthRepositoryImpl(
 
     override fun isLoggedIn(): Boolean {
         return sharedPreferences.fetchData("userName", "").isNotEmpty()
+    }
+
+    override suspend fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): ForgotPasswordResponse {
+        return service.forgotPassword(forgotPasswordRequest.toDto()).toEntity()
+    }
+
+    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): ResetPasswordResponse {
+        return service.resetPassword(resetPasswordRequest.toDto()).toEntity()
     }
 }

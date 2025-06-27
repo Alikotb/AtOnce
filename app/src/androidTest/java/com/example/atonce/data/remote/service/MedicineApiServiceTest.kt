@@ -24,7 +24,7 @@ class MedicineApiServiceTest : KoinTest{
             val searchText = "Augm"
 
             //when
-            var result =  medicineApiService.searchMedicinesByNameAndArea(areaId = areaId, search = searchText, page = 1, pageSize = 1)
+            var result =  medicineApiService.searchMedicinesByNameAndArea(areaId = areaId, search = searchText, page = 1, type = "0", pageSize = 1)
 
             //then
             assertNotNull(result)

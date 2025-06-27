@@ -2,6 +2,7 @@ package com.example.atonce.di
 
 import com.example.atonce.domain.usecase.AddToCartUseCase
 import com.example.atonce.domain.usecase.DeleteFromCartUseCase
+import com.example.atonce.domain.usecase.ForgotPasswordUseCase
 import com.example.atonce.domain.usecase.FreePharmacyUseCase
 import com.example.atonce.domain.usecase.GetAllMedicinesByWarehousesId
 import com.example.atonce.domain.usecase.GetAllSuppliersByAreaIdAndMedicine
@@ -16,6 +17,7 @@ import com.example.atonce.domain.usecase.IsLoggedInUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.PlaceOrderUseCase
 import com.example.atonce.domain.usecase.RegisterUseCase
+import com.example.atonce.domain.usecase.ResetPasswordUseCase
 import com.example.atonce.domain.usecase.SaveLanguageUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import com.example.atonce.domain.usecase.SearchMedicinesUseCase
@@ -51,5 +53,6 @@ val useCaseModule = module {
     factory { DeleteFromCartUseCase(get()) }
     factory { PlaceOrderUseCase(get()) }
 
-    factory { GetOrdersUseCase(get()) }
+    factory { ForgotPasswordUseCase(get()) }
+    factory { ResetPasswordUseCase(get()) }
 }
