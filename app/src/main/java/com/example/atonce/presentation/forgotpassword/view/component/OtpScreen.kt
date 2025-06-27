@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,6 +50,8 @@ import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCar
 import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 
 @Preview
 @Composable
@@ -65,18 +68,7 @@ fun OtpScreen(
 ) {
     val colors = MaterialTheme.colorScheme
     var code by remember { mutableStateOf(List(5) { "" }) }
-
-    val interactionSource = remember { MutableInteractionSource() }
-    val isFocused by interactionSource.collectIsFocusedAsState()
-
-    val borderWidth by animateDpAsState(
-        targetValue = if (isFocused) 2.dp else 1.dp,
-        animationSpec = tween(durationMillis = 300)
-    )
-    val borderColor by animateColorAsState(
-        targetValue = if (isFocused) PrimaryColor else colors.onSurfaceVariant,
-        animationSpec = tween(durationMillis = 300)
-    )
+    val focusRequesters = remember { List(5) { FocusRequester() } }
 
     Column(
         modifier = Modifier
@@ -87,9 +79,7 @@ fun OtpScreen(
         OneIconCard(
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             headerTxt = "",
-            onClick = {
-                onBackClick()
-            },
+            onClick = { onBackClick() },
             titleSize = 14
         )
 
@@ -114,7 +104,8 @@ fun OtpScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
             code.forEachIndexed { index, value ->
                 TextField(
@@ -122,20 +113,30 @@ fun OtpScreen(
                     onValueChange = {
                         if (it.length <= 1 && it.all { c -> c.isDigit() }) {
                             code = code.toMutableList().also { list -> list[index] = it }
+
+                            if (it.isNotEmpty()) {
+                                if (index < 4) {
+                                    focusRequesters[index + 1].requestFocus()
+                                } else {
+                                    onSubmitClick(code.joinToString(""))
+                                }
+                            }
                         }
                     },
                     modifier = Modifier
-                        .width(56.dp)
+                        .weight(1f)
                         .height(56.dp)
+                        .focusRequester(focusRequesters[index])
                         .clip(RoundedCornerShape(12.dp))
                         .border(
-                            width = borderWidth,
-                            color = borderColor,
-                            shape = RoundedCornerShape(12.dp)
+                            1.dp,
+                            colors.onSurfaceVariant,
+                            RoundedCornerShape(12.dp)
                         ),
                     textStyle = LocalTextStyle.current.copy(
                         fontFamily = RegularFont,
-                        fontSize = 14.sp
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center
                     ),
                     singleLine = true,
                     shape = RoundedCornerShape(8.dp),
@@ -156,12 +157,9 @@ fun OtpScreen(
 
         Button(
             shape = RoundedCornerShape(8.dp),
-            onClick = {
-                onSubmitClick(code.joinToString(""))
-            },
+            onClick = { onSubmitClick(code.joinToString("")) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = colors.primary,
@@ -171,7 +169,7 @@ fun OtpScreen(
         ) {
             if (isLoading) {
                 DotLoadingIndicator()
-            }else {
+            } else {
                 Text(
                     text = "Verify Code",
                     fontFamily = MediumFont,
@@ -189,16 +187,23 @@ fun OtpScreen(
             Text(
                 text = "Haven't got the email yet? ",
                 fontFamily = RegularFont,
+                fontSize = 12.sp,
                 color = colors.onSurfaceVariant
             )
             Text(
                 text = "Resend email",
                 fontFamily = RegularFont,
+                fontSize = 12.sp,
                 color = colors.primary,
                 modifier = Modifier.clickable {  }
             )
         }
     }
+
+    LaunchedEffect(Unit) {
+        focusRequesters.first().requestFocus()
+    }
 }
+
 
 

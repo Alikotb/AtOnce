@@ -194,7 +194,9 @@ fun SetUpNavHost(
                 },
                 onLogoutClicK = {
                     navController.popBackStack()
-                    navController.navigate(ScreenRoute.LoginScreen)
+                    navController.navigate(ScreenRoute.LoginScreen) {
+                        popUpTo(0) { inclusive = true }
+                    }
                 }
             )
         }
