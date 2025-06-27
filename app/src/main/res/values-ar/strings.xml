@@ -21,7 +21,7 @@
     <string name="delivered">تم التوصيل</string>
     <string name="canceled">تم الإلغاء</string>
     <string name="returned">تم الإرجاع</string>
-    <string name="id">"المعرف: "</string>
+    <string name="id">"رقم الطلب:# "</string>
     <string name="pm">م</string>
     <string name="total">"الإجمالي : "</string>
     <string name="items">" عناصر"</string>
@@ -80,5 +80,6 @@
     <string name="cosmetic">مستحضر تجميلي</string>
     <string name="drug">دواء</string>
     <string name="all">الكل</string>
-
+    <string name="quantity">"الكمية: "</string>
+    <string name="no_order_found">لم يتم العثور على طلبات</string>
 </resources>

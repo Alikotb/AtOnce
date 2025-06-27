@@ -14,18 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
+import com.example.atonce.domain.entity.OrderEntity
 import com.example.atonce.presentation.common.FontSizes.SUB_ORDER_PRICE
 import com.example.atonce.presentation.common.FontSizes.SUB_ORDER_TITLE
 
 
-@Preview(showBackground = true)
 @Composable
-fun OrderSubCard(item : Triple<String, String, String> = Triple("Panadol Extra 600mg","3","150")){
+fun OrderSubCard(item: OrderEntity.OrderEntityItem ){
     val colors = MaterialTheme.colorScheme
     Row (
         modifier = Modifier
@@ -37,7 +39,7 @@ fun OrderSubCard(item : Triple<String, String, String> = Triple("Panadol Extra 6
     ){
         Row (
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.weight(4f)
+            modifier = Modifier.weight(3f)
         ){
             Icon(
                 imageVector = Icons.Filled.Coronavirus,
@@ -45,27 +47,37 @@ fun OrderSubCard(item : Triple<String, String, String> = Triple("Panadol Extra 6
 
             )
             Text(
-                text = item.first,
+                text = item.medicineName,
                 fontSize = SUB_ORDER_TITLE.sp,
                 modifier = Modifier.padding(start = 8.dp),
+                color= colors.onBackground,
+                fontWeight = FontWeight.Bold
 
-                )
+
+            )
         }
-        Spacer(Modifier.weight(0.275f))
         Text(
-            text = item.second+ stringResource(R.string.items),
+            text = item.medicineCount.convertNumbersToArabic()+ stringResource(R.string.items),
             fontSize = SUB_ORDER_TITLE.sp,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            color= colors.onBackground,
+            fontWeight = FontWeight.Bold
+
+
 
         )
         Spacer(Modifier.weight(0.3f))
         Text(
-            text = item.third+stringResource(R.string.egp),
+            text = "${item.medicinePrice}".convertNumbersToArabic()+stringResource(R.string.egp),
             fontSize = SUB_ORDER_PRICE.sp,
             color =colors.primary ,
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.End
+            modifier = Modifier.weight(1.15f),
+            textAlign = TextAlign.End,
+            fontWeight = FontWeight.Bold
+
         )
+        Spacer(Modifier.weight(0.1f))
+
     }
 
 }

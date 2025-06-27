@@ -11,6 +11,7 @@ import com.example.atonce.domain.usecase.GetAreasUseCase
 import com.example.atonce.domain.usecase.GetCartDetailsByIdUseCase
 import com.example.atonce.domain.usecase.GetGovernoratesUseCase
 import com.example.atonce.domain.usecase.GetLanguageUseCase
+import com.example.atonce.domain.usecase.GetOrdersUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.IsLoggedInUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
