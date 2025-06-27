@@ -65,9 +65,13 @@ class SearchViewModel(
     private val _selectedType = MutableStateFlow("")
     val selectedType = _selectedType.asStateFlow()
 
+    val handler = CoroutineExceptionHandler { _, exception ->
+
+    }
+
     init {
         getLanguage()
-        viewModelScope.launch {
+        viewModelScope.launch(handler) {
             _searchQuery
                 .debounce(500)
                 .distinctUntilChanged()
@@ -86,10 +90,6 @@ class SearchViewModel(
         _selectedType.value = type
         resetPagination()
         getMedicinesByArea(getPharmacyUseCase().areaId!!, type, _searchQuery.value)
-    }
-
-    val handler = CoroutineExceptionHandler { _, exception ->
-
     }
 
     fun getMedicinesByArea(areaId: Int, type: String = "", search: String) {

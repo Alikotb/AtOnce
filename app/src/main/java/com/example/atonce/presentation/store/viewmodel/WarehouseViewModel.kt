@@ -12,6 +12,7 @@ import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.search.model.AddToCartUiModel
 import com.example.atonce.presentation.search.model.toEntity
 import com.example.atonce.presentation.store.model.WarehouseMedicines
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,9 +53,12 @@ class WarehouseViewModel(
     private var isLastPage = false
     private var isLoading = false
 
+    val handler = CoroutineExceptionHandler { _, exception ->
+
+    }
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(handler) {
             combine(_searchQuery.debounce(500), _filterType) { search, filter ->
                 search to filter
             }.distinctUntilChanged()
@@ -75,7 +79,7 @@ class WarehouseViewModel(
         if (isLoading || isLastPage) return
         isLoading = true
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + handler) {
             getAllMedicinesByWarehousesId(
                 warehouseId = warehouseId,
                 pageNum = currentPage,
@@ -137,7 +141,7 @@ class WarehouseViewModel(
 //    }
 
     fun addToCart(warehouseId: Int, medicineId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO + handler) {
             _loadingItemId.value = medicineId
             val result  = addToCartUseCase(AddToCartUiModel(warehouseId = warehouseId, pharmacyId = getPharmacyUseCase().id!!, medicineId = medicineId, quantity = 1).toEntity())
             _loadingItemId.value = null
