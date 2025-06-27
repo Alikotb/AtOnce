@@ -1,12 +1,10 @@
 package com.example.atonce.presentation.orders.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
 import com.example.atonce.data.remote.Response
 import com.example.atonce.domain.entity.OrderEntity
-import com.example.atonce.domain.entity.OrderResultEntity
 import com.example.atonce.domain.usecase.GetOrdersUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -31,20 +29,19 @@ class OrdersViewModel(
 
     private val userData = getPharmacyUseCase()
 
-    val errorExpectionHandler = CoroutineExceptionHandler { _, throwable ->
+    val errorExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
         _orders.value = Response.Error(ErrorMessagesEnum.NETWORKERROR.getLocalizedMessage())
         isLoading = false
     }
 
     fun getOrdersByStatus(pharmacyID: Int = userData.id ?: 0, status: Int, pageSize: Int = 15) {
-        Log.d("TAG1", "getOrdersByStatus: $pharmacyID $status")
         if (isLoading || currentPage > totalPages) return
 
         isLoading = true
         _orders.value = if (currentPage == 1) Response.Loading else _orders.value
 
-        viewModelScope.launch(Dispatchers.IO + errorExpectionHandler) {
+        viewModelScope.launch(Dispatchers.IO + errorExceptionHandler) {
             getOrdersUseCase(pharmacyID, status, currentPage, pageSize)
                 .collect { response ->
 
@@ -58,7 +55,6 @@ class OrdersViewModel(
 
                     _orders.value = Response.Success(loadedOrders.toList())
 
-                    Log.d("TAG1", "getOrdersByStatus: $loadedOrders")
 
                     currentPage++
                     isLoading = false
