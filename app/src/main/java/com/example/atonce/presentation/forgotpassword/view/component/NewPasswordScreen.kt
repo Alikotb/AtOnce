@@ -34,9 +34,13 @@ import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.signup.components.CustomPasswordField
 import com.example.atonce.presentation.signup.components.CustomTextField
 
-@Preview(showBackground = true)
+
 @Composable
-fun NewPasswordScreen() {
+fun NewPasswordScreen(
+    isLoading: Boolean = false,
+    onBackClick: () -> Unit = {},
+    onSubmitClick: (String, String) -> Unit = { _, _ -> }
+) {
     val colors = MaterialTheme.colorScheme
 
     var password by remember { mutableStateOf("") }
@@ -55,7 +59,7 @@ fun NewPasswordScreen() {
             icon = Icons.AutoMirrored.Filled.ArrowBack,
             headerTxt = "",
             onClick = {
-                //onBackClick()
+                onBackClick()
             },
             titleSize = 14
         )
@@ -65,7 +69,7 @@ fun NewPasswordScreen() {
         Text(
             text = "Set a new password",
             fontFamily = MediumFont,
-            fontSize = 24.sp,
+            fontSize = 18.sp,
             color = colors.onSurface
         )
 
@@ -74,6 +78,7 @@ fun NewPasswordScreen() {
         Text(
             text = "Create a new password.Ensure it differs from\nprevious ones for security",
             fontFamily = RegularFont,
+            fontSize = 12.sp,
             color = colors.onSurfaceVariant
         )
 
@@ -101,11 +106,11 @@ fun NewPasswordScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        val isLoading = false
-
         Button(
             shape = RoundedCornerShape(8.dp),
-            onClick = {},
+            onClick = {
+                onSubmitClick(password, confirmPassword)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),

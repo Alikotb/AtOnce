@@ -24,6 +24,12 @@ import com.example.atonce.presentation.splash.view.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
 import com.example.atonce.presentation.webview.WebViewScreen
 import androidx.compose.runtime.getValue
+import com.example.atonce.presentation.forgotpassword.view.ForgotPasswordScreen
+import com.example.atonce.presentation.forgotpassword.view.component.EmailScreen
+import com.example.atonce.presentation.forgotpassword.view.component.NewPasswordScreen
+import com.example.atonce.presentation.forgotpassword.view.component.OtpScreen
+import com.example.atonce.presentation.forgotpassword.view.component.SuccessResetScreen
+import com.example.atonce.presentation.forgotpassword.viewmodel.ForgotPasswordViewModel
 import org.koin.compose.koinInject
 
 
@@ -72,6 +78,9 @@ fun SetUpNavHost(
                         popUpTo(0) { inclusive = true }
                         launchSingleTop = true
                     }
+                },
+                onForgotPasswordClick = {
+                    navController.navigate(ScreenRoute.ForgotPasswordScreen)
                 }
             )
         }
@@ -204,6 +213,57 @@ fun SetUpNavHost(
         composable<ScreenRoute.NoInternetScreen> {
             bottomBarState.value = true
             NoInternetScreen(padding = paddingValues)
+        }
+        composable<ScreenRoute.ForgotPasswordScreen> {
+            bottomBarState.value = false
+            ForgotPasswordScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onContinueClick = {
+                    navController.navigate(ScreenRoute.LoginScreen) {
+                        popUpTo(ScreenRoute.ForgotPasswordScreen) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable<ScreenRoute.EmailScreen> {
+            bottomBarState.value = false
+            EmailScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+
+        }
+        composable<ScreenRoute.OtpScreen> {
+            bottomBarState.value = false
+            val email = it.toRoute<ScreenRoute.OtpScreen>().email
+            OtpScreen(
+                email = email,
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+        composable<ScreenRoute.ResetPasswordScreen> {
+            bottomBarState.value = false
+            val email = it.toRoute<ScreenRoute.ResetPasswordScreen>().email
+            val otp = it.toRoute<ScreenRoute.ResetPasswordScreen>().otp
+            NewPasswordScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+            )
+        }
+        composable<ScreenRoute.ResetSuccessScreen> {
+            bottomBarState.value = false
+            SuccessResetScreen(
+                onContinueClick = {
+                    navController.navigate(ScreenRoute.LoginScreen) {
+                        popUpTo(ScreenRoute.ForgotPasswordScreen) { inclusive = true }
+                    }
+                }
+            )
+
         }
     }
 }

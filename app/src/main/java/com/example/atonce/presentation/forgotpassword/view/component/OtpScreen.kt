@@ -50,6 +50,12 @@ import com.example.atonce.presentation.common.theme.MediumFont
 import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.RegularFont
 
+@Preview
+@Composable
+fun OtpScreenPreview() {
+    OtpScreen()
+}
+
 @Composable
 fun OtpScreen(
     isLoading: Boolean = false,
@@ -92,7 +98,7 @@ fun OtpScreen(
         Text(
             text = "Check your email",
             fontFamily = MediumFont,
-            fontSize = 24.sp,
+            fontSize = 18.sp,
             color = colors.onSurface
         )
 
@@ -101,6 +107,7 @@ fun OtpScreen(
         Text(
             text = "We sent a reset link to $email\nEnter 5 digit code that mentioned in the email",
             fontFamily = RegularFont,
+            fontSize = 12.sp,
             color = colors.onSurfaceVariant
         )
 

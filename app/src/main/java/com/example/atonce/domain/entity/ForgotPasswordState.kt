@@ -29,5 +29,7 @@ sealed class ForgotPasswordState {
         val error: String? = null
     ) : ForgotPasswordState()
 
-    object ResetSuccess : ForgotPasswordState()
+    data class ResetSuccess(
+        val isLoading: Boolean = false
+    ) : ForgotPasswordState()
 }

@@ -60,7 +60,7 @@ class ForgotPasswordViewModel(
             }else {
                 val response = resetPasswordUseCase(ResetPasswordRequest(email, generatedOtp, newPassword, confirmPassword))
                 if (response.success) {
-                    _uiState.value = ForgotPasswordState.ResetSuccess
+                    _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
                 } else {
                     _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = response.message)
                 }
@@ -68,7 +68,11 @@ class ForgotPasswordViewModel(
         }
     }
 
+    fun success() {
+        _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
+    }
+
     private fun generateOtp(): String {
-        return (100000..999999).random().toString()
+        return (10000..99999).random().toString()
     }
 }

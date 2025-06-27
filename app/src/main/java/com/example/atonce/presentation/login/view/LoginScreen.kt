@@ -55,7 +55,14 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarHostState: SnackbarHostState, modifier: PaddingValues, viewModel: LoginViewModel = koinViewModel()) {
+fun LoginScreen(
+    onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    snackbarHostState: SnackbarHostState,
+    onForgotPasswordClick: () -> Unit = {},
+    modifier: PaddingValues,
+    viewModel: LoginViewModel = koinViewModel()
+) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -135,7 +142,7 @@ fun LoginScreen(onRegisterClick: () -> Unit, onLoginClick: () -> Unit, snackbarH
 
             TextButton(
                 onClick = {
-
+                    onForgotPasswordClick()
                 }
             ) {
                 Text(

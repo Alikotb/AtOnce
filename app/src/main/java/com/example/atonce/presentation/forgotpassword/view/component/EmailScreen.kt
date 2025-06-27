@@ -38,6 +38,13 @@ import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.signup.components.CustomTextField
 
+
+@Preview
+@Composable
+fun EmailScreenPreview() {
+    EmailScreen()
+}
+
 @Composable
 fun EmailScreen(
     isLoading: Boolean = false,
@@ -67,7 +74,7 @@ fun EmailScreen(
         Text(
             text = "Forgot password",
             fontFamily = MediumFont,
-            fontSize = 24.sp,
+            fontSize = 18.sp,
             color = colors.onSurface
         )
 
@@ -76,6 +83,7 @@ fun EmailScreen(
         Text(
             text = "Please enter your email to reset the password",
             fontFamily = RegularFont,
+            fontSize = 12.sp,
             color = colors.onSurfaceVariant
         )
 
