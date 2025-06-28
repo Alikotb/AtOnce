@@ -136,7 +136,7 @@ fun OrdersCard(order: OrderEntity) {
                             modifier = Modifier.padding(start = 12.dp)
                         )
                         Text(
-                            text = order.orderDate.convertNumbersToArabic()+ stringResource(R.string.pm),
+                            text = order.orderDate.convertNumbersToArabic(),
                             fontSize = ORDER_PHARMACY_NAME.sp,
                             modifier = Modifier.padding(start = 8.dp),
                             color= colors.onBackground,

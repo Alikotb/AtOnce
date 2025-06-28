@@ -36,7 +36,7 @@ fun OrderInfo(
     discount: Double,
     total: Double,
     minimum: Double,
-    onCheckout: () -> Unit
+    onCheckout: () -> Unit,
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -90,7 +90,7 @@ fun OrderInfo(
                 .padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding() + 4.dp)
                 .height(56.dp),
             colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
-            enabled = total >= 70,
+            enabled = total >= minimum ,
             shape = RoundedCornerShape(12.dp)
         ) {
             Text(
