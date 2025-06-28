@@ -101,4 +101,6 @@
     <string name="successful">Successful</string>
     <string name="success_login_now">Congratulations! Your password has been changed. Click continue to login</string>
     <string name="continue_to_login">Continue</string>
+    <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
+
 </resources>

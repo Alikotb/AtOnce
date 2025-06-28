@@ -40,8 +40,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,11 +55,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.startActivity
 import com.example.atonce.R
 import com.example.atonce.core.constants.AppConstants
+import com.example.atonce.core.constants.AppConstants.COMMON_QUESTIONS_URL
+import com.example.atonce.core.constants.AppConstants.CONTACT_US_URL
+import com.example.atonce.core.constants.AppConstants.PRIVACY_AND_POLICY_URL
 import com.example.atonce.core.extensions.restartActivity
 import com.example.atonce.presentation.common.component.AlertDialogExample
+import com.example.atonce.presentation.common.component.AppDialog
 import com.example.atonce.presentation.common.component.ShareApp
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
@@ -80,6 +87,8 @@ fun ProfileScreen(
     val user = viewmodel.userData
     var expanded = remember { mutableStateOf(false) }
     val openAlertDialog = remember { mutableStateOf(false) }
+    var showLogoutDialog by remember { mutableStateOf(false) }
+
     val ctx = LocalContext.current
     Column(
         modifier = Modifier
@@ -185,23 +194,26 @@ fun ProfileScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Column {
-                var title = stringResource(R.string.common_questions)
-                ProfileItem(Icons.AutoMirrored.Filled.Help, title) {
+                ProfileItem(Icons.AutoMirrored.Filled.Help, ctx.getString(R.string.common_questions)) {
                     onWebViewClick(
-                        title,
-                        "https://atonce2025.blogspot.com/2025/06/frequently-asked-questions-body-font.html"
+                        ctx.getString(R.string.common_questions),
+                        COMMON_QUESTIONS_URL
                     )
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                title = stringResource(R.string.privacy_policy)
-                ProfileItem(Icons.Default.Security, title) {
+                ProfileItem(Icons.Default.Security, ctx.getString(R.string.privacy_policy)) {
                     onWebViewClick(
-                        title,
-                        "https://atonce2025.blogspot.com/2025/06/privacy-policy-and-terms-body-font.html?m=1"
+                       ctx.getString(R.string.privacy_policy),
+                        PRIVACY_AND_POLICY_URL
                     )
                 }
                 Divider(color = Color.LightGray, thickness = 1.dp)
-                ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {}
+                ProfileItem(Icons.Default.Call, stringResource(R.string.contact_us)) {
+                    onWebViewClick(
+                        ctx.getString(R.string.contact_us),
+                        CONTACT_US_URL
+                    )
+                }
                 Divider(color = Color.LightGray, thickness = 1.dp)
                 ProfileItem(Icons.Default.Info, stringResource(R.string.about_us)) {
                     openAlertDialog.value=true
@@ -219,11 +231,24 @@ fun ProfileScreen(
                     stringResource(R.string.logout),
                     isLogout = true
                 ) {
-                    viewmodel.logOut()
-                    onLogoutClicK()
+                    showLogoutDialog = true
+
                 }
             }
         }
+    }
+    if (showLogoutDialog) {
+        AppDialog(
+            title = stringResource(R.string.logout),
+            message = stringResource(R.string.are_you_sure_you_want_to_logout),
+            confirmText = stringResource(R.string.logout),
+            onDismiss = { showLogoutDialog = false },
+            onConfirm = {
+                showLogoutDialog = false
+                viewmodel.logOut()
+                onLogoutClicK()
+            }
+        )
     }
 
     when {

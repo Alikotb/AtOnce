@@ -101,5 +101,6 @@
     <string name="successful">تم بنجاح</string>
     <string name="success_login_now">تهانينا! تم تغيير كلمة المرور. اضغط متابعة لتسجيل الدخول</string>
     <string name="continue_to_login">متابعة</string>
+    <string name="are_you_sure_you_want_to_logout">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
 
 </resources>
