@@ -24,7 +24,7 @@ import com.example.atonce.presentation.common.theme.Til
 
 
 @Composable
-fun CustomCartBtn(onClick : ()->Unit = {}, imageVictor: ImageVector = Icons.Filled.ShoppingCart, msg: String = stringResource(
+fun CustomCartBtn(onClick : ()->Unit = {}, enabled : Boolean = true, imageVictor: ImageVector = Icons.Filled.ShoppingCart, msg: String = stringResource(
     R.string.add_to_cart
 ), color:Color = Til
 ){
@@ -34,23 +34,25 @@ fun CustomCartBtn(onClick : ()->Unit = {}, imageVictor: ImageVector = Icons.Fill
         },
         modifier = Modifier
             .padding(horizontal = 8.dp)
-            .padding(vertical = 8.dp),
+            .padding(bottom = 8.dp),
         shape = RoundedCornerShape(12.dp),
         colors =ButtonDefaults.buttonColors(
             containerColor = color,
             contentColor = MaterialTheme.colorScheme.surface
-        )
-    ){
-        Text(
-            text = msg,
-            color = MaterialTheme.colorScheme.surface,
-            fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
-        )
-        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-        Icon(
-            imageVector = imageVictor,
-            contentDescription = "",
+        ),
+        enabled = enabled
 
+    ){
+        if(!enabled) {
+            DotLoadingIndicator()
+        }else {
+            Text(
+                text = msg,
+                color = MaterialTheme.colorScheme.surface,
+                fontSize = MEDICINE_CARD_MAIN_PRICE.sp,
             )
+            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+            Icon(imageVector = imageVictor, contentDescription = "")
+        }
     }
 }

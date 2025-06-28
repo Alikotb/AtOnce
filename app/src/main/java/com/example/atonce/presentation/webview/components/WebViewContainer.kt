@@ -39,12 +39,3 @@ fun WebViewContainer(
     )
 }
 
-@Composable
-fun WebViewLoadingOverlay() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}

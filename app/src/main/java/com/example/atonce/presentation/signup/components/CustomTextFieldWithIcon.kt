@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
@@ -43,7 +44,9 @@ fun CustomTextFieldWithIcon(
     placeholder: String,
     onIconClick: () -> Unit,
     keyboardType: KeyboardType = KeyboardType.Text,
-    singleLine: Boolean = true
+    singleLine: Boolean = true,
+    readOnly: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     val colors = MaterialTheme.colorScheme
     val interactionSource = remember { MutableInteractionSource() }
@@ -68,6 +71,7 @@ fun CustomTextFieldWithIcon(
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = value,
+            readOnly = readOnly,
             onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,6 +114,7 @@ fun CustomTextFieldWithIcon(
             ),
             singleLine = singleLine,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            visualTransformation = visualTransformation,
             interactionSource = interactionSource
         )
     }

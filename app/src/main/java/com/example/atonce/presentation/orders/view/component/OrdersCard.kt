@@ -35,26 +35,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
+import com.example.atonce.domain.entity.OrderEntity
 import com.example.atonce.presentation.common.FontSizes.ORDER_DATE_AND_TIME
 import com.example.atonce.presentation.common.FontSizes.ORDER_PHARMACY_NAME
-import kotlin.collections.listOf
 
 
-@Preview(showBackground = true)
 @Composable
-fun OrdersCard(){
+fun OrdersCard(order: OrderEntity) {
     var expanded by remember { mutableStateOf(false) }
     val colors = MaterialTheme.colorScheme
-    val medicineList = listOf(
-        Triple("Panadol Extra 600mg", "3", "150"),
-        Triple("Brufen 400mg", "2", "90"),
-        Triple("Vitamin D3", "1", "60"),
-        Triple("Amoxicillin 500mg", "4", "200")
-    )
+
     Card (
         modifier = Modifier
             .fillMaxWidth()
@@ -83,9 +78,10 @@ fun OrdersCard(){
             if (expanded) {
                 Row {
                     Text(
-                        text = "#747227",
+                        text = stringResource(R.string.id)+order.orderID.convertNumbersToArabic(),
                         fontSize = ORDER_DATE_AND_TIME.sp,
-                        modifier = Modifier.padding(start = 12.dp, top = 8.dp)
+                        modifier = Modifier.padding(start = 12.dp, top = 8.dp),
+                        color= colors.onBackground
                     )
                     Spacer(Modifier.weight(1f))
                 }
@@ -109,16 +105,21 @@ fun OrdersCard(){
                             modifier = Modifier.padding(start = 12.dp)
                         )
                         Text(
-                            text = "UM Pharma",
+                            text = order.wareHouseName,
                             fontSize = ORDER_PHARMACY_NAME.sp,
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier.padding(start = 8.dp),
+                            color= colors.onBackground,
+                            fontWeight = FontWeight.Bold
                         )
                         if (!expanded) {
                             Spacer(Modifier.width(12.dp))
                             Text(
-                                text = stringResource(R.string.id)+"#747227",
+                                text = stringResource(R.string.id)+order.orderID.convertNumbersToArabic(),
                                 fontSize = ORDER_PHARMACY_NAME.sp,
-                                modifier = Modifier.padding(start = 16.dp)
+                                modifier = Modifier.padding(start = 16.dp),
+                                color= colors.onBackground
+
+
                             )
                         }
                         Spacer(Modifier.weight(1f))
@@ -135,9 +136,12 @@ fun OrdersCard(){
                             modifier = Modifier.padding(start = 12.dp)
                         )
                         Text(
-                            text = "25/05/2024 - 18:00 "+ stringResource(R.string.pm),
+                            text = order.orderDate.convertNumbersToArabic()+ stringResource(R.string.pm),
                             fontSize = ORDER_PHARMACY_NAME.sp,
-                            modifier = Modifier.padding(start = 8.dp)
+                            modifier = Modifier.padding(start = 8.dp),
+                            color= colors.onBackground,
+                            fontWeight = FontWeight.Bold
+
                         )
                         Spacer(Modifier.weight(1f))
                     }
@@ -156,16 +160,18 @@ fun OrdersCard(){
             if (expanded) {
                 Row {
                     Text(
-                        text = "Zefta , Gharbia",
+                        text = stringResource(R.string.quantity) +order.address.convertNumbersToArabic(),
                         fontSize = ORDER_DATE_AND_TIME.sp,
-                        modifier = Modifier.padding(start = 45.dp)
+                        modifier = Modifier.padding(start = 45.dp),
+                        color= colors.onBackground
+
                     )
                     Spacer(Modifier.weight(1f))
                 }
             }
             Spacer(Modifier.height(8.dp))
             if (expanded) {
-                medicineList.forEach {
+                order.orderList.forEach {
                     OrderSubCard(it)
                 }
                 HorizontalDivider(modifier = Modifier.padding(top = 4.dp))
@@ -173,10 +179,11 @@ fun OrdersCard(){
                 Row {
                     Spacer(Modifier.weight(1f))
                     Text(
-                        text = stringResource(R.string.total) +"600"+stringResource(R.string.egp),
+                        text = stringResource(R.string.total) +"${order.total}".convertNumbersToArabic()+stringResource(R.string.egp),
                         fontSize = ORDER_DATE_AND_TIME.sp,
                         modifier = Modifier.padding(end = 16.dp),
-                        color = Color.Red
+                        color = Color.Red,
+
                     )
 
                 }

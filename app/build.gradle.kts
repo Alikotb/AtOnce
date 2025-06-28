@@ -64,6 +64,11 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager:0.30.1")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+
+    //lotti
+    implementation("com.airbnb.android:lottie-compose:6.6.3")
+
     implementation ("androidx.compose.material3:material3:1.1.1")
 
     //animation
@@ -87,5 +92,27 @@ dependencies {
     
     val compose_version = "1.0.0"
     implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
+
+    //coil
+    implementation ("io.coil-kt:coil-compose:2.6.0")
+
+    //shimmer effect
+    implementation ("com.google.accompanist:accompanist-placeholder-material3:0.34.0")
+
+
+    //koin
+    val koin_android_version = "4.0.2"
+    implementation("io.insert-koin:koin-android:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_android_version")
+    implementation("io.insert-koin:koin-androidx-compose-navigation:$koin_android_version")
+
+    //zxing QRCode
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
+    //testing
+    testImplementation ("io.insert-koin:koin-test:$koin_android_version")
+    androidTestImplementation ("io.insert-koin:koin-android-test:$koin_android_version")
+
+
 
 }
