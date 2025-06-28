@@ -232,9 +232,9 @@ fun SetUpNavHost(
         }
         composable<ScreenRoute.EmailScreen> {
             bottomBarState.value = false
-            EmailScreen(
-                onBackClick = { navController.popBackStack() },
-            )
+                EmailScreen(
+                    onBackClick = { navController.popBackStack() },
+                )
 
         }
         composable<ScreenRoute.OtpScreen> {

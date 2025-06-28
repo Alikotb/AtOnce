@@ -47,7 +47,8 @@ class ForgotPasswordViewModel(
                     _message.emit(response.message)
                 }
             }catch(e: Exception) {
-
+                _uiState.value = ForgotPasswordState.EnterEmail(isLoading = false, error = e.message)
+                _message.emit(e.message.toString())
             }
         }
     }
@@ -67,21 +68,26 @@ class ForgotPasswordViewModel(
 
     fun submitNewPassword(email: String, newPassword: String, confirmPassword: String) {
         viewModelScope.launch(handler) {
-            if (newPassword != confirmPassword) {
-                _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = "Passwords do not match")
-                _message.emit("Passwords do not match")
-                return@launch
-            }else {
-                val response = resetPasswordUseCase(ResetPasswordRequest(email, generatedOtp, newPassword, confirmPassword))
-                if (response.success) {
-                    _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, isLoading = true)
-                    _message.emit(response.message)
-                    delay(1500)
-                    _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
-                } else {
-                    _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = response.message)
-                    _message.emit(response.message)
+            try {
+                if (newPassword != confirmPassword) {
+                    _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = "Passwords do not match")
+                    _message.emit("Passwords do not match")
+                    return@launch
+                }else {
+                    val response = resetPasswordUseCase(ResetPasswordRequest(email, generatedOtp, newPassword, confirmPassword))
+                    if (response.success) {
+                        _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, isLoading = true)
+                        _message.emit(response.message)
+                        delay(1500)
+                        _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
+                    } else {
+                        _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = response.message)
+                        _message.emit(response.message)
+                    }
                 }
+            }catch(e: Exception) {
+                _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, isLoading = false, error = e.message)
+                _message.emit(e.message.toString())
             }
         }
     }
