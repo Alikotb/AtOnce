@@ -55,4 +55,7 @@ val useCaseModule = module {
 
     factory { ForgotPasswordUseCase(get()) }
     factory { ResetPasswordUseCase(get()) }
+
+    factory { GetOrdersUseCase(get()) }
+    factory { GetPharmacyUseCase(get()) }
 }
