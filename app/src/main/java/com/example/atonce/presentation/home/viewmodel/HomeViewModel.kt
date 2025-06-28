@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum

@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.signup
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
@@ -117,7 +116,6 @@ class SignUpViewModel(
         viewModelScope.launch(Dispatchers.IO) {
 
             getAreasUseCase(governorateId).collect{
-                Log.d("TAG", "getAreas: $it")
                 _areas.emit(it)
             }
         }

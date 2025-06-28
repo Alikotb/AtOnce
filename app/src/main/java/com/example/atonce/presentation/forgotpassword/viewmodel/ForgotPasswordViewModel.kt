@@ -1,6 +1,5 @@
 package com.example.atonce.presentation.forgotpassword.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ForgotPasswordEnumMessages
@@ -81,7 +80,6 @@ class ForgotPasswordViewModel(
                         _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
                     } else {
                         _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = response.message)
-                       // _message.emit(response.message)
                     }
                 }
             }catch(e: Exception) {
