@@ -38,6 +38,7 @@ class AuthRepositoryImpl(
         sharedPreferences.saveData("governate", pharmacy.governate)
         sharedPreferences.saveData("areaId", pharmacy.areaId)
         sharedPreferences.saveData("phoneNumber", pharmacy.phoneNumber)
+        sharedPreferences.saveData("representativePhone", pharmacy.representativePhone)
     }
 
     override fun saveLanguage(code: String) {
@@ -59,6 +60,7 @@ class AuthRepositoryImpl(
             sharedPreferences.fetchData("governate", ""),
             sharedPreferences.fetchData("areaId", 0),
             sharedPreferences.fetchData("phoneNumber", ""),
+            sharedPreferences.fetchData("representativePhone", "")
         )
     }
 
@@ -84,6 +86,8 @@ class AuthRepositoryImpl(
         sharedPreferences.saveData("governate", "")
         sharedPreferences.saveData("areaId", -1)
         sharedPreferences.saveData("phoneNumber", "")
+        sharedPreferences.saveData("representativePhone", "")
+
     }
 
 

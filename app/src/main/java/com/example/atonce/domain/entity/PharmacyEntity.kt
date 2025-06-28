@@ -9,6 +9,7 @@ data class PharmacyEntity(
     val address: String,
     val governorate: String,
     val areaId: Int,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val representativePhone: String
 )
 

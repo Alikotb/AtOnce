@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.R
+import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.presentation.common.theme.RegularFont
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.common.theme.WhiteColor
@@ -73,7 +74,7 @@ fun OrderInfo(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            stringResource(R.string.minimum_to_place_an_order_is_egp, minimum),
+            stringResource(R.string.minimum_to_place_an_order_is_egp, "$minimum".convertNumbersToArabic()),
             fontFamily = RegularFont,
             fontSize = 14.sp,
             color = Color.Red,

@@ -97,8 +97,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                 },
                 onStartClick = {
 
-                    val phoneNumber =
-                        "+201067205869"
+                    val phoneNumber = viewModel.getRepresentativePhone()
                     val intent = Intent(Intent.ACTION_DIAL)
                     intent.setData(("tel:" + phoneNumber).toUri())
                     context.startActivity(intent)

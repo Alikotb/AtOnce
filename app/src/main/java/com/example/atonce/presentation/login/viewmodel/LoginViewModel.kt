@@ -1,5 +1,6 @@
 package com.example.atonce.presentation.login.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
@@ -52,6 +53,7 @@ class LoginViewModel(
                     _isLoading.value = false
                     if (result.success == true) {
                         savePharmacyUseCase(result.pharmacy!!)
+                        Log.d("Login", "login: ${result}")
                         _loginSuccess.emit(true)
                     } else {
                         _message.emit(ErrorMessagesEnum.LOGINFAILED.getLocalizedMessage())
