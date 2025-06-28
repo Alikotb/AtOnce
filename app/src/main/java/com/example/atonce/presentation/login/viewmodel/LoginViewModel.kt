@@ -1,10 +1,8 @@
 package com.example.atonce.presentation.login.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler

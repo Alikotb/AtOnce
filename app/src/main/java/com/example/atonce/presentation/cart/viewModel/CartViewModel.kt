@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.data.remote.dto.PlaceOrderResponse
 import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.domain.entity.CartWarehouseEntity
@@ -71,13 +71,10 @@ class CartViewModel(
         medicineId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO + errorExceptionHandler) {
-            Log.d("CartTAG", "deleteFromCart: $userData")
-            Log.d("CartTAG", "deleteFromCart: $wareHouseId")
-            Log.d("CartTAG", "deleteFromCart: $medicineId")
+
 
             deleteFromCartUseCase(userData.id ?: 0, wareHouseId, medicineId)
                 .collect { response ->
-                    Log.d("CartTAG", "deleteFromCart: $response")
                     if (response.success) {
                         _message.emit(ErrorMessagesEnum.DELETESUCCESS.getLocalizedMessage())
                         getCartDetails()

@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.core.enums.FilterOptions
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
@@ -57,6 +57,7 @@ fun StoreScreen(
     val gState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
+        viewModel.initFunSearch(warehouseId)
         viewModel.message.collect { message ->
             snackbarHostState.showSnackbar(message)
         }
