@@ -3,7 +3,7 @@ package com.example.atonce.presentation.signup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.data.remote.dto.AreaDto
 import com.example.atonce.data.remote.dto.authentication.RegisterRequestDto
 import com.example.atonce.domain.usecase.GetAreasUseCase

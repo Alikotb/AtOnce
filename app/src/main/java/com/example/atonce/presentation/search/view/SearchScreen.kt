@@ -27,19 +27,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.domain.entity.Medicine
-import com.example.atonce.presentation.common.component.DotLoadingIndicator
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.NoIconCard
-import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.search.view.component.ModelSheet
 import com.example.atonce.presentation.search.view.component.SearchCard
 import com.example.atonce.presentation.search.view.component.ShimmerSearchCard
 import com.example.atonce.presentation.search.viewmodel.SearchViewModel
+import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.compose.koinViewModel
 
+@FlowPreview
 @ExperimentalMaterial3Api
 @Composable
 fun SearchScreen(

@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.CartMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.domain.usecase.AddToCartUseCase
@@ -16,6 +16,7 @@ import com.example.atonce.presentation.search.model.AddToCartUiModel
 import com.example.atonce.presentation.search.model.toEntity
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -26,6 +27,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
+@FlowPreview
 class SearchViewModel(
     private val searchMedicinesUseCase: SearchMedicinesUseCase,
     private val getAllSuppliersByAreaIdAndMedicine: GetAllSuppliersByAreaIdAndMedicine,

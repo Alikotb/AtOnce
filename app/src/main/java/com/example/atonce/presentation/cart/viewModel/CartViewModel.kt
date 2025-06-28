@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.data.remote.dto.PlaceOrderResponse
 import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.domain.entity.CartWarehouseEntity
