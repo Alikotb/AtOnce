@@ -55,6 +55,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import com.example.atonce.presentation.common.component.OtpIView
 
 @Preview
 @Composable
@@ -106,59 +107,12 @@ fun OtpScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            code.forEachIndexed { index, value ->
-                TextField(
-                    value = value,
-                    onValueChange = {
-                        if (it.length <= 1 && it.all { c -> c.isDigit() }) {
-                            code = code.toMutableList().also { list -> list[index] = it }
-
-                            if (it.isNotEmpty()) {
-                                if (index < 4) {
-                                    focusRequesters[index + 1].requestFocus()
-                                } else {
-                                    onSubmitClick(code.joinToString(""))
-                                }
-                            }
-                        }
-                    },
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(56.dp)
-                        .focusRequester(focusRequesters[index])
-                        .clip(RoundedCornerShape(12.dp))
-                        .border(
-                            1.dp,
-                            colors.onSurfaceVariant,
-                            RoundedCornerShape(12.dp)
-                        ),
-                    textStyle = LocalTextStyle.current.copy(
-                        fontFamily = RegularFont,
-                        fontSize = 18.sp,
-                        textAlign = TextAlign.Center
-                    ),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number,
-                        imeAction = ImeAction.Done
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = colors.onPrimary,
-                        unfocusedContainerColor = colors.onPrimary,
-                        cursorColor = colors.primary,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        focusedTextColor = colors.onBackground,
-                        unfocusedTextColor = colors.onBackground
-                    ),
-                )
+        OtpIView(
+            digitsCount = 5,
+            onComplete = { enteredCode ->
+                onSubmitClick(enteredCode)
             }
-        }
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 

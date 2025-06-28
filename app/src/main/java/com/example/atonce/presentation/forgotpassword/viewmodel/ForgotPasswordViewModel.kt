@@ -3,6 +3,7 @@ package com.example.atonce.presentation.forgotpassword.viewmodel
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.atonce.core.enums.ForgotPasswordEnumMessages
 import com.example.atonce.domain.entity.ForgotPasswordRequest
 import com.example.atonce.domain.entity.ForgotPasswordState
 import com.example.atonce.domain.entity.ResetPasswordRequest
@@ -41,14 +42,13 @@ class ForgotPasswordViewModel(
                 val response = forgotPasswordUseCase(ForgotPasswordRequest(email, generatedOtp))
                 if (response.success) {
                     _uiState.value = ForgotPasswordState.EnterOtp(email)
-                    _message.emit(response.message)
                 } else {
                     _uiState.value = ForgotPasswordState.EnterEmail(isLoading = false, error = response.message)
-                    _message.emit(response.message)
+                    _message.emit(ForgotPasswordEnumMessages.INVALIDEMAIL.getLocalizedMessage())
                 }
             }catch(e: Exception) {
                 _uiState.value = ForgotPasswordState.EnterEmail(isLoading = false, error = e.message)
-                _message.emit(e.message.toString())
+                _message.emit(ForgotPasswordEnumMessages.NETWORKERROR.getLocalizedMessage())
             }
         }
     }
@@ -61,7 +61,7 @@ class ForgotPasswordViewModel(
                 _uiState.value = ForgotPasswordState.SetNewPassword(email, otp)
             } else {
                 _uiState.value = ForgotPasswordState.EnterOtp(email, isLoading = false, error = "Invalid OTP")
-                _message.emit("Invalid OTP")
+                _message.emit(ForgotPasswordEnumMessages.INVALIDOTP.getLocalizedMessage())
             }
         }
     }
@@ -71,23 +71,22 @@ class ForgotPasswordViewModel(
             try {
                 if (newPassword != confirmPassword) {
                     _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = "Passwords do not match")
-                    _message.emit("Passwords do not match")
+                    _message.emit(ForgotPasswordEnumMessages.CONFIRMATIONERROR.getLocalizedMessage())
                     return@launch
                 }else {
                     val response = resetPasswordUseCase(ResetPasswordRequest(email, generatedOtp, newPassword, confirmPassword))
                     if (response.success) {
                         _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, isLoading = true)
-                        _message.emit(response.message)
                         delay(1500)
                         _uiState.value = ForgotPasswordState.ResetSuccess(isLoading = false)
                     } else {
                         _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = response.message)
-                        _message.emit(response.message)
+                       // _message.emit(response.message)
                     }
                 }
             }catch(e: Exception) {
                 _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, isLoading = false, error = e.message)
-                _message.emit(e.message.toString())
+                _message.emit(ForgotPasswordEnumMessages.NETWORKERROR.getLocalizedMessage())
             }
         }
     }
