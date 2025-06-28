@@ -72,7 +72,6 @@ fun OtpScreen(
 ) {
     val colors = MaterialTheme.colorScheme
     var code by remember { mutableStateOf(List(5) { "" }) }
-    val focusRequesters = remember { List(5) { FocusRequester() } }
 
     Column(
         modifier = Modifier
@@ -161,9 +160,6 @@ fun OtpScreen(
         }
     }
 
-    LaunchedEffect(Unit) {
-        focusRequesters.first().requestFocus()
-    }
 }
 
 

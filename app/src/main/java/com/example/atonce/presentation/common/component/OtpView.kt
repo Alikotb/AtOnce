@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,66 +42,64 @@ fun OtpIView(
     var code by remember { mutableStateOf(List(digitsCount) { "" }) }
     val focusRequesters = remember { List(digitsCount) { FocusRequester() } }
 
-    val layoutDirection = LocalLayoutDirection.current
-    val isRtl = layoutDirection == LayoutDirection.Rtl
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = modifier.fillMaxWidth()
+        ) {
+            (0 until digitsCount).forEach { index ->
+                TextField(
+                    value = code[index],
+                    onValueChange = {
+                        if (it.length <= 1 && it.all { c -> c.isDigit() }) {
+                            code = code.toMutableList().also { list -> list[index] = it }
 
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.fillMaxWidth()
-    ) {
-        val indices = if (isRtl) (digitsCount - 1 downTo 0) else (0 until digitsCount)
-
-        indices.forEach { index ->
-            TextField(
-                value = code[index],
-                onValueChange = {
-                    if (it.length <= 1 && it.all { c -> c.isDigit() }) {
-                        code = code.toMutableList().also { list -> list[index] = it }
-
-                        if (it.isNotEmpty()) {
-                            if (index != indices.last()) {
-                                focusRequesters[indices.indexOf(index) + 1].requestFocus()
-                            } else {
-                                onComplete(code.joinToString(""))
+                            if (it.isNotEmpty()) {
+                                if (index < digitsCount - 1) {
+                                    focusRequesters[index + 1].requestFocus()
+                                } else {
+                                    onComplete(code.joinToString(""))
+                                }
                             }
                         }
-                    }
-                },
-                modifier = Modifier
-                    .weight(1f)
-                    .height(56.dp)
-                    .focusRequester(focusRequesters[indices.indexOf(index)])
-                    .clip(RoundedCornerShape(12.dp))
-                    .border(
-                        1.dp,
-                        colors.onSurfaceVariant,
-                        RoundedCornerShape(12.dp)
+                    },
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(56.dp)
+                        .focusRequester(focusRequesters[index])
+                        .clip(RoundedCornerShape(12.dp))
+                        .border(
+                            1.dp,
+                            colors.onSurfaceVariant,
+                            RoundedCornerShape(12.dp)
+                        ),
+                    textStyle = LocalTextStyle.current.copy(
+                        fontFamily = RegularFont,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center
                     ),
-                textStyle = LocalTextStyle.current.copy(
-                    fontFamily = RegularFont,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                ),
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Done
-                ),
-                shape = RoundedCornerShape(8.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = colors.onPrimary,
-                    unfocusedContainerColor = colors.onPrimary,
-                    cursorColor = colors.primary,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedTextColor = colors.onBackground,
-                    unfocusedTextColor = colors.onBackground
-                ),
-            )
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = colors.onPrimary,
+                        unfocusedContainerColor = colors.onPrimary,
+                        cursorColor = colors.primary,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedTextColor = colors.onBackground,
+                        unfocusedTextColor = colors.onBackground
+                    ),
+                )
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            focusRequesters.first().requestFocus()
         }
     }
-
-    LaunchedEffect(Unit) {
-        focusRequesters.first().requestFocus()
-    }
 }
+
