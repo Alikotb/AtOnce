@@ -18,7 +18,7 @@ data class Pharmacy(
     val governate: String? = null,
     val areaId: Int? = null,
     val phoneNumber: String? = null,
-    val representativePhone: String? = null
+    val representativePhone: String? = "121056060"
 )
 
 

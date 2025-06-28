@@ -17,5 +17,6 @@ data class PharmacyDto(
     val governate: String? = null,
     val areaId: Int? = null,
     val phoneNumber: String? = null,
-    val representativePhone: String? = null
+    val representativePhone: String? = "0.1515151"
+
 )
