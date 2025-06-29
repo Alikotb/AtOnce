@@ -53,7 +53,7 @@ class OrdersViewModel(
 
                     loadedOrders.addAll(response.items)
 
-                    _orders.value = Response.Success(loadedOrders.toList())
+                    _orders.value = Response.Success(loadedOrders.toList().reversed())
 
 
                     currentPage++
