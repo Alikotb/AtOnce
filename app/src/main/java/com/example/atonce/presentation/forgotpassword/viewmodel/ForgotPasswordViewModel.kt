@@ -1,10 +1,8 @@
 package com.example.atonce.presentation.forgotpassword.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ForgotPasswordEnumMessages
-import com.example.atonce.core.utils.AuthValidator
 import com.example.atonce.core.utils.ConfirmPasswordHandler
 import com.example.atonce.core.utils.EmptyPasswordHandler
 import com.example.atonce.core.utils.PasswordCharDigitHandler
