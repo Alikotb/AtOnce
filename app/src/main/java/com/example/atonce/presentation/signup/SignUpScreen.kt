@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.presentation.QRCodeScannerActivity
 import com.example.atonce.presentation.common.component.LoadingView
 import com.example.atonce.presentation.common.component.NoInternet
@@ -44,7 +44,7 @@ fun SignUpScreen(
     onBackClick: () -> Unit = {},
     onRegisterClick: () -> Unit = {},
     modifier: PaddingValues,
-    snackbarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -91,7 +91,7 @@ fun SignUpScreen(
 
      LaunchedEffect(Unit) {
          viewModel.message.collect { message ->
-             snackbarHostState.showSnackbar(message)
+             snackBarHostState.showSnackbar(message)
          }
      }
 
@@ -112,7 +112,6 @@ fun SignUpScreen(
         if (granted) {
             val intent = Intent(context, QRCodeScannerActivity::class.java)
             qrScannerLauncher.launch(intent)
-        } else {
         }
     }
 

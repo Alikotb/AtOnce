@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.data.remote.dto.cart.UpdateCartRequest
 import com.example.atonce.presentation.cart.view.components.AddToCartCard
 import com.example.atonce.presentation.cart.view.components.OrderInfo
@@ -39,7 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 fun CartScreen(
     modifier: PaddingValues,
     viewModel: CartViewModel = koinViewModel(),
-    snackbarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -52,7 +52,7 @@ fun CartScreen(
 
     LaunchedEffect(Unit) {
         viewModel.message.collect { message ->
-            snackbarHostState.showSnackbar(message)
+            snackBarHostState.showSnackbar(message)
         }
     }
 

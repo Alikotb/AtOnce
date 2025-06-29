@@ -160,7 +160,7 @@ fun AddToCartCard(
                     Icon(Icons.Default.Remove, contentDescription = "Decrease")
                 }
                 BasicTextField(
-                    value = quantityText,
+                    value = quantityText.convertNumbersToArabic(),
                     onValueChange = { newValue ->
                         if (newValue.isEmpty() || newValue.all { it.isDigit() }) {
                             quantityText = newValue

@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.core.enums.FilterOptions
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.SearchComponent
 import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
@@ -40,15 +40,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun StoreScreen(
     warehouseId: Int,
-    snackbarHostState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     modifier: PaddingValues,
     onBackClick: () -> Unit = {},
     viewModel: WarehouseViewModel = koinViewModel(),
     warehouseName: String
 ) {
     val colors = MaterialTheme.colorScheme
-    var expanded = remember { mutableStateOf(false) }
-    var searchText by remember { mutableStateOf("") }
+    val expanded = remember { mutableStateOf(false) }
     var filterSearch by remember { mutableStateOf("") }
 
 
@@ -57,8 +56,9 @@ fun StoreScreen(
     val gState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
+        viewModel.initFunSearch(warehouseId)
         viewModel.message.collect { message ->
-            snackbarHostState.showSnackbar(message)
+            snackBarHostState.showSnackbar(message)
         }
     }
 
@@ -96,7 +96,6 @@ fun StoreScreen(
         SearchComponent(
             expanded = expanded,
             onSearch = {
-                searchText = it
                 viewModel.onSearchChanged(it)
             },
             onFilterClick = {

@@ -1,7 +1,6 @@
 package com.example.atonce.presentation.home.view
 
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,12 +36,10 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.atonce.R
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.presentation.common.component.EmptyCart
-import com.example.atonce.presentation.common.component.MySearchBar
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
-import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.SemiBoldFont
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
@@ -100,10 +97,9 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                 },
                 onStartClick = {
 
-                    val phoneNumber =
-                        "+201067205869"
+                    val phoneNumber = viewModel.getRepresentativePhone()
                     val intent = Intent(Intent.ACTION_DIAL)
-                    intent.setData(("tel:" + phoneNumber).toUri())
+                    intent.setData(("tel:$phoneNumber").toUri())
                     context.startActivity(intent)
                 },
                 headerTxt = stringResource(R.string.home_screen)

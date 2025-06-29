@@ -1,10 +1,9 @@
 package com.example.atonce.presentation.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.domain.usecase.GetAllWarehousesByAreaUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.presentation.home.model.WarehouseUiModel
@@ -18,10 +17,12 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getWarehousesByAreaUseCase: GetAllWarehousesByAreaUseCase,
-    private val getPharmacyUseCase: GetPharmacyUseCase
+    private val getPharmacyUseCase: GetPharmacyUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<Response<List<WarehouseUiModel>>>(Response.Loading)
     val uiState = _uiState.asStateFlow()
+
+    val userData = getPharmacyUseCase()
 
     private val _isPaginationLoading = MutableStateFlow(false)
     val isPaginationLoading = _isPaginationLoading.asStateFlow()
@@ -66,5 +67,9 @@ class HomeViewModel(
 
     fun getPharmacyId() : Int {
         return getPharmacyUseCase().areaId!!
+    }
+
+    fun getRepresentativePhone() : String {
+        return getPharmacyUseCase().representativePhone!!
     }
 }

@@ -13,6 +13,7 @@ fun Pharmacy.toEntity(): PharmacyEntity {
         address = address?:"",
         governorate = governate?:"",
         areaId = areaId?:-1,
-        phoneNumber = phoneNumber?:""
+        phoneNumber = phoneNumber?:"",
+        representativePhone = representativePhone?:""
     )
 }

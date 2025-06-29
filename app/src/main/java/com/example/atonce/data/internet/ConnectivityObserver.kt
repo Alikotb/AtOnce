@@ -27,7 +27,7 @@ class ConnectivityObserverImp(private val context: Context):ConnectivityObserver
         _isOnline.value = isInternetAvailable(context)
     }
 
-    fun unregister() {
+    override fun unregister() {
         context.unregisterReceiver(connectivityReceiver)
     }
 

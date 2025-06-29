@@ -4,4 +4,5 @@ import androidx.lifecycle.LiveData
 
 interface ConnectivityObserver {
     val isOnline: LiveData<Boolean>
+    fun unregister()
 }

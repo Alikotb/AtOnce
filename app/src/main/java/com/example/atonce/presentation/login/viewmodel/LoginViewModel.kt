@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.domain.usecase.GetPharmacyUseCase
 import com.example.atonce.domain.usecase.LoginUseCase
 import com.example.atonce.domain.usecase.SavePharmacyUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -54,6 +53,7 @@ class LoginViewModel(
                     _isLoading.value = false
                     if (result.success == true) {
                         savePharmacyUseCase(result.pharmacy!!)
+                        Log.d("Login", "login: ${result}")
                         _loginSuccess.emit(true)
                     } else {
                         _message.emit(ErrorMessagesEnum.LOGINFAILED.getLocalizedMessage())

@@ -3,7 +3,7 @@ package com.example.atonce.presentation.orders.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ErrorMessagesEnum
-import com.example.atonce.data.remote.Response
+import com.example.atonce.domain.Response
 import com.example.atonce.domain.entity.OrderEntity
 import com.example.atonce.domain.usecase.GetOrdersUseCase
 import com.example.atonce.domain.usecase.GetPharmacyUseCase
