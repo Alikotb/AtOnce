@@ -7,7 +7,7 @@ class AuthValidator {
         return otp.length == 5 && otp.all { it.isDigit() }
     }
 
-    fun validatePassword(password: String): String? {
+    fun validatePassword(password: String): String {
         if (password.isEmpty()) {
             return ForgotPasswordEnumMessages.EMPTYFIELDS.getLocalizedMessage()
         }
