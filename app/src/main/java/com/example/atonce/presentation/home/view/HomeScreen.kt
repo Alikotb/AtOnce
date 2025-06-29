@@ -99,7 +99,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
 
                     val phoneNumber = viewModel.getRepresentativePhone()
                     val intent = Intent(Intent.ACTION_DIAL)
-                    intent.setData(("tel:" + phoneNumber).toUri())
+                    intent.setData(("tel:$phoneNumber").toUri())
                     context.startActivity(intent)
                 },
                 headerTxt = stringResource(R.string.home_screen)

@@ -58,7 +58,7 @@ import org.koin.androidx.compose.koinViewModel
 fun LoginScreen(
     onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit,
-    snackbarHostState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     onForgotPasswordClick: () -> Unit = {},
     modifier: PaddingValues,
     viewModel: LoginViewModel = koinViewModel()
@@ -80,7 +80,7 @@ fun LoginScreen(
 
     LaunchedEffect(Unit) {
         viewModel.message.collect { message ->
-            snackbarHostState.showSnackbar(message)
+            snackBarHostState.showSnackbar(message)
         }
     }
 

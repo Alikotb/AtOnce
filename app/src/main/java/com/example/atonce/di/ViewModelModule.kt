@@ -10,9 +10,11 @@ import com.example.atonce.presentation.profile.viewmodel.ProfileViewModel
 import com.example.atonce.presentation.search.viewmodel.SearchViewModel
 import com.example.atonce.presentation.splash.viewmodel.SplashViewModel
 import com.example.atonce.presentation.store.viewmodel.WarehouseViewModel
+import kotlinx.coroutines.FlowPreview
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
+@FlowPreview
 val viewModelModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get()) }

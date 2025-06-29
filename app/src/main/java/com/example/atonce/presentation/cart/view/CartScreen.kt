@@ -39,7 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 fun CartScreen(
     modifier: PaddingValues,
     viewModel: CartViewModel = koinViewModel(),
-    snackbarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -52,7 +52,7 @@ fun CartScreen(
 
     LaunchedEffect(Unit) {
         viewModel.message.collect { message ->
-            snackbarHostState.showSnackbar(message)
+            snackBarHostState.showSnackbar(message)
         }
     }
 

@@ -44,7 +44,7 @@ fun SignUpScreen(
     onBackClick: () -> Unit = {},
     onRegisterClick: () -> Unit = {},
     modifier: PaddingValues,
-    snackbarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -91,7 +91,7 @@ fun SignUpScreen(
 
      LaunchedEffect(Unit) {
          viewModel.message.collect { message ->
-             snackbarHostState.showSnackbar(message)
+             snackBarHostState.showSnackbar(message)
          }
      }
 

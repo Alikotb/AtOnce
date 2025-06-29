@@ -111,7 +111,7 @@ fun NewPasswordScreen(
         Button(
             shape = RoundedCornerShape(8.dp),
             onClick = {
-                onSubmitClick(password, confirmPassword)
+                onSubmitClick(password.trim(), confirmPassword.trim())
             },
             modifier = Modifier
                 .fillMaxWidth()

@@ -14,6 +14,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,6 +28,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.atonce.core.enums.LanguageEnum
 import com.example.atonce.core.extensions.applyLanguage
+import com.example.atonce.domain.internet.ConnectivityObserver
 import com.example.atonce.domain.usecase.GetLanguageUseCase
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
 import com.example.atonce.presentation.common.navigation.SetUpNavHost
@@ -34,11 +37,13 @@ import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.android.ext.android.inject
+import org.koin.compose.koinInject
 
 
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
     lateinit var bottomBarState: MutableState<Boolean>
+    lateinit var connectivityObserver:ConnectivityObserver
     lateinit var snackbarHostState: SnackbarHostState
     override fun attachBaseContext(newBase: Context) {
         val lang: GetLanguageUseCase by inject()
@@ -55,6 +60,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            connectivityObserver = koinInject()
+            val isOnline by connectivityObserver.isOnline.observeAsState(initial = true)
             HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
                 navController = rememberNavController()
@@ -85,7 +92,8 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             bottomBarState = bottomBarState,
                             snackbarState = snackbarHostState,
-                            paddingValues = innerPadding
+                            paddingValues = innerPadding,
+                            isOnline = isOnline
                         )
 
 
@@ -117,6 +125,11 @@ class MainActivity : ComponentActivity() {
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         systemUiController.isNavigationBarVisible = false
         systemUiController.isStatusBarVisible = true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityObserver.unregister()
     }
 }
 
