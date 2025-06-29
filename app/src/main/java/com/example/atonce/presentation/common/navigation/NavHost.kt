@@ -5,13 +5,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.atonce.domain.internet.ConnectivityObserver
 import com.example.atonce.presentation.cart.view.CartScreen
+import com.example.atonce.presentation.forgotpassword.view.ForgotPasswordScreen
+import com.example.atonce.presentation.forgotpassword.view.component.EmailScreen
+import com.example.atonce.presentation.forgotpassword.view.component.NewPasswordScreen
+import com.example.atonce.presentation.forgotpassword.view.component.OtpScreen
+import com.example.atonce.presentation.forgotpassword.view.component.SuccessResetScreen
 import com.example.atonce.presentation.home.view.HomeScreen
 import com.example.atonce.presentation.login.view.LoginScreen
 import com.example.atonce.presentation.no_internet.NoInternetScreen
@@ -23,14 +26,6 @@ import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.view.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
 import com.example.atonce.presentation.webview.WebViewScreen
-import androidx.compose.runtime.getValue
-import com.example.atonce.presentation.forgotpassword.view.ForgotPasswordScreen
-import com.example.atonce.presentation.forgotpassword.view.component.EmailScreen
-import com.example.atonce.presentation.forgotpassword.view.component.NewPasswordScreen
-import com.example.atonce.presentation.forgotpassword.view.component.OtpScreen
-import com.example.atonce.presentation.forgotpassword.view.component.SuccessResetScreen
-import com.example.atonce.presentation.forgotpassword.viewmodel.ForgotPasswordViewModel
-import org.koin.compose.koinInject
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,11 +34,10 @@ fun SetUpNavHost(
     navController: NavHostController,
     bottomBarState: MutableState<Boolean>,
     snackbarState: SnackbarHostState,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    isOnline: Boolean
 ) {
-    val connectivityObserver: ConnectivityObserver = koinInject()
-    val isOnline by connectivityObserver.isOnline.observeAsState(initial = true)
-    NavHost(
+   NavHost(
         navController = navController,
         startDestination = ScreenRoute.SplashScreen
 
