@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.atonce.core.enums.ForgotPasswordEnumMessages
+import com.example.atonce.core.utils.AuthValidator
 import com.example.atonce.domain.entity.ForgotPasswordRequest
 import com.example.atonce.domain.entity.ForgotPasswordState
 import com.example.atonce.domain.entity.ResetPasswordRequest
@@ -69,6 +70,7 @@ class ForgotPasswordViewModel(
     fun submitNewPassword(email: String, newPassword: String, confirmPassword: String) {
         viewModelScope.launch(handler) {
             try {
+
                 if (newPassword != confirmPassword) {
                     _uiState.value = ForgotPasswordState.SetNewPassword(email, generatedOtp, error = "Passwords do not match")
                     _message.emit(ForgotPasswordEnumMessages.CONFIRMATIONERROR.getLocalizedMessage())

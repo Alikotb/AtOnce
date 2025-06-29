@@ -2,7 +2,7 @@ package com.example.atonce.core.utils
 
 import com.example.atonce.core.enums.ForgotPasswordEnumMessages
 
-class AuthValidator {
+object  AuthValidator {
     fun isOtpValid(otp: String): Boolean {
         return otp.length == 5 && otp.all { it.isDigit() }
     }
