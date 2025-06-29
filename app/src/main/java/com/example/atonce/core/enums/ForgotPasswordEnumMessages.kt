@@ -7,12 +7,28 @@ enum class ForgotPasswordEnumMessages(
     val engMessage: String
 ) {
     EMPTYFIELDS(
-        "Please fill in all fields",
-        "رجاء قم بملئ جميع البيانات المطلوبة"
+        "رجاء قم بملئ جميع البيانات المطلوبة",
+        "Please fill in all fields"
+    ),
+    PASSWORDTOOSHORT(
+        "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+        "Password must be at least 8 characters"
+    ),
+    PASSWORDMISSINGCHARDIGIT(
+        "يجب أن تحتوي كلمة المرور على حروف وأرقام",
+        "Password must contain both letters and digits"
     ),
     CONFIRMATIONERROR(
-        "Passwords do not match",
-        "كلمة المرور غير متطابقة"
+        "كلمة المرور غير متطابقة",
+        "Passwords do not match"
+    ),
+    PASSWORDVALID(
+        "كلمة المرور صالحة",
+        "Password is valid"
+    ),
+    PASSWORDSMATCH(
+        "كلمتا المرور متطابقتان",
+        "Passwords match"
     ),
     INVALIDEMAIL(
         "لم يتم العثور على صيدلية بهذا البريد الإلكتروني.",
@@ -23,8 +39,12 @@ enum class ForgotPasswordEnumMessages(
         "Invalid or expired OTP"
     ),
     NETWORKERROR(
-        "Check your internet connection",
-        "تحقق من الاتصال بالإنترنت"
+        "تحقق من الاتصال بالإنترنت",
+        "Check your internet connection"
+    ),
+    SUCCESS(
+    "تمت العملية بنجاح",
+    "Operation successful"
     );
 
     fun getLocalizedMessage() : String{
