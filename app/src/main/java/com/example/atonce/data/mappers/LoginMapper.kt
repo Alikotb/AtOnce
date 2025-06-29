@@ -19,7 +19,8 @@ fun LoginResponseDto.toEntity() : LoginResult {
             address = pharmacy?.address,
             governate = pharmacy?.governate,
             areaId = pharmacy?.areaId,
-            phoneNumber = pharmacy?.phoneNumber
+            phoneNumber = pharmacy?.phoneNumber,
+            representativePhone = pharmacy?.representativePhone
         )
     )
 }
