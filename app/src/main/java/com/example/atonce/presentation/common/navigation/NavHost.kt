@@ -26,8 +26,10 @@ import com.example.atonce.presentation.signup.SignUpScreen
 import com.example.atonce.presentation.splash.view.SplashScreen
 import com.example.atonce.presentation.store.view.StoreScreen
 import com.example.atonce.presentation.webview.WebViewScreen
+import kotlinx.coroutines.FlowPreview
 
 
+@FlowPreview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SetUpNavHost(
@@ -63,7 +65,7 @@ fun SetUpNavHost(
             bottomBarState.value = false
             LoginScreen(
                 modifier = paddingValues,
-                snackbarHostState = snackbarState,
+                snackBarHostState = snackbarState,
                 onRegisterClick = {
                     navController.navigate(ScreenRoute.SignupScreen)
                 },
@@ -87,7 +89,7 @@ fun SetUpNavHost(
                     onBackClick = {
                         navController.popBackStack()
                     },
-                    snackbarHostState = snackbarState,
+                    snackBarHostState = snackbarState,
                     onRegisterClick = {
                         navController.navigate(ScreenRoute.LoginScreen) {
                             popUpTo(0) { inclusive = true }
@@ -126,7 +128,7 @@ fun SetUpNavHost(
             if (isOnline) {
                 StoreScreen(
                     warehouseId = warehouseId,
-                    snackbarHostState = snackbarState,
+                    snackBarHostState = snackbarState,
                     modifier = paddingValues,
                     onBackClick = {
                         navController.popBackStack()
@@ -142,7 +144,7 @@ fun SetUpNavHost(
             if (isOnline) {
                 CartScreen(
                     modifier = paddingValues,
-                    snackbarHostState = snackbarState
+                    snackBarHostState = snackbarState
                 )
             } else {
                 NoInternetScreen()
@@ -161,7 +163,7 @@ fun SetUpNavHost(
             if (isOnline) {
                 SearchScreen(
                     modifier = paddingValues,
-                    snackbarHostState = snackbarState,
+                    snackBarHostState = snackbarState,
                 )
             } else {
                 NoInternetScreen()

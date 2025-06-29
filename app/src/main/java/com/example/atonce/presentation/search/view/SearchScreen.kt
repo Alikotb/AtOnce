@@ -44,7 +44,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SearchScreen(
     modifier: PaddingValues,
-    snackbarHostState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     viewModel: SearchViewModel = koinViewModel())
 {
     val context = LocalContext.current
@@ -71,7 +71,7 @@ fun SearchScreen(
 
     LaunchedEffect(Unit) {
         viewModel.message.collect { message ->
-            snackbarHostState.showSnackbar(message)
+            snackBarHostState.showSnackbar(message)
         }
     }
 
@@ -169,7 +169,7 @@ fun SearchScreen(
     if (showBottomSheet) {
         ModelSheet(
             viewModel = viewModel,
-            snackbarHostState = snackbarHostState,
+            snackbarHostState = snackBarHostState,
             medicine = selectedMedicine,
             areaId = areaId
         ) {
