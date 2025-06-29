@@ -7,8 +7,8 @@ enum class ForgotPasswordEnumMessages(
     val engMessage: String
 ) {
     EMPTYFIELDS(
-        "Please fill in all fields",
-        "رجاء قم بملئ جميع البيانات المطلوبة"
+        "رجاء قم بملئ جميع البيانات المطلوبة",
+        "Please fill in all fields"
     ),
     PASSWORDTOOSHORT(
         "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
@@ -19,8 +19,8 @@ enum class ForgotPasswordEnumMessages(
         "Password must contain both letters and digits"
     ),
     CONFIRMATIONERROR(
-        "Passwords do not match",
-        "كلمة المرور غير متطابقة"
+        "كلمة المرور غير متطابقة",
+        "Passwords do not match"
     ),
     PASSWORDVALID(
         "كلمة المرور صالحة",
@@ -39,8 +39,8 @@ enum class ForgotPasswordEnumMessages(
         "Invalid or expired OTP"
     ),
     NETWORKERROR(
-        "Check your internet connection",
-        "تحقق من الاتصال بالإنترنت"
+        "تحقق من الاتصال بالإنترنت",
+        "Check your internet connection"
     ),
     SUCCESS(
     "تمت العملية بنجاح",
