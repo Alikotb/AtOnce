@@ -38,6 +38,10 @@ class ForgotPasswordViewModel(
 
     }
 
+    fun resendEmail() {
+        _uiState.value = ForgotPasswordState.EnterEmail()
+    }
+
     fun submitEmail(email: String) {
         _uiState.value = ForgotPasswordState.EnterEmail(email = email, isLoading = true)
         viewModelScope.launch(handler) {

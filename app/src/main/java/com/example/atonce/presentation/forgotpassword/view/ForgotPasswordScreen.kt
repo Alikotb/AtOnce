@@ -45,6 +45,9 @@ fun ForgotPasswordScreen(
                 onBackClick = onBackClick,
                 onSubmitClick = { otp ->
                     viewModel.submitOtp(state.email, otp)
+                },
+                onResendEmailClick = {
+                    viewModel.resendEmail()
                 }
             )
         }

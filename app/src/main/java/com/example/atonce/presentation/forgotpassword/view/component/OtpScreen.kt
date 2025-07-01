@@ -68,7 +68,8 @@ fun OtpScreen(
     isLoading: Boolean = false,
     email: String = "example@otp.com",
     onBackClick: () -> Unit = {},
-    onSubmitClick: (String) -> Unit = {}
+    onSubmitClick: (String) -> Unit = {},
+    onResendEmailClick: () -> Unit = {}
 ) {
     val colors = MaterialTheme.colorScheme
     var code by remember { mutableStateOf(List(5) { "" }) }
@@ -155,7 +156,9 @@ fun OtpScreen(
                 fontFamily = RegularFont,
                 fontSize = 12.sp,
                 color = colors.primary,
-                modifier = Modifier.clickable {  }
+                modifier = Modifier.clickable {
+                    onResendEmailClick()
+                }
             )
         }
     }
