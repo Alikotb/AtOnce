@@ -154,7 +154,7 @@ fun ProfileDetails(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(R.drawable.profile),
+                    painter = painterResource(R.drawable.avatar_design),
                     contentDescription = "",
                     modifier = Modifier
                         .size(100.dp)

@@ -1,11 +1,13 @@
 package com.example.atonce.presentation.orders.view.component
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,8 +30,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+@Preview(showBackground = true)
 @Composable
 fun OrderCardShimmer() {
     val colors = MaterialTheme.colorScheme
@@ -39,8 +42,9 @@ fun OrderCardShimmer() {
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp)
-            .padding(horizontal = 8.dp)
-            .shimmerEffect(shimmerBrush),
+            .shimmerEffect(shimmerBrush)
+//            .padding(horizontal = 8.dp)
+        ,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = colors.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -124,6 +128,7 @@ fun rememberShimmerBrush(): Brush {
     )
 }
 
+@SuppressLint("SuspiciousModifierThen")
 fun Modifier.shimmerEffect(brush: Brush): Modifier = this.then(
     background(brush = brush)
 )
