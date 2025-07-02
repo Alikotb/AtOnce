@@ -64,7 +64,7 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
 
 
     val ads = listOf(
-        R.drawable.ads,
+        R.drawable.warehouse_placeholder,
         R.drawable.ads1,
         R.drawable.ads2
     )

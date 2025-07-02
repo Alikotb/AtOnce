@@ -147,7 +147,7 @@ fun ProfileScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.pharmacy),
+                    painter = painterResource(id = R.drawable.avatar_design),
                     contentDescription = "Profile",
                     modifier = Modifier
                         .size(64.dp)
