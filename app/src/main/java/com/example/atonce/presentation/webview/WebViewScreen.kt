@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.atonce.presentation.common.component.ProgressIndicator
+import com.example.atonce.presentation.common.component.app_bar_cards.OneIconCard
 import com.example.atonce.presentation.common.theme.BlackColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.webview.components.WebViewContainer
@@ -35,12 +37,16 @@ import com.example.atonce.presentation.webview.components.WebViewContainer
 fun WebViewScreen(
     title: String,
     url: String,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    padding: PaddingValues
 ) {
     var isLoading by remember { mutableStateOf(true) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        WebViewTopBar(title = title, onBackClick = onBackClick)
+    Column(modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding())) {
+        OneIconCard(
+            onClick = { onBackClick() },
+            headerTxt = title
+        )
 
         Box(modifier = Modifier.fillMaxSize()) {
             WebViewContainer(url = url, isLoadingState = { isLoading = it })

@@ -201,7 +201,7 @@ fun SetUpNavHost(
             val title = it.toRoute<ScreenRoute.WebViewScreen>().title
             val url = it.toRoute<ScreenRoute.WebViewScreen>().url
             if (isOnline) {
-                WebViewScreen(title = title, url = url, onBackClick = {
+                WebViewScreen(title = title, url = url, padding = paddingValues,onBackClick = {
                     navController.popBackStack()
                 })
             } else {
