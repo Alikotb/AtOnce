@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -28,7 +29,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_FONT
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_CARD_MAIN_PRICE
@@ -74,8 +77,9 @@ fun MedicineCard(
                     .clip(RoundedCornerShape(16.dp)),
 
             ){
-                Image(
-                    painter = painterResource(R.drawable.medicin_card_img),
+
+                AsyncImage(
+                    model = AppConstants.MEDICINE_IMAGE_URL,
                     contentDescription = "",
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.FillBounds
