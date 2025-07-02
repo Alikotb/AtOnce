@@ -28,6 +28,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.atonce.core.enums.LanguageEnum
 import com.example.atonce.core.extensions.applyLanguage
+import com.example.atonce.data.internet.ConnectivityObserverImp
 import com.example.atonce.domain.internet.ConnectivityObserver
 import com.example.atonce.domain.usecase.GetLanguageUseCase
 import com.example.atonce.presentation.common.component.navigation.CustomBottomNavBar
@@ -36,14 +37,16 @@ import com.example.atonce.presentation.common.theme.AtOnceTheme
 import com.example.atonce.presentation.common.theme.DarkWhiteColor
 import com.example.atonce.presentation.common.theme.WhiteColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
-import org.koin.compose.koinInject
 
 
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
     lateinit var bottomBarState: MutableState<Boolean>
-    lateinit var connectivityObserver:ConnectivityObserver
+val connectivityObserver: ConnectivityObserver by lazy {
+    ConnectivityObserverImp(applicationContext)
+}
     lateinit var snackbarHostState: SnackbarHostState
     override fun attachBaseContext(newBase: Context) {
         val lang: GetLanguageUseCase by inject()
@@ -56,11 +59,12 @@ class MainActivity : ComponentActivity() {
         super.attachBaseContext(context)
     }
 
+    @FlowPreview
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            connectivityObserver = koinInject()
+//            connectivityObserver = koinInject()
             val isOnline by connectivityObserver.isOnline.observeAsState(initial = true)
             HideSystemUI()
             AtOnceTheme(darkTheme = isSystemInDarkTheme(), dynamicColor = false) {
@@ -131,6 +135,8 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         connectivityObserver.unregister()
     }
+
+
 }
 
 
