@@ -3,8 +3,8 @@ package com.example.atonce.core.enums
 import java.util.Locale
 
 enum class FilterOptions(val arabic: String, val english: String, val value: String) {
-    DRUG("أدوية", "Drug", "1"),
-    COSMETICS("مستحضرات تجميل", "Cosmetics", "0"),
+    DRUG("أدوية", "Drug", "0"),
+    COSMETICS("مستحضرات تجميل", "Cosmetics", "1"),
     ALL("الجميع", "All", "");
 
     fun getLocalizedName(): String {
