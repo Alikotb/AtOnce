@@ -1,9 +1,9 @@
 package com.example.atonce.presentation.home.view.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -19,7 +19,7 @@ import kotlinx.coroutines.delay
 fun AdPager(
     ads: List<Int>,
     modifier: Modifier = Modifier,
-    height: Dp = 200.dp,
+    height: Dp = 150.dp,
     autoScrollDelay: Long = 3000,
     contentScale: ContentScale = ContentScale.Crop,
     onPageChanged: (Int) -> Unit = {}
@@ -46,4 +46,10 @@ fun AdPager(
             modifier = Modifier.fillMaxSize()
         )
     }
+
+    DotIndicator(
+        totalDots = ads.size,
+        selectedIndex = pagerState.currentPage,
+        modifier = Modifier.padding(top = 8.dp)
+    )
 }

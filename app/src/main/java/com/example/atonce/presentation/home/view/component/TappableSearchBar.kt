@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,7 @@ fun TappableSearchBar(onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
+            .height(60.dp)
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .border(
                 width = 1.dp,
@@ -38,7 +39,7 @@ fun TappableSearchBar(onClick: () -> Unit) {
             )
             .clickable { onClick() }
             .padding(horizontal = 12.dp),
-        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = Icons.Filled.Search,

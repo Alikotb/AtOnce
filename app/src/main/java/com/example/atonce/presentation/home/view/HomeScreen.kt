@@ -1,7 +1,6 @@
 package com.example.atonce.presentation.home.view
 
 import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,11 +17,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,7 +47,9 @@ import com.example.atonce.domain.Response
 import com.example.atonce.presentation.common.component.EmptyCart
 import com.example.atonce.presentation.common.component.NoInternet
 import com.example.atonce.presentation.common.component.app_bar_cards.TowIconCard
+import com.example.atonce.presentation.common.theme.PrimaryColor
 import com.example.atonce.presentation.common.theme.SemiBoldFont
+import com.example.atonce.presentation.common.theme.WhiteColor
 import com.example.atonce.presentation.home.view.component.AdPager
 import com.example.atonce.presentation.home.view.component.ShimmerWarehouseCard
 import com.example.atonce.presentation.home.view.component.TappableSearchBar
@@ -48,6 +57,7 @@ import com.example.atonce.presentation.home.view.component.WarehouseCard
 import com.example.atonce.presentation.home.viewmodel.HomeViewModel
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
                onNavToSearch: () -> Unit, modifier: PaddingValues, viewModel: HomeViewModel = koinViewModel()) {
@@ -67,7 +77,6 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
 
     LaunchedEffect(Unit) {
         viewModel.getWarehousesByArea(viewModel.getPharmacyId())
-        Log.d("TAG", "HomeScreen: ${viewModel.getPharmacyId()}")
     }
     LaunchedEffect(listState){
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
@@ -81,87 +90,121 @@ fun HomeScreen(onProfileClick: () -> Unit, onNavToStore: (Int, String) -> Unit,
 
     val context = LocalContext.current
 
-    LazyColumn(
-        state = listState,
+    var isRefreshing by remember { mutableStateOf(false) }
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = {
+            isRefreshing = true
+            viewModel.resetState()
+            viewModel.getWarehousesByArea(viewModel.getPharmacyId())
+            isRefreshing = false
+        }
+    )
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onPrimary)
-            .padding(top = modifier.calculateTopPadding()),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(bottom = 32.dp)
+            .pullRefresh(pullRefreshState)
     ) {
-        item {
-            TowIconCard(
-                onEndClick={
-                    onProfileClick()
-                },
-                onStartClick = {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.onPrimary)
+                .padding(top = modifier.calculateTopPadding()),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(bottom = 32.dp)
+        ) {
+            item {
+                TowIconCard(
+                    onEndClick = {
+                        onProfileClick()
+                    },
+                    onStartClick = {
 
-                    val phoneNumber = viewModel.getRepresentativePhone()
-                    val intent = Intent(Intent.ACTION_DIAL)
-                    intent.setData(("tel:$phoneNumber").toUri())
-                    context.startActivity(intent)
-                },
-                headerTxt = stringResource(R.string.home_screen)
-            )
-        }
-
-        item {
-            AdPager(
-                ads = ads,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .shadow(8.dp, RoundedCornerShape(12.dp))
-            )
-        }
-
-        item {
-            TappableSearchBar {
-                onNavToSearch()
+                        val phoneNumber = viewModel.getRepresentativePhone()
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.setData(("tel:$phoneNumber").toUri())
+                        context.startActivity(intent)
+                    },
+                    headerTxt = stringResource(R.string.home_screen)
+                )
             }
-        }
 
-        item {
-            Text(
-                text = stringResource(R.string.warehouses_nearby),
-                fontFamily = SemiBoldFont,
-                fontSize = 20.sp,
-                color = colors.primary,
-                modifier = Modifier.padding(16.dp)
-            )
-        }
-
-        when (val state = uiState.value) {
-            is Response.Loading -> {
-                items(5) { ShimmerWarehouseCard() }
+            item {
+                AdPager(
+                    ads = ads,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .shadow(8.dp, RoundedCornerShape(12.dp))
+                )
             }
-            is Response.Success -> {
-                val warehouses = state.data
 
-                if(warehouses.isEmpty()) {
-                    item { EmptyCart(R.raw.no_data,
-                        stringResource(R.string.no_warehouses_found_in_this_area)) }
-                }else {
-                    items(warehouses) { warehouse ->
-                        WarehouseCard(warehouse = warehouse) { onNavToStore(warehouse.id,warehouse.name) }
-                    }
+            item {
+                TappableSearchBar {
+                    onNavToSearch()
                 }
             }
-            is Response.Error -> {
-               item { NoInternet() }
-            }
-        }
-        if (isPaginationLoading.value) {
-            items(3) {
-                ShimmerWarehouseCard()
-            }
-        }
-        item {
-            Spacer(modifier = Modifier.height(150.dp))
-        }
 
+            item {
+                Text(
+                    text = stringResource(R.string.warehouses_nearby),
+                    fontFamily = SemiBoldFont,
+                    fontSize = 20.sp,
+                    color = colors.primary,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+
+            when (val state = uiState.value) {
+                is Response.Loading -> {
+                    items(5) { ShimmerWarehouseCard() }
+                }
+
+                is Response.Success -> {
+                    val warehouses = state.data
+
+                    if (warehouses.isEmpty()) {
+                        item {
+                            EmptyCart(
+                                R.raw.no_data,
+                                stringResource(R.string.no_warehouses_found_in_this_area)
+                            )
+                        }
+                    } else {
+                        items(warehouses) { warehouse ->
+                            WarehouseCard(warehouse = warehouse) {
+                                onNavToStore(
+                                    warehouse.id,
+                                    warehouse.name
+                                )
+                            }
+                        }
+                    }
+                }
+
+                is Response.Error -> {
+                    item { NoInternet() }
+                }
+            }
+            if (isPaginationLoading.value) {
+                items(3) {
+                    ShimmerWarehouseCard()
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(150.dp))
+            }
+        }
+        PullRefreshIndicator(
+            refreshing = isRefreshing,
+            state = pullRefreshState,
+            backgroundColor = WhiteColor,
+            contentColor = PrimaryColor,
+            modifier = Modifier.align(Alignment.TopCenter)
+        )
     }
 }
 
