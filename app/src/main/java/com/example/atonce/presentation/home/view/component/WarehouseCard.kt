@@ -52,6 +52,7 @@ fun WarehouseCard(warehouse: WarehouseUiModel, onClick: () -> Unit) {
         ) {
             AsyncImage(
                 model = warehouse.imageUrl,
+                placeholder = painterResource(id = R.drawable.warehouse_placeholder),
                 contentDescription = "Pharmacy",
                 modifier = Modifier
                     .size(80.dp)

@@ -40,7 +40,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.core.extensions.convertNumbersToArabic
 import com.example.atonce.domain.entity.CartItemEntity
 import com.example.atonce.presentation.common.theme.MediumFont
@@ -86,8 +88,8 @@ fun AddToCartCard(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ads1),
+            AsyncImage(
+                model= AppConstants.MEDICINE_IMAGE_URL,
                 contentDescription = "medicationName",
                 modifier = Modifier
                     .size(80.dp)
