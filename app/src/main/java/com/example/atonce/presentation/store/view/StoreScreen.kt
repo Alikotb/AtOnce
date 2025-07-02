@@ -102,7 +102,7 @@ fun StoreScreen(
                 filterSearch = FilterOptions.geValue(it)
                 viewModel.onFilterChanged(filterSearch)
             },
-            listOfFiltration = FilterOptions.getAllLocalizedNames(),
+            listOfFiltration = FilterOptions.getAllLocalizedNames().reversed(),
             selectedOption = remember { mutableStateOf(FilterOptions.getName(filterSearch)) }
 
         )
