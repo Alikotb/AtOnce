@@ -40,7 +40,7 @@ fun SplashScreen(viewModel: SplashViewModel = koinViewModel(), onNavToHome: () -
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.pharmacy),
+            painter = painterResource(id = R.drawable.temp_logo),
             contentDescription = "",
             alignment = Alignment.Center,
             modifier = Modifier.size(120.dp)

@@ -96,7 +96,7 @@ fun LoginScreen(
         )
 
         Image(
-            painter = painterResource(R.drawable.pharmacy),
+            painter = painterResource(R.drawable.temp_logo),
             modifier = Modifier
                 .size((screenWidth * 0.25).dp)
                 .clip(CircleShape),
