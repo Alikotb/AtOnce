@@ -36,6 +36,12 @@ class HomeViewModel(
         _uiState.value = Response.Error(ErrorMessagesEnum.NETWORKERROR.getLocalizedMessage())
     }
 
+    fun resetState() {
+        _uiState.value = Response.Loading
+        currentPage = 1
+        isLastPage = false
+    }
+
      fun getWarehousesByArea(areaId: Int, search: String = "") {
         if (isLoading || isLastPage) return
         isLoading = true
