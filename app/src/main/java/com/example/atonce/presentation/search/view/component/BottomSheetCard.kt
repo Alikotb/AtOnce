@@ -34,7 +34,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.domain.entity.SupplierEntity
 import com.example.atonce.presentation.common.FontSizes.MEDICINE_DISCOUNT
 import com.example.atonce.presentation.common.FontSizes.PHARMA_NAME
@@ -73,9 +75,9 @@ fun BottomSheetCard(
                     .weight(1f)
                     .padding(start = 4.dp)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.egypt),
-                    contentDescription = "Medicine name",
+                AsyncImage(
+                    model = AppConstants.WAREHOUSE_IMAGE_URL,
+                    contentDescription = "",
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape),

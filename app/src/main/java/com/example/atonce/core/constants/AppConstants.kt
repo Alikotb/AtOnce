@@ -1,7 +1,5 @@
 package com.example.atonce.core.constants
 
-import android.media.MediaCas
-
 
 object AppConstants {
     const val BASE_URL ="http://www.pharmaatoncepredeploy.somee.com/"

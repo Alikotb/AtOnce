@@ -37,7 +37,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.example.atonce.R
+import com.example.atonce.core.constants.AppConstants
 import com.example.atonce.domain.Response
 import com.example.atonce.domain.entity.Medicine
 import com.example.atonce.domain.entity.SupplierEntity
@@ -106,8 +108,8 @@ fun ModelSheet(
                         .size(64.dp)
                         .clip(RoundedCornerShape(12.dp)),
                 ) {
-                    Image(
-                        painter = painterResource(R.drawable.medicin_card_img),
+                    AsyncImage(
+                        model = AppConstants.MEDICINE_IMAGE_URL,
                         contentDescription = "",
                         modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.FillBounds
