@@ -74,10 +74,10 @@ fun BottomSheetCard(
                     .padding(start = 4.dp)
             ) {
                 Image(
-                    painter = painterResource(R.drawable.pharmacy),
+                    painter = painterResource(R.drawable.egypt),
                     contentDescription = "Medicine name",
                     modifier = Modifier
-                        .size(80.dp)
+                        .size(64.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.FillBounds
                 )
@@ -103,6 +103,7 @@ fun BottomSheetCard(
                         text = stringResource(R.string.price) + " ${supplier.finalPrice} " + stringResource(
                             R.string.egp
                         ),
+                        modifier = Modifier.padding(start = 12.dp, top = 4.dp),
                         fontSize = MEDICINE_DISCOUNT.sp
                     )
                     Spacer(Modifier.width(12.dp))
